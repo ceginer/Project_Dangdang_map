@@ -1,49 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body>
-    <main>
-      <div class="select-type">
-        <form action="/multi" method="get" id="cafe-type">
-          <div>
-            강아지 동반<input
-              type="checkbox"
-              name="cafe-type"
-              value="dogs-can"
-            />
-          </div>
-          <div>
-            강아지 전용<input
-              type="checkbox"
-              name="cafe-type"
-              value="dogs-only"
-            />
-          </div>
-          <input type="submit" />
-        </form>
-      </div>
+{% extends "base.html" %} {% block content %}
+<div class="select-type">
+  <form action="/multi" method="get" id="cafe-type">
+    <div>
+      강아지 동반<input type="checkbox" name="cafe-type" value="dogs-can" />
+    </div>
+    <div>
+      강아지 전용<input type="checkbox" name="cafe-type" value="dogs-only" />
+    </div>
+    <input type="submit" />
+  </form>
+</div>
 
-      <div class="select-location">
-        <div class="cafe-location"><a>서울</a></div>
-        <div class="cafe-location"><a>강원</a></div>
-        <div class="cafe-location"><a>부산</a></div>
-      </div>
+<div class="select-location">
+  <div class="cafe-location"><a>서울</a></div>
+  <div class="cafe-location"><a>강원</a></div>
+  <div class="cafe-location"><a>부산</a></div>
+</div>
 
-      <div class="cafe-list">
-        <div class="cafe-box">
-          <div class="img-box"><img src="" alt="" /></div>
-          <div class="cafe-text-box">
-            <h1>{{카페 이름}}</h1>
-            <span>{{숙소 타입}}</span>
-            <h3>{{전화번호}}</h3>
-          </div>
-        </div>
-      </div>
-    </main>
-  </body>
-</html>
+<div class="cafe-list">
+  <div class="cafe-box">
+    <div class="img-box"><img src="" alt="" /></div>
+    <div class="cafe-text-box">
+      <h1>{{카페 이름}}</h1>
+      <span>{{숙소 타입}}</span>
+      <h3>{{전화번호}}</h3>
+    </div>
+  </div>
+</div>
+{% endblock %}
