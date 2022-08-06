@@ -20,3 +20,9 @@ def placeList(request):
     #
     #
     return render(request, 'placeList.html')
+
+def detail(request):
+    #
+    #
+    #
+    return render(request, 'detail.html')
