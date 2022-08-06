@@ -1,0 +1,43 @@
+<!-- {% load static %} -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>navbar</title>
+  </head>
+  <body>
+    <header class="container">
+      <div class="navbar_top">
+        <div class="home_login">
+          <a href="{% url '' %}">LOGIN</a>
+        </div>
+        <div class="home_login">
+          <a href="{% url '' %}">SIGNUP</a>
+        </div>
+      </div>
+      <hr>
+      <div class="navbar">
+        <div class="home_logo">
+          <a href="{% url '' %}">대동멍지도</a>
+        </div>
+        <div class="home_accommodation">
+          <a href="{% url '' %}">멍숙소</a>
+        </div>
+        <div class="home_cafe">
+          <a href="{% url '' %}">멍카페</a>
+        </div>
+        <div class="home_place">
+          <a href="{% url '' %}">멍놀자</a>
+        </div>
+        <div class="home_medical">
+          <a href="{% url '' %}">응급댕댕</a>
+        </div>
+      </div>
+      <hr>
+    </header>
+    <div>{% block content %} {% endblock %}</div>
+  </body>
+</html>
