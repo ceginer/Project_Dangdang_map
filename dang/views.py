@@ -16,7 +16,6 @@ def login(request):
         user = auth.authenticate(request, username=아이디, password=비밀번호)
 
         if user is not None:
-            print("회원가입된 사람이 아니겠죠")
             return redirect('/join')
         else:
             auth.login(request, user)
@@ -25,21 +24,14 @@ def login(request):
     return render(request, 'login.html')
 
 def join(request):
-
-    print("join 실행!")
     if request.method == 'POST' :
-        print("여기는 포스트요청")
 
         아이디 = request.POST['username']
-        비밀번호 = request.POST['password1']
+        비밀번호 = request.POST['password']
         
         User.objects.create_user(username=아이디, password=비밀번호)
-
-
         return redirect('/')
 
-
-    print("join 마지막 부분")
     return render(request, 'join.html')
 
 def logout(request):

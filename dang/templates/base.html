@@ -7,6 +7,7 @@
     <title>임시 home</title>
 </head>
 <body>
+    {% load socialaccount %}
     {% block content %}
     <div id = "main">
         <nav>
@@ -18,6 +19,7 @@
                 {% else %}
                     <a href ="/login"><li>로그인</li></a>
                     <a href ="/join"><li>회원가입</li></a>
+                    <a href ="{% provider_login_url 'google' %}"><li>구글 로그인</li></a>
                 {% endif %}
             </ul>
         </nav>
