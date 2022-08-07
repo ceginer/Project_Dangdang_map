@@ -9,10 +9,6 @@ app_name = "dang"
 
 urlpatterns = [
   path('', views.home, name='home'),
-  # path('cafe',views.cafeList, name='cafeList'),
-  # path('accomodation', views.accomodationList, name='accomodationList'),
-  # path('place', views.placeList, name='placeList'),
-  # path('lists', views.mainList, name='mainList'),
   path('cafe', views.cafeList, name='cafeList'),
   path('place', views.placeList, name='placeList'),
   path('accomo', views.accomoList, name='accomoList'),
