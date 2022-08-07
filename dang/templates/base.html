@@ -57,22 +57,21 @@
       };
 
       // 멍카페, 멍숙소, 멍놀자 세부선택 ajax 처리
-      const requestCafe = new XMLHttpRequest();
-      // 카페 부분
-      const onClickCafe = (cate) => {
+      const requestCate = new XMLHttpRequest();
+      const onClickCate = (cate) => {
         // 질문!! -> 눌렀을 때 서버로 데이터 가져와서 뿌려주는 게 아닌데 이 부분 필요? 간소화?
-        requestCafe.open("POST", "/cafes/", true);
-        requestCafe.setRequestHeader(
+        requestCate.open("POST", "/cates/", true);
+        requestCate.setRequestHeader(
           "Content-Type",
           "application/x-www-form-urlencoded"
         );
-        requestCafe.send(JSON.stringify({ cate: cate }));
+        requestCate.send(JSON.stringify({ cate: cate }));
       };
 
-      requestCafe.onreadystatechange = () => {
-        if (requestCafe.readyState === XMLHttpRequest.DONE) {
-          if (requestCafe.status < 400) {
-            const { cate } = JSON.parse(requestCafe.response);
+      requestCate.onreadystatechange = () => {
+        if (requestCate.readyState === XMLHttpRequest.DONE) {
+          if (requestCate.status < 400) {
+            const { cate } = JSON.parse(requestCate.response);
             const detailBox = document.querySelector("#left-detail");
 
             if (cate == "카페") {

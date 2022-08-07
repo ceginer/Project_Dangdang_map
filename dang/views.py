@@ -41,14 +41,8 @@ def locations(request):
     return JsonResponse({}) # 여기에 data 값들 넎어서 다시 보내기
 
 @csrf_exempt
-def cafes(request):
+def cates(request):
     req = json.loads(request.body)
     cate = req['cate'] # 카페, 숙소, 장소
     return JsonResponse({'cate' : cate})
-@csrf_exempt
-def accomos(request):
-    return JsonResponse({})
-@csrf_exempt
-def places(request):
-    return JsonResponse({})
 
