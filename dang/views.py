@@ -1,3 +1,4 @@
+from asyncio.windows_events import NULL
 from unicodedata import category
 from django.shortcuts import render, redirect
 
@@ -10,21 +11,24 @@ def home(request):
 
 def cafeList(request):
     #
+    context = { "category" : "cafe", "place" : NULL}
     #
     #
-    return render(request, 'cafeList.html')
-
-def accomodationList(request):
-    #
-    #
-    #
-    return render(request, 'accomodationList.html')
+    return render(request, 'mainList.html', context=context)
 
 def placeList(request):
     #
+    context = { "category" : "place", "place" : NULL }
     #
     #
-    return render(request, 'placeList.html')
+    return render(request, 'mainList.html', context=context)
+
+def accomoList(request):
+    #
+    context = { "category" : "accomo", "place" : NULL }
+    #
+    #
+    return render(request, 'mainList.html', context=context)
 
 def mainList(request):
     #

@@ -6,7 +6,9 @@
       <div class="cate-accomo" onclick="onClickCate(`숙소`)">멍숙소</div>
       <div class="cate-place" onclick="onClickCate(`장소`)">멍놀자</div>
     </div>
+    {% if place %}
     <div class="left-you-select">강릉으로 선택한 당신 훌륭 어쩌구저쩌구</div>
+    {% endif %}
     <div class="left-location">
       <div class="left-location-list">
         <!-- {% for location in locations %}
@@ -42,7 +44,34 @@
         <button onclick="onClickRight()">&gt;</button>
       </div>
     </div>
-    <div id="left-detail">default로 server에서 넘겨준 값 넣어야 함!</div>
+    <div id="left-detail">
+      {% if category == 'cafe' %}
+      <div class="cate-selected">카페 세부사항을 선택하세요!</div>
+      <form action="">
+        <div>
+          <input type="radio" name="detail" value="dogs-only" />애견 전용
+        </div>
+        <div>
+          <input type="radio" name="detail" value="dogs-can" />애견 동반
+        </div>
+      </form>
+      {% elif category == 'accomo' %}
+      <div class="cate-selected">숙소 세부사항을 선택하세요!</div>
+      <form action="">
+        <div><input type="radio" name="detail" value="hotel" />호텔</div>
+        <div><input type="radio" name="detail" value="motel" />모텔</div>
+        <div><input type="radio" name="detail" value="resort" />리조트</div>
+        <div><input type="radio" name="detail" value="pension" />펜션</div>
+      </form>
+      {% else %}
+      <div class="cate-selected">장소 세부사항을 선택하세요!</div>
+      <form action="">
+        <div><input type="radio" name="detail" value="park" />공원</div>
+        <div><input type="radio" name="detail" value="pool" />수영장</div>
+        <div><input type="radio" name="detail" value="beach" />해변</div>
+      </form>
+      {% endif %}
+    </div>
     <div class="left-btns">
       <button onclick="onClickGo()">적용 Go!</button>
     </div>
