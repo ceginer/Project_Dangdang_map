@@ -1,3 +1,4 @@
+from unicodedata import category
 from django.shortcuts import render, redirect
 
 import json
@@ -50,3 +51,14 @@ def cates(request):
 def locationBtn(request):
     return JsonResponse({})
 
+@csrf_exempt
+def listGo(request):
+    req = json.loads(request.body)
+    location = req['location']
+    category = req['category']
+    detail = req['detail']
+
+    # 여기서 data 처리해서 반환해주세요
+
+    # 아래는 test용 JsonResponse 입니다. 수정필요
+    return JsonResponse({'location' : location, 'category' : category, 'detail' : detail})
