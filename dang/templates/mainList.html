@@ -1,0 +1,50 @@
+{% extends "base.html" %} {% block content %}
+<div class="list-box">
+  <div class="left">
+    <div class="left-cate">
+      <div class="cate-cafe" onclick="onClickCate(`카페`)">멍카페</div>
+      <div class="cate-accomo" onclick="onClickCate(`숙소`)">멍숙소</div>
+      <div class="cate-place" onclick="onClickCate(`장소`)">멍놀자</div>
+    </div>
+    <div class="left-location">
+      <div class="left-location-list">
+        {% for location in locations %}
+        <div class="list-location" onclick="onClickLocation({{location.name}})">
+          {{location.name}}
+        </div>
+        {% endfor %}
+      </div>
+      <div class="shift-btn">
+        <button>&lt;</button>
+        <button>&gt;</button>
+      </div>
+    </div>
+    <div id="left-detail">
+      <!-- <form action="">
+        <div>
+          <input type="radio" name="place-detail" value="park" />공원
+        </div>
+        <div>
+          <input type="radio" name="place-detail" value="pool" />수영장
+        </div>
+        <div>
+          <input type="radio" name="place-detail" value="beach" />해변
+        </div>
+      </form> -->
+    </div>
+    <div class="left-btns">
+      <button>적용</button>
+    </div>
+  </div>
+  <div class="rigth">
+    <div class="list-box">
+      <div class="img-box"><img src="" alt="" /></div>
+      <div class="accom-text-box">
+        <h1>이름</h1>
+        <span>타입</span>
+        <h3>전화번호</h3>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

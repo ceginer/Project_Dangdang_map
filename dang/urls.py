@@ -13,5 +13,8 @@ urlpatterns = [
   path('accomodation', views.accomodationList, name='accomodationList'),
   path('place', views.placeList, name='placeList'),
   path('detail',views.detail, name="detail"),
+  path('lists', views.mainList, name='mainList'),
+  path('locations/', views.locations, name='locations'), # locations ajax
+  path('cates/', views.cates, name='cates'), 
 
 ] + static(settings.STATIC_URL, document_root = settings.STATIC_ROOT) +static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
