@@ -12,5 +12,6 @@ urlpatterns = [
   path('cafe',views.cafeList, name='cafeList'),
   path('accomodation', views.accomodationList, name='accomodationList'),
   path('place', views.placeList, name='placeList'),
+  path('lists', views.mainList, name='mainList'),
 
 ] + static(settings.STATIC_URL, document_root = settings.STATIC_ROOT) +static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
