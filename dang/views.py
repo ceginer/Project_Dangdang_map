@@ -46,3 +46,7 @@ def cates(request):
     cate = req['cate'] # 카페, 숙소, 장소
     return JsonResponse({'cate' : cate})
 
+@csrf_exempt
+def locationBtn(request):
+    return JsonResponse({})
+

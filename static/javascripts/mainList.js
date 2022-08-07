@@ -76,3 +76,59 @@ requestCate.onreadystatechange = () => {
     }
   }
 };
+
+// 지역 고르기 부분 ajax
+// <
+const requestLeft = new XMLHttpRequest();
+const onClickLeft = () => {
+  requestLeft.open("POST", "/locationBtn/", true);
+  requestLeft.setRequestHeader(
+    "Content-Type",
+    "application/x-www-form-urlencoded"
+  );
+  requestLeft.send(JSON.stringify({})); // 뭐 넘겨줘야 하니 생각해보기
+};
+
+requestLeft.onreadystatechange = () => {
+  if (requestLeft.readyState === XMLHttpRequest.DONE) {
+    if (requestLeft.status < 400) {
+      const locationBox = document.querySelector("#location-select");
+      locationBox.innerHTML = `<div><input type="radio" name="location" value="seoul" />서울</div>
+      <div><input type="radio" name="location" value="gyeonggi" />경기</div>
+      <div><input type="radio" name="location" value="incheon" />인천</div>
+      <div><input type="radio" name="location" value="gangwon" />강원</div>
+      <div><input type="radio" name="location" value="chungbuk" />충북</div>
+      <div><input type="radio" name="location" value="chungnam" />충남</div>
+      <div><input type="radio" name="location" value="deajeon" />대전</div>
+      <div><input type="radio" name="location" value="sejong" />세종</div>
+      <div><input type="radio" name="location" value="jeonbuk" />전북</div>`;
+    }
+  }
+};
+// >
+const requestRight = new XMLHttpRequest();
+const onClickRight = () => {
+  requestRight.open("POST", "/locationBtn/", true);
+  requestRight.setRequestHeader(
+    "Content-Type",
+    "application/x-www-form-urlencoded"
+  );
+  requestRight.send(JSON.stringify({})); // 뭐 넘겨줘야 하니 생각해보기
+};
+
+requestRight.onreadystatechange = () => {
+  if (requestRight.readyState === XMLHttpRequest.DONE) {
+    if (requestRight.status < 400) {
+      const locationBox = document.querySelector("#location-select");
+      locationBox.innerHTML = `<div><input type="radio" name="location" value="jeonnam" />전남</div>
+      <div><input type="radio" name="location" value="gwangju" />광주</div>
+      <div><input type="radio" name="location" value="gyeongbuk" />경북</div>
+      <div><input type="radio" name="location" value="gyeongnam" />경남</div>
+      <div><input type="radio" name="location" value="daegu" />대구</div>
+      <div><input type="radio" name="location" value="ulsan" />울산</div>
+      <div><input type="radio" name="location" value="busan" />부산</div>
+      <div><input type="radio" name="location" value="daejeon" />대전</div>
+      <div><input type="radio" name="location" value="jeju" />제주</div>`;
+    }
+  }
+};
