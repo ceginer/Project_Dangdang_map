@@ -1,3 +1,4 @@
+from email.policy import default
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib import auth
@@ -27,7 +28,7 @@ def join(request):
     if request.method == 'POST' :
 
         아이디 = request.POST['username']
-        비밀번호 = request.POST['password']
+        비밀번호 = request.POST['password1']
         
         User.objects.create_user(username=아이디, password=비밀번호)
         return redirect('/')
