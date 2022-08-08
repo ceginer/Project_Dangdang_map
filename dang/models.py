@@ -1,3 +1,4 @@
+from distutils.command.upload import upload
 from django.db import models
 
 # Create your models here.
@@ -12,29 +13,42 @@ class Location(models.Model):
 
 class Cafe(models.Model):
     cafeName= models.CharField(max_length=100)
-    cafePhone= models.CharField(max_length=100)
-    cafeAddress= models.CharField(max_length=100)
-    cafeLink= models.CharField(max_length=100)
-    cafeImg= models.CharField(max_length=100)
-    cafeCategory= models.CharField(max_length=100)
     location = models.ForeignKey(Location, on_delete=models.CASCADE)
+    cafeAddress= models.CharField(max_length=100)
+    cafePhone= models.CharField(max_length=100, null=True)
+    cafeStar = models.CharField(max_length=100, null=True)
+    cafeLink1 = models.ImageField(max_length=255, null=True)
+    cafeImg= models.CharField(max_length=100, null=True)
+    cafeCategory= models.CharField(max_length=100, null=True)
 
 class Place(models.Model):
     placeName = models.CharField(max_length=100)
-    placePic = models.CharField(max_length=100)
-    placeAddress = models.CharField(max_length=100)
-    placePhone = models.CharField(max_length=100)
-    placeLink = models.CharField(max_length=100)
-    placeCategory = models.CharField(max_length=100)
     location = models.ForeignKey(Location, on_delete=models.CASCADE)
+    placeAddress = models.CharField(max_length=255)
+    placePhone = models.CharField(max_length=100, null=True)
+    placeStar = models.CharField(max_length=100, null=True)
+    placeLink1 = models.ImageField(max_length=255, null=True)
+    placeLink2 = models.ImageField(max_length=255, null=True)
+    placeType = models.CharField(max_length=100, null=True)
+    placeDesc = models.CharField(max_length=255, null=True)
+    placeImg = models.ImageField(upload_to='', null=True)
+    placeMapx = models.CharField(max_length=100, null=True)
+    placeMapy = models.CharField(max_length=100, null=True)
 
 class Accomodation(models.Model):
     accomodationName = models.CharField(max_length=100)
-    AccomodationAddress = models.CharField(max_length=100)
-    AccomodationImg = models.CharField(max_length=100)
-    AccomodationCategory = models.CharField(max_length=100)
-    AccomodationLink = models.CharField(max_length=100)
-    location = models.ForeignKey(Location, on_delete=models.CASCADE)
+    # location = models.ForeignKey(Location, on_delete=models.CASCADE)
+    location = models.CharField(max_length=100)
+    accomodationAddress = models.CharField(max_length=100)
+    accomodationPhone = models.CharField(max_length=100, null=True)
+    accomodationStar = models.CharField(max_length=100, null=True)
+    accomodationLink1 = models.ImageField(max_length=255, null=True)
+    accomodationLink2 = models.ImageField(max_length=255, null=True)
+    accomodationType = models.CharField(max_length=100, null=True)
+    accomodationDesc = models.CharField(max_length=255, null=True)
+    accomodationImg = models.ImageField(upload_to='', null=True)
+    accomodationMapx = models.CharField(max_length=100, null=True)
+    accomodationMapy = models.CharField(max_length=100, null=True)
 
 class Medical(models.Model):
     medicalName = models.CharField(max_length=100)

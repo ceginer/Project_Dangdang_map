@@ -16,6 +16,7 @@ urlpatterns = [
   path('locationBtn/', views.locationBtn, name='locationBtn'), # 지역 고르기 ajax
   path('listGo/', views.listGo, name='listGo'), # 선택 적용 ajax
   path('cities/<str:location>', views.mainList, name='mainList'),
+  path('csvToModel', views.csvToModel, name='csvToModel'),
 
 
 ] + static(settings.STATIC_URL, document_root = settings.STATIC_ROOT) +static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
