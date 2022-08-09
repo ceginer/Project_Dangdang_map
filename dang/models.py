@@ -1,10 +1,11 @@
 from tabnanny import verbose
 from django.db import models
+from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
 
-class User(models.Model):
-    username = models.CharField(max_length=32, verbose_name='사용자 아이디', null=True)
+class User(AbstractUser):
+    username = models.CharField(max_length=32, verbose_name='사용자 아이디', unique=True)
     password = models.CharField(max_length=64, verbose_name='사용자 비밀번호', null=True)
     email = models.EmailField(max_length=128, verbose_name='사용자 이메일', null=True)
     # 유저 부분 

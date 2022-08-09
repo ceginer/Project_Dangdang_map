@@ -17,25 +17,30 @@ def login(request):
         user = auth.authenticate(request, username=아이디, password=비밀번호)
 
         if user is not None:
-            return redirect('/join')
-        else:
             auth.login(request, user)
             return redirect('/')
-
+        else:
+            return render(request, 'login.html', {'error': '아이디 또는 비밀번호가 일치하지 않습니다.'})
     return render(request, 'login.html')
 
 def join(request):
     if request.method == 'POST' :
+        if request.POST['password1'] == request.POST['password2']:
+            user = User.objects.create_user(
+                username = request.POST['username'],
+                password = request.POST['password1'],
+                email = request.POST['email'],
+            )
 
-        아이디 = request.POST['username']
-        비밀번호 = request.POST['password1']
-        
-        User.objects.create_user(username=아이디, password=비밀번호)
-        return redirect('/')
-
-    return render(request, 'join.html')
-
+            auth.login(request, user)
+            return redirect('/')
+        return render (request, 'join.html')
+    return render (request, 'join.html')
 def logout(request):
-
     auth.logout(request)
     return redirect('/')
+
+
+def mypage(request):
+
+    return render(request, 'mypage.html')
