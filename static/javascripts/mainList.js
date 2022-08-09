@@ -39,6 +39,9 @@ requestGo.onreadystatechange = () => {
     if (requestGo.status < 400) {
       const { location, category, detail } = JSON.parse(requestGo.response);
 
+      locationSelect = document.querySelector("#left-you-select");
+      locationSelect.innerHTML = `<div>${location}으로 선택한 당신 훌륭한 선택입니다!!</div>`;
+
       test = document.querySelector(".right");
       test.innerHTML += `${location} ${category} ${detail}`;
     }
@@ -140,15 +143,15 @@ requestLeft.onreadystatechange = () => {
   if (requestLeft.readyState === XMLHttpRequest.DONE) {
     if (requestLeft.status < 400) {
       const locationBox = document.querySelector("#location-select");
-      locationBox.innerHTML = `<div><input type="radio" name="location" value="seoul" />서울</div>
-      <div><input type="radio" name="location" value="gyeonggi" />경기</div>
-      <div><input type="radio" name="location" value="incheon" />인천</div>
-      <div><input type="radio" name="location" value="gangwon" />강원</div>
-      <div><input type="radio" name="location" value="chungbuk" />충북</div>
-      <div><input type="radio" name="location" value="chungnam" />충남</div>
-      <div><input type="radio" name="location" value="deajeon" />대전</div>
-      <div><input type="radio" name="location" value="sejong" />세종</div>
-      <div><input type="radio" name="location" value="jeonbuk" />전북</div>`;
+      locationBox.innerHTML = `<div><input type="radio" name="location" value="서울" />서울</div>
+      <div><input type="radio" name="location" value="경기" />경기</div>
+      <div><input type="radio" name="location" value="인천" />인천</div>
+      <div><input type="radio" name="location" value="강원" />강원</div>
+      <div><input type="radio" name="location" value="충북" />충북</div>
+      <div><input type="radio" name="location" value="충남" />충남</div>
+      <div><input type="radio" name="location" value="대전" />대전</div>
+      <div><input type="radio" name="location" value="세종" />세종</div>
+      <div><input type="radio" name="location" value="전북" />전북</div>`;
     }
   }
 };
@@ -167,15 +170,15 @@ requestRight.onreadystatechange = () => {
   if (requestRight.readyState === XMLHttpRequest.DONE) {
     if (requestRight.status < 400) {
       const locationBox = document.querySelector("#location-select");
-      locationBox.innerHTML = `<div><input type="radio" name="location" value="jeonnam" />전남</div>
-      <div><input type="radio" name="location" value="gwangju" />광주</div>
-      <div><input type="radio" name="location" value="gyeongbuk" />경북</div>
-      <div><input type="radio" name="location" value="gyeongnam" />경남</div>
-      <div><input type="radio" name="location" value="daegu" />대구</div>
-      <div><input type="radio" name="location" value="ulsan" />울산</div>
-      <div><input type="radio" name="location" value="busan" />부산</div>
-      <div><input type="radio" name="location" value="daejeon" />대전</div>
-      <div><input type="radio" name="location" value="jeju" />제주</div>`;
+      locationBox.innerHTML = `<div><input type="radio" name="location" value="전남" />전남</div>
+      <div><input type="radio" name="location" value="광주" />광주</div>
+      <div><input type="radio" name="location" value="경북" />경북</div>
+      <div><input type="radio" name="location" value="경남" />경남</div>
+      <div><input type="radio" name="location" value="대구" />대구</div>
+      <div><input type="radio" name="location" value="울산" />울산</div>
+      <div><input type="radio" name="location" value="부산" />부산</div>
+      <div><input type="radio" name="location" value="대전" />대전</div>
+      <div><input type="radio" name="location" value="제주" />제주</div>`;
     }
   }
 };
