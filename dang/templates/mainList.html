@@ -1,0 +1,94 @@
+{% extends "base.html" %} {% block content %}
+<div class="list-box">
+  <div class="left">
+    <div class="left-cate">
+      <div class="cate-cafe" onclick="onClickCate(`카페`)">멍카페</div>
+      <div class="cate-accomo" onclick="onClickCate(`숙소`)">멍숙소</div>
+      <div class="cate-place" onclick="onClickCate(`장소`)">멍놀자</div>
+    </div>
+    <div id="left-you-select">
+      {% if location %}
+      <div>{{location}}으로 선택한 당신 훌륭한 선택입니다!!</div>
+      {% else %}
+      <div>지역을 선택해주세요!</div>
+      {% endif %}
+    </div>
+
+    <div class="left-location">
+      <div class="left-location-list">
+        <form action="" id="location-select">
+          <!-- 여기 생각해봐야함 list로 넘겨줘서 for문 돌릴지 아님 그냥 이렇게 일일이 할지? -->
+          <div><input type="radio" name="location" value="서울" />서울</div>
+          <div><input type="radio" name="location" value="경기" />경기</div>
+          <div><input type="radio" name="location" value="인천" />인천</div>
+          <div><input type="radio" name="location" value="강원" />강원</div>
+          <div><input type="radio" name="location" value="충북" />충북</div>
+          <div><input type="radio" name="location" value="충남" />충남</div>
+          <div><input type="radio" name="location" value="대전" />대전</div>
+          <div><input type="radio" name="location" value="세종" />세종</div>
+          <div><input type="radio" name="location" value="전북" />전북</div>
+
+          <!-- <div><input type="radio" name="location" value="jeonnam" />전남</div>
+          <div><input type="radio" name="location" value="gwangju" />광주</div>
+          <div><input type="radio" name="location" value="gyeongbuk" />경북</div>
+          <div><input type="radio" name="location" value="gyeongnam" />경남</div>
+          <div><input type="radio" name="location" value="daegu" />대구</div>
+          <div><input type="radio" name="location" value="ulsan" />울산</div>
+          <div><input type="radio" name="location" value="busan" />부산</div>
+          <div><input type="radio" name="location" value="daejeon" />대전</div>
+          <div><input type="radio" name="location" value="jeju" />제주</div> -->
+        </form>
+      </div>
+      <div class="shift-btn">
+        <button onclick="onClickLeft()">&lt;</button>
+        <button onclick="onClickRight()">&gt;</button>
+      </div>
+    </div>
+    <div id="left-detail">
+      {% if category == 'cafe' %}
+      <div class="cate-selected">카페 세부사항을 선택하세요!</div>
+      <form action="">
+        <div>
+          <input type="radio" name="detail" value="dogs-only" />애견 전용
+        </div>
+        <div>
+          <input type="radio" name="detail" value="dogs-can" />애견 동반
+        </div>
+      </form>
+      {% elif category == 'accomo' %}
+      <div class="cate-selected">숙소 세부사항을 선택하세요!</div>
+      <form action="">
+        <div><input type="radio" name="detail" value="hotel" />호텔</div>
+        <div><input type="radio" name="detail" value="motel" />모텔</div>
+        <div><input type="radio" name="detail" value="resort" />리조트</div>
+        <div><input type="radio" name="detail" value="pension" />펜션</div>
+      </form>
+      {% elif category == 'place' %}
+      <div class="cate-selected">장소 세부사항을 선택하세요!</div>
+      <form action="">
+        <div><input type="radio" name="detail" value="park" />공원</div>
+        <div><input type="radio" name="detail" value="pool" />수영장</div>
+        <div><input type="radio" name="detail" value="beach" />해변</div>
+      </form>
+      {% else %}
+      <div>멍놀자, 멍숙소, 멍카페 중에서 골라주세용!</div>
+      {% endif %}
+    </div>
+    <div class="left-btns">
+      <button onclick="onClickGo()">적용 Go!</button>
+    </div>
+  </div>
+  <div class="right">
+    {% for place in list%}
+    <div class="list-box">
+      <div class="img-box"><img src="" alt="" /></div>
+      <div class="accom-text-box">
+        <h1>{{place.name}}</h1>
+        <span>{{place.type}}</span>
+        <h3>{{place.phone}}</h3>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
