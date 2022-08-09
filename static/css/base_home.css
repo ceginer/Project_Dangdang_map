@@ -10,6 +10,7 @@
 a {
   color: black;
   text-decoration: none;
+  cursor: pointer;
 }
 
 .navbar-container {
@@ -47,6 +48,12 @@ a {
   align-items: center;
   height: 30vh;
 }
+.shift-locations {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 1rem;
+}
 
 .home_location {
   border: 1px solid rgb(102, 97, 97);
@@ -61,6 +68,13 @@ a {
   justify-content: space-around;
   align-items: center;
   height: 45vh;
+
+}
+.best_shift_lists {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 1rem;
 }
 .home_best_item {
   border: 1px solid rgb(102, 97, 97);

@@ -12,6 +12,7 @@ urlpatterns = [
   path('cafe', views.cafeList, name='cafeList'),
   path('place', views.placeList, name='placeList'),
   path('accomo', views.accomoList, name='accomoList'),
+  path('medical', views.medicalList, name='medicalList'),
   path('cates/', views.cates, name='cates'), # category 선택 ajax
   path('locationBtn/', views.locationBtn, name='locationBtn'), # 지역 고르기 ajax
   path('listGo/', views.listGo, name='listGo'), # 선택 적용 ajax

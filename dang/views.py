@@ -43,6 +43,19 @@ def accomoList(request):
     #
     return render(request, 'mainList.html', context=context)
 
+def detail(request):
+    #
+    #
+    #
+    return render(request, 'detail.html')
+
+def mainList(request):
+    #
+    context = { "category" : "medical", "location" : NULL }
+    #
+    #
+    return render(request, 'medicalList.html', context=context)
+
 def mainList(request, location): # main에서 지역 선택했을 때
     #
     context = { "location" : location }
@@ -59,10 +72,6 @@ def cates(request):
 @csrf_exempt
 def locationBtn(request):
     return JsonResponse({})
-    
-@csrf_exempt
-def locationBtn2(request):
-    return JsonResponse({})
 
 
 ## list page에서 ajax 처리했을 때
@@ -74,16 +83,13 @@ def listGo(request):
     cate = req['category'] # cafe, accommodation, place
     type = req['detail'] # (애견동반, 애견전용) or (공원, 명소) 등등
 
-    # 여기서 data 처리해서 반환해주세요
-    if cate == 'cafe': 
-        cafes = Cafe.objects.filter(Q(location=loc) & Q(type=type))
-        context = {'list':cafes}
-    elif cate == 'accomodation':
-        accomos = Accomodation.objects.filter(Q(location=loc) & Q(type=type))
-        context = {'list':accomos}
-    elif cate == 'place':
-        places = Place.objects.filter(Q(location=loc) & Q(type=type))
-        context = {'list':places}
+=========
+def detail(request):
+    #
+    #
+    #
+    return render(request, 'detail.html')
+>>>>>>>>> Temporary merge branch 2
 
     # 아래는 test용 JsonResponse 입니다. 수정필요
     return JsonResponse(context)

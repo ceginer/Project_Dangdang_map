@@ -9,43 +9,54 @@
     </div>
     {% endfor %}
   </div> -->
-  <form action="" id="location-select">
-    <div class="home_location_list">
-      <div class="shift-btn">
-        <button onclick="onClickLeft()">&lt;</button>
-      </div>
-      <!-- 여기 생각해봐야함 list로 넘겨줘서 for문 돌릴지 아님 그냥 이렇게 일일이 할지? -->
-      <div class="home_location"><a href="/cities/서울">서울</a></div>
-      <div class="home_location"><a href="/cities/경기">경기</a></div>
-      <div class="home_location"><a href="/cities/인천">인천</a></div>
-      <div class="home_location"><a href="/cities/강원">강원</a></div>
-      <div class="home_location"><a href="/cities/충북">충북</a></div>
-      <div class="home_location"><a href="/cities/충남">충남</a></div>
-      <div class="shift-btn">
-        <button onclick="onClickRight()">&gt;</button>
-      </div>
+  <div class="home_location_list">
+    <div class="shift-btn">
+      <button onclick="onClickLeft()">&lt;</button>
     </div>
-  </form>
+    <form action="" id="location-select">
+      <div class="shift-locations">
+        <div class="home_location"><a href="/cities/서울">서울</a></div>
+        <div class="home_location"><a href="/cities/경기">경기</a></div>
+        <div class="home_location"><a href="/cities/인천">인천</a></div>
+        <div class="home_location"><a href="/cities/강원">강원</a></div>
+        <div class="home_location"><a href="/cities/충북">충북</a></div>
+        <div class="home_location"><a href="/cities/충남">충남</a></div>
+      </div>
+    </form>
+    <div class="shift-btn">
+      <button onclick="onClickRight()">&gt;</button>
+    </div>
+  </div>
   <div class="home_best_container">
     <div>베스트 장소</div>
     <div class="home_best_list">
-      <div class="home_best_item">
-        <div class="item_rank">1.</div>
-        <div class="item_name">멍뭉카페</div>
-        <div class="item_img"><img src="" alt="" /></div>
-        <a href="/">바로가기</a>
+      <div class="shift-btn">
+        <button onclick="onClickLeft()">&lt;</button>
       </div>
-      <div class="home_best_item">
-        <div class="item_rank">2.</div>
-        <div class="item_name">멍비치</div>
-        <div class="item_img"><img src="" alt="" /></div>
-        <a href="/">바로가기</a>
-      </div>
-      <div class="home_best_item">
-        <div class="item_rank">3.</div>
-        <div class="item_name">멍펜션</div>
-        <div class="item_img"><img src="" alt="" /></div>
-        <a href="/">바로가기</a>
+      <form action="" id="location-select">
+        <div class="best_shift_lists">
+          <div class="home_best_item">
+            <div class="item_rank">1.</div>
+            <div class="item_name">멍뭉카페</div>
+            <div class="item_img"><img src="" alt="" /></div>
+            <a href="/">바로가기</a>
+          </div>
+          <div class="home_best_item">
+            <div class="item_rank">2.</div>
+            <div class="item_name">멍비치</div>
+            <div class="item_img"><img src="" alt="" /></div>
+            <a href="/">바로가기</a>
+          </div>
+          <div class="home_best_item">
+            <div class="item_rank">3.</div>
+            <div class="item_name">멍펜션</div>
+            <div class="item_img"><img src="" alt="" /></div>
+            <a href="/">바로가기</a>
+          </div>
+        </div>
+      </form>
+      <div class="shift-btn">
+        <button onclick="onClickRight()">&gt;</button>
       </div>
     </div>
   </div>
