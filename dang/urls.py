@@ -1,3 +1,4 @@
+from django.contrib import admin
 from django.urls import path 
 
 from . import views
@@ -25,3 +26,10 @@ urlpatterns = [
 
 
 ] + static(settings.STATIC_URL, document_root = settings.STATIC_ROOT) +static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
+    path('', views.home, name='home'),
+    path('admin/', admin.site.urls),
+    path('login/', views.login, name='login'),
+    path('join/', views.join, name='join'),
+    path('logout/', views.logout, name='logout'),
+    path('mypage/', views.mypage, name='mypage'),
+]
