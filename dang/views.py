@@ -17,6 +17,43 @@ from django.contrib import auth
 
 from .models import User, Location, Cafe, Place, Accomodation, Medical, Post 
 
+def login(request):
+
+    if request.method == 'POST':
+        아이디 = request.POST['username']
+        비밀번호 = request.POST['password']
+
+        user = auth.authenticate(request, username=아이디, password=비밀번호)
+
+        if user is not None:
+            auth.login(request, user)
+            return redirect('/')
+        else:
+            return render(request, 'login.html', {'error': '아이디 또는 비밀번호가 일치하지 않습니다.'})
+    return render(request, 'login.html')
+
+def join(request):
+    if request.method == 'POST' :
+        if request.POST['password1'] == request.POST['password2']:
+            user = User.objects.create_user(
+                username = request.POST['username'],
+                password = request.POST['password1'],
+                email = request.POST['email'],
+            )
+
+            auth.login(request, user)
+            return redirect('/')
+        return render (request, 'join.html')
+    return render (request, 'join.html')
+def logout(request):
+    auth.logout(request)
+    return redirect('/')
+
+
+def mypage(request):
+
+    return render(request, 'mypage.html')
+
 # 임시로 만들어 둔 지역 list입니다. 나중에 db로 대체하든, 얘기해봐요..
 locationDic = {'seoul':'서울','gyeongi':'경기','incheon':'인천','gangwon':'강원','chungbuk':'충북','chungnam':'충남','deajeon':'대전','sejong':'세종','jeonbuk':'전북','jeonnam':'전남','gwangju':'광주','gyeongbuk':'경북','gyeongnam':'경남','daegu':'대구','ulsan':'울산','busan':'부산','daejeon':'대전','jeju':'제주' }
 
@@ -68,6 +105,13 @@ def mainList(request, location): # main에서 지역 선택했을 때
     #
     return render(request, 'mainList.html', context=context)
 
+def medicalList(request, location): # main에서 지역 선택했을 때
+    #
+    context = { "location" : location }
+    #
+    #
+    return render(request, 'medicalList.html', context=context)
+
 @csrf_exempt
 def cates(request):
     req = json.loads(request.body)
@@ -90,7 +134,7 @@ def listGo(request):
 
 
     # 아래는 test용 JsonResponse 입니다. 수정필요
-    return JsonResponse(context)
+    # return JsonResponse(context)
 
 ## 상세페이지 부분 입니다. (cafeDetail, accommoDetail, placeDetail)
 def cafeDetail(request, id):
