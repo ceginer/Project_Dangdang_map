@@ -1,29 +1,37 @@
+<!-- {% load static %} -->
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>임시 home</title>
-</head>
-<body>
-    {% load socialaccount %}
-    {% block content %}
-    <div id = "main">
-        <nav>
-            <a href ="/"></a>
-            <ul>
-                {% if user.is_authenticated %}
-                    <a href = "/logout"><li>로그아웃</li></a>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'css/reset.css' %}">
+    <link rel="stylesheet" href="{% static 'css/base_home.css' %}" />
+    <!-- <link rel="stylesheet" href="\static\css\base_home.css" /> -->
+    <title>대동멍지도</title>
+  </head>
+  <body>
+    <header>
+      <div class="navbar-container">
+        <div class="category-container">
+          <a href="/"><img src="\static\img\dmj_logo.svg" alt=""></a>
+          <a href="/accomo">멍숙소</a>
+          <a href="/cafe">멍카페</a>
+          <a href="/place">멍놀자</a>
+          <a href="/medical"><img src="\static\img\Medical.svg" alt=""></a>
+        </div>
+        <div class="login-container">
+          <a href="/signup/"><img src="\static\img\Login.svg" alt=""></a>
+          <a href="/login/"><img src="\static\img\SignIn.svg" alt=""></a>
+          <a href="/"><img src="\static\img\MyPage.svg" alt=""></a>
+        </div>
+      </div>
+    </header>
+    {% block content %} {% endblock %}
 
-                {% else %}
-                    <a href ="/login"><li>로그인</li></a>
-                    <a href ="/join"><li>회원가입</li></a>
-                    <a href ="{% provider_login_url 'google' %}"><li>구글 로그인</li></a>
-                {% endif %}
-            </ul>
-        </nav>
-    </div>
-    {% endblock %}
-</body>
+    <script
+      type="text/javascript"
+      src="{% static 'javascripts/mainList.js' %}"
+    ></script>
+  </body>
 </html>

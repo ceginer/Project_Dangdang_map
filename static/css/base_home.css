@@ -1,0 +1,98 @@
+/* base.html */
+@import url("./reset.css");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+a {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 10vh;
+  padding: 0 1vw;
+  background-color: rgba(255, 240, 161, 1);
+}
+
+.category-container {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 2rem;
+}
+
+.login-container {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* home.html */
+
+.container {
+  background-color: rgba(255, 240, 161, 1);
+}
+
+.home_location_list {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 30vh;
+}
+.shift-locations {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 1rem;
+}
+
+.home_location {
+  border: 1px solid rgb(102, 97, 97);
+}
+
+.home_best_container {
+  border: 1px solid rgb(102, 97, 97);
+}
+
+.home_best_list {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 45vh;
+
+}
+.best_shift_lists {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 1rem;
+}
+.home_best_item {
+  border: 1px solid rgb(102, 97, 97);
+}
+
+/* mainList.html */
+.list-box {
+  border: solid;
+  display: flex;
+}
+.left {
+  border: solid;
+  width: 24rem;
+}
+.left-cate {
+  border: solid;
+  display: flex;
+  justify-content: space-around;
+  padding: 15px 7px;
+}
+
