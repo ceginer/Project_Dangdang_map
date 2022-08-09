@@ -1,0 +1,16 @@
+{% extends 'base.html' %} {% block content %}
+<form action="{% url 'posts:create' %}" method="post" enctype="multipart/form-data">
+{% csrf_token %}
+  <h2>
+    <input type="text" name="title" placeholder="제목" />
+  </h2>
+  <p>
+    <input type="file" name="photo" />
+  </p>
+  <div>이런점이 좋았어요</div>
+  <textarea name="content" id="" cols="30" rows="10"></textarea>
+  <div>이런점이 아쉬워요</div>
+  <textarea name="content" id="" cols="30" rows="10"></textarea>
+  <input type="submit" value="Submit" />
+</form>
+{% endblock %}

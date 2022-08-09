@@ -1,34 +1,29 @@
+<!-- {% load static %} -->
 <!DOCTYPE html>
 <html lang="en">
-  {% load static %}
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="{% static 'css/index.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/reset.css' %}">
+    <link rel="stylesheet" href="{% static 'css/base_home.css' %}" />
+    <!-- <link rel="stylesheet" href="\static\css\base_home.css" /> -->
     <title>대동멍지도</title>
   </head>
   <body>
     <header>
-      <div class="navbar_top_container">
-        <span><a href="/signup/">가입</a></span>
-        <span><a href="/login/">로그인</a></span>
-      </div>
-      <div class="navbar_container">
-        <div class="home_logo">
-          <a href="/">대동멍지도</a>
-        </div>
-        <div class="home_category">
+      <div class="navbar-container">
+        <div class="category-container">
+          <a href="/"><img src="\static\img\dmj_logo.svg" alt=""></a>
           <a href="/accomo">멍숙소</a>
-        </div>
-        <div class="home_category">
           <a href="/cafe">멍카페</a>
-        </div>
-        <div class="home_category">
           <a href="/place">멍놀자</a>
+          <a href="/medical"><img src="\static\img\Medical.svg" alt=""></a>
         </div>
-        <div class="home_category">
-          <a href="">응급댕댕</a>
+        <div class="login-container">
+          <a href="/signup/"><img src="\static\img\Login.svg" alt=""></a>
+          <a href="/login/"><img src="\static\img\SignIn.svg" alt=""></a>
+          <a href="/"><img src="\static\img\MyPage.svg" alt=""></a>
         </div>
       </div>
     </header>
