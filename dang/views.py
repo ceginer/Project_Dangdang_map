@@ -83,13 +83,6 @@ def listGo(request):
     cate = req['category'] # cafe, accommodation, place
     type = req['detail'] # (애견동반, 애견전용) or (공원, 명소) 등등
 
-=========
-def detail(request):
-    #
-    #
-    #
-    return render(request, 'detail.html')
->>>>>>>>> Temporary merge branch 2
 
     # 아래는 test용 JsonResponse 입니다. 수정필요
     return JsonResponse(context)
