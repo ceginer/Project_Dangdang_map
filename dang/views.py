@@ -2,7 +2,9 @@ from asyncio.windows_events import NULL
 from http.client import HTTPResponse
 from unicodedata import category
 from django.shortcuts import render, redirect,HttpResponse
+from django.db.models import Q
 import csv
+from .models import User, Post, Cafe, Place, Accomodation, Medical, Location
 
 import json
 from django.http import JsonResponse
@@ -58,18 +60,45 @@ def cates(request):
 def locationBtn(request):
     return JsonResponse({})
 
+
+## list page에서 ajax 처리했을 때
+# 수정 필요: 용어? 통일
 @csrf_exempt
 def listGo(request):
     req = json.loads(request.body)
-    location = req['location']
-    category = req['category']
-    detail = req['detail']
+    loc = req['location'] # 강원,경기,제주 등등 17개 도
+    cate = req['category'] # cafe, accommodation, place
+    type = req['detail'] # (애견동반, 애견전용) or (공원, 명소) 등등
 
     # 여기서 data 처리해서 반환해주세요
+    if cate == 'cafe': 
+        cafes = Cafe.objects.filter(Q(location=loc) & Q(type=type))
+        context = {'list':cafes}
+    elif cate == 'accomodation':
+        accomos = Accomodation.objects.filter(Q(location=loc) & Q(type=type))
+        context = {'list':accomos}
+    elif cate == 'place':
+        places = Place.objects.filter(Q(location=loc) & Q(type=type))
+        context = {'list':places}
 
     # 아래는 test용 JsonResponse 입니다. 수정필요
-    return JsonResponse({'location' : location, 'category' : category, 'detail' : detail})
+    return JsonResponse(context)
 
+## 상세페이지 부분 입니다. (cafeDetail, accommoDetail, placeDetail)
+def cafeDetail(request, id):
+    cafe = Cafe.objects.get(id=id)
+    context = { "cafe":cafe }
+    return render(request, '무슨무슨.html', context=context)
+    
+def accommoDetail(request, id):
+    accomo = Accomodation.objects.get(id=id)
+    context = { "accomo":accomo }
+    return render(request, '무슨무슨.html', context=context)
+
+def placeDetail(request, id):
+    place = Place.objects.get(id=id)
+    context = { "place":place }
+    return render(request, '무슨무슨.html', context=context)
 
 
 
@@ -90,18 +119,18 @@ def csvToModel(request):
     accomos = []
 
     for row in reader_accomo:
-        accomos.append(Accomodation(accomodationName=row[0],location=row[1],accomodationAddress=row[2],accomodationPhone=row[3],accomodationStar=row[4],accomodationLink1=row[5],accomodationLink2=row[6],accomodationType=row[7],accomodationDesc=row[8],accomodationImg=row[9][0],accomodationMapx=row[10],accomodationMapy=row[11]))
+        accomos.append(Accomodation(name=row[0],location=row[1],address=row[2],phone=row[3],star=row[4],link1=row[5],link2=row[6],type=row[7],desc=row[8],img=row[9][0],mapx=row[10],mapy=row[11]))
     Accomodation.objects.bulk_create(accomos)
 
     for r in reader_cafe:
         try:
-            cafes.append(Cafe(cafeName=r[0],location=r[1],cafeAddress=r[2],cafePhone=r[3],cafeType=r[4],menuInfo=r[5],hourInfo=r[6],cafeLink1=r[7],cafeDesc=r[8],cafeImg=r[9],cafeMapx=r[10],cafeMapy=r[11]))
+            cafes.append(Cafe(name=r[0],location=r[1],address=r[2],phone=r[3],type=r[4],menuInfo=r[5],hourInfo=r[6],link1=r[7],desc=r[8],img=r[9],mapx=r[10],mapy=r[11]))
         except:
-            cafes.append(Cafe(cafeName=r[0],location=r[1],cafeAddress=r[2],cafePhone=r[3],cafeType=r[4],menuInfo=r[5],hourInfo=r[6],cafeLink1=r[7],cafeDesc=r[8],cafeImg=r[9]))
+            cafes.append(Cafe(name=r[0],location=r[1],address=r[2],phone=r[3],type=r[4],menuInfo=r[5],hourInfo=r[6],link1=r[7],desc=r[8],img=r[9]))
     Cafe.objects.bulk_create(cafes)
 
     for r in reader_place:
-        places.append(Place(placeName=r[0],location=r[1],placeAddress=r[2],placePhone=r[3],placeStar=r[4],placeLink1=r[5],placeLink2=r[6],placeType=r[7],placeDesc=r[8],placeImg=r[9],placeMapx=r[10],placeMapy=r[11]))
+        places.append(Place(name=r[0],location=r[1],address=r[2],phone=r[3],star=r[4],link1=r[5],link2=r[6],type=r[7],desc=r[8],img=r[9],mapx=r[10],mapy=r[11]))
     Place.objects.bulk_create(places)
 
 
