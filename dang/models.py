@@ -7,30 +7,33 @@ class User(models.Model):
     pass
     # 유저 부분 
 
-
 class Location(models.Model):
     locationName = models.CharField(max_length=100)
 
 class Cafe(models.Model):
     cafeName= models.CharField(max_length=100)
-    location = models.ForeignKey(Location, on_delete=models.CASCADE)
+    location = models.CharField(max_length=100)
     cafeAddress= models.CharField(max_length=100)
     cafePhone= models.CharField(max_length=100, null=True)
-    cafeStar = models.CharField(max_length=100, null=True)
-    cafeLink1 = models.ImageField(max_length=255, null=True)
-    cafeImg= models.CharField(max_length=100, null=True)
-    cafeCategory= models.CharField(max_length=100, null=True)
+    cafeType= models.CharField(max_length=100, null=True)
+    menuInfo = models.TextField(null=True)
+    hourInfo = models.TextField(null=True)
+    cafeLink1 = models.TextField(null=True)
+    cafeDesc = models.TextField(null=True)
+    cafeImg= models.ImageField(upload_to='', null=True)
+    cafeMapx = models.CharField(max_length=100, null=True)
+    cafeMapy = models.CharField(max_length=100, null=True)
 
 class Place(models.Model):
     placeName = models.CharField(max_length=100)
-    location = models.ForeignKey(Location, on_delete=models.CASCADE)
+    location = models.CharField(max_length=100)
     placeAddress = models.CharField(max_length=255)
     placePhone = models.CharField(max_length=100, null=True)
     placeStar = models.CharField(max_length=100, null=True)
-    placeLink1 = models.ImageField(max_length=255, null=True)
-    placeLink2 = models.ImageField(max_length=255, null=True)
+    placeLink1 = models.TextField(null=True)
+    placeLink2 = models.TextField(null=True)
     placeType = models.CharField(max_length=100, null=True)
-    placeDesc = models.CharField(max_length=255, null=True)
+    placeDesc = models.TextField(null=True)
     placeImg = models.ImageField(upload_to='', null=True)
     placeMapx = models.CharField(max_length=100, null=True)
     placeMapy = models.CharField(max_length=100, null=True)
@@ -42,8 +45,8 @@ class Accomodation(models.Model):
     accomodationAddress = models.CharField(max_length=100)
     accomodationPhone = models.CharField(max_length=100, null=True)
     accomodationStar = models.CharField(max_length=100, null=True)
-    accomodationLink1 = models.ImageField(max_length=255, null=True)
-    accomodationLink2 = models.ImageField(max_length=255, null=True)
+    accomodationLink1 = models.TextField(null=True)
+    accomodationLink2 = models.TextField(null=True)
     accomodationType = models.CharField(max_length=100, null=True)
     accomodationDesc = models.CharField(max_length=255, null=True)
     accomodationImg = models.ImageField(upload_to='', null=True)
