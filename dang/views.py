@@ -105,12 +105,11 @@ def mainList(request, location): # main에서 지역 선택했을 때
     #
     return render(request, 'mainList.html', context=context)
 
-def medicalList(request, location): # main에서 지역 선택했을 때
-    #
-    context = { "location" : location }
+def medicalList(request): # main에서 지역 선택했을 때
     #
     #
-    return render(request, 'medicalList.html', context=context)
+    #
+    return render(request, 'medicalList.html')
 
 @csrf_exempt
 def cates(request):
