@@ -59,6 +59,10 @@ def cates(request):
 @csrf_exempt
 def locationBtn(request):
     return JsonResponse({})
+    
+@csrf_exempt
+def locationBtn2(request):
+    return JsonResponse({})
 
 
 ## list page에서 ajax 처리했을 때
