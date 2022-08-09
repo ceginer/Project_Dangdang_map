@@ -9,8 +9,50 @@ from .models import User, Post, Cafe, Place, Accomodation, Medical, Location
 import json
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from email.policy import default
+from django.shortcuts import render, redirect
+from django.contrib.auth.models import User
+from django.contrib import auth
+# Create your views here.
 
 from .models import User, Location, Cafe, Place, Accomodation, Medical, Post 
+
+def login(request):
+
+    if request.method == 'POST':
+        아이디 = request.POST['username']
+        비밀번호 = request.POST['password']
+
+        user = auth.authenticate(request, username=아이디, password=비밀번호)
+
+        if user is not None:
+            auth.login(request, user)
+            return redirect('/')
+        else:
+            return render(request, 'login.html', {'error': '아이디 또는 비밀번호가 일치하지 않습니다.'})
+    return render(request, 'login.html')
+
+def join(request):
+    if request.method == 'POST' :
+        if request.POST['password1'] == request.POST['password2']:
+            user = User.objects.create_user(
+                username = request.POST['username'],
+                password = request.POST['password1'],
+                email = request.POST['email'],
+            )
+
+            auth.login(request, user)
+            return redirect('/')
+        return render (request, 'join.html')
+    return render (request, 'join.html')
+def logout(request):
+    auth.logout(request)
+    return redirect('/')
+
+
+def mypage(request):
+
+    return render(request, 'mypage.html')
 
 # 임시로 만들어 둔 지역 list입니다. 나중에 db로 대체하든, 얘기해봐요..
 locationDic = {'seoul':'서울','gyeongi':'경기','incheon':'인천','gangwon':'강원','chungbuk':'충북','chungnam':'충남','deajeon':'대전','sejong':'세종','jeonbuk':'전북','jeonnam':'전남','gwangju':'광주','gyeongbuk':'경북','gyeongnam':'경남','daegu':'대구','ulsan':'울산','busan':'부산','daejeon':'대전','jeju':'제주' }
@@ -43,12 +85,31 @@ def accomoList(request):
     #
     return render(request, 'mainList.html', context=context)
 
+def detail(request):
+    #
+    #
+    #
+    return render(request, 'detail.html')
+
+def mainList(request):
+    #
+    context = { "category" : "medical", "location" : NULL }
+    #
+    #
+    return render(request, 'medicalList.html', context=context)
+
 def mainList(request, location): # main에서 지역 선택했을 때
     #
     context = { "location" : location }
     #
     #
     return render(request, 'mainList.html', context=context)
+
+def medicalList(request): # main에서 지역 선택했을 때
+    #
+    #
+    #
+    return render(request, 'medicalList.html')
 
 @csrf_exempt
 def cates(request):
@@ -70,19 +131,9 @@ def listGo(request):
     cate = req['category'] # cafe, accommodation, place
     type = req['detail'] # (애견동반, 애견전용) or (공원, 명소) 등등
 
-    # 여기서 data 처리해서 반환해주세요
-    if cate == 'cafe': 
-        cafes = Cafe.objects.filter(Q(location=loc) & Q(type=type))
-        context = {'list':cafes}
-    elif cate == 'accomodation':
-        accomos = Accomodation.objects.filter(Q(location=loc) & Q(type=type))
-        context = {'list':accomos}
-    elif cate == 'place':
-        places = Place.objects.filter(Q(location=loc) & Q(type=type))
-        context = {'list':places}
 
     # 아래는 test용 JsonResponse 입니다. 수정필요
-    return JsonResponse(context)
+    # return JsonResponse(context)
 
 ## 상세페이지 부분 입니다. (cafeDetail, accommoDetail, placeDetail)
 def cafeDetail(request, id):

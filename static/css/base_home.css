@@ -10,31 +10,49 @@
 a {
   color: black;
   text-decoration: none;
+  cursor: pointer;
 }
 
-.navbar_top_container {
+.navbar-container {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
-  padding: 10px 10px;
-  background-color: rgb(201, 217, 178);
+  height: 10vh;
+  padding: 0 1vw;
+  background-color: rgba(255, 240, 161, 1);
 }
 
-.navbar_container {
+.category-container {
   display: flex;
-  justify-content: space-around;
+  flex-wrap: nowrap;
   align-items: center;
-  padding: 25px 50px;
-  border-bottom: 1px solid rgb(102, 97, 97);
+  gap: 2rem;
+}
+
+.login-container {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 1rem;
 }
 
 /* home.html */
+
+.container {
+  background-color: rgba(255, 240, 161, 1);
+}
 
 .home_location_list {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  padding: 100px 0;
+  height: 30vh;
+}
+.shift-locations {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 1rem;
 }
 
 .home_location {
@@ -49,7 +67,14 @@ a {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  padding: 100px 0;
+  height: 45vh;
+
+}
+.best_shift_lists {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 1rem;
 }
 .home_best_item {
   border: 1px solid rgb(102, 97, 97);
@@ -70,5 +95,4 @@ a {
   justify-content: space-around;
   padding: 15px 7px;
 }
-.left-location {
-}
+
