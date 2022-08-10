@@ -29,6 +29,9 @@ urlpatterns = [
   path('logout/', views.logout, name='logout'),
   path('mypage/', views.mypage, name='mypage'),
   path('create/<str:category>/<int:id>', views.create, name='create'),  # 멍초이스 작성페이지
+  path('btn_left/', views.btn_left, name='btn_left'), #ajax - 어디로 떠날까요
+  path('btn_right/', views.btn_right, name='btn_right'), # ajax - 어디로 떠날까요
+
   # 여기서 id = {{cafe.id}} 처럼 카테고리.id 임.
   # category 는 Cafe,Accomodation, Place 들 중 하나로 넘겨줘
 

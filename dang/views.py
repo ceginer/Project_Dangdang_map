@@ -129,6 +129,14 @@ def cates(request):
 def locationBtn(request):
     return JsonResponse({})
 
+@csrf_exempt
+def btn_left(request):
+    return JsonResponse({})
+
+@csrf_exempt
+def btn_right(request):
+    return JsonResponse({})
+
 
 ## list page에서 ajax 처리했을 때
 # 수정 필요: 용어? 통일
