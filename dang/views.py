@@ -1,12 +1,12 @@
 from asyncio.windows_events import NULL
 from http.client import HTTPResponse
 from unicodedata import category
-from django.shortcuts import render, redirect,HttpResponse
+from django.shortcuts import render, redirect,HttpResponse, get_object_or_404
 from django.db.models import Q
 import csv
 from .models import User, Post, Cafe, Place, Accomodation, Medical, Location
 from django.core import serializers
-
+from .forms import PostForm
 import json
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -173,23 +173,23 @@ def delete(request, id):
     return redirect("/") # 삭제하고 나면 어디로 보낼까요?
 
 def update(request, id):
-    post = Post.objects.filter(id=id)
+    post = get_object_or_404(Post, pk=id)
     if request.method == "POST":
-        form = PostForm(request.POST)
+        form = PostForm(request.POST, instance=post)
         if form.is_valid():
             post=form.save()
             post.save()
         
-        # if 문으로 어떤 카테고리인지 체크 -> cafe라면 accomo, place는 null 값이기 때문에
-        if post.cafe:
-            cate = 'cafe'
-        elif post.place:
-            cate = 'place'
-        elif post.accomo:
-            cate = 'accomo'
+            # if 문으로 어떤 카테고리인지 체크 -> cafe라면 accomo, place는 null 값이기 때문에
+            if post.cafe:
+                cate = 'cafe'
+            elif post.place:
+                cate = 'place'
+            elif post.accomo:
+                cate = 'accomo'
 
-        return redirect(f"/post/{cate}/{id}")
-    form = PostForm()
+            return redirect(f"/post/{cate}/{id}")
+    form = PostForm(instance=post)
     return render(request, "무슨무슨.html", {'form':form})
 
 
