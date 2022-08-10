@@ -173,13 +173,13 @@ def delete(request, id):
     return redirect("/") # 삭제하고 나면 어디로 보낼까요?
 
 def update(request, id):
+    post = Post.objects.filter(id=id)
     if request.method == "POST":
-        name = request.POST["name"]
-        postGood = request.POST["postGood"]
-        postBad = request.POST["postBad"]
-        # 등등 (수정해야 함)
-
-        post = Post.objects.filter(id=id)
+        form = PostForm(request.POST)
+        if form.is_valid():
+            post=form.save()
+            post.save()
+        
         # if 문으로 어떤 카테고리인지 체크 -> cafe라면 accomo, place는 null 값이기 때문에
         if post.cafe:
             cate = 'cafe'
@@ -188,14 +188,9 @@ def update(request, id):
         elif post.accomo:
             cate = 'accomo'
 
-        Post.objects.filter(id=id).update(name=name,postGood=postGood,postBad=postBad)
         return redirect(f"/post/{cate}/{id}")
-    
-    post = Post.objects.get(id=id)
-    context = {
-        "post":post
-    }
-    return render(request, template_name="무슨무슨.html", context=context)
+    form = PostForm()
+    return render(request, "무슨무슨.html", {'form':form})
 
 
 ### db에 csv 파일 넣는 함수입니다.
