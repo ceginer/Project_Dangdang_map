@@ -29,5 +29,5 @@ urlpatterns = [
   path('logout', views.logout, name='logout'),
   path('mypage/', views.mypage, name='mypage'),
   path('detail', views.detail, name='detail'),
-  path('like_ajax/', views.like_ajax, name='like_ajax'),
+  path('like/', views.like, name='like'),
 ] + static(settings.STATIC_URL, document_root = settings.STATIC_ROOT) +static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

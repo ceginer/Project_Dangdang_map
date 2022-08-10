@@ -80,5 +80,6 @@ class Post(models.Model):
     cafe = models.ForeignKey(Accomodation, on_delete=models.CASCADE)
     location = models.ForeignKey(Location, on_delete=models.CASCADE)
 
+
 class Favorite(models.Model):
-    like = models.BooleanField(default=False, verbose_name="찜하기")
+  like = models.BooleanField(default=False, verbose_name='찜')

@@ -182,27 +182,22 @@ requestRight.onreadystatechange = () => {
 
 //찜하기 기능
 const requestLike = new XMLHttpRequest();
-      const onClickLike = (id) => {
-        const url = "/like_ajax/";
-        requestLike.open("POST", url, true);
-        requestLike.setRequestHeader(
-          "Content-Type",
-          "application/x-www-form-urlencoded"
-        );
-        requestLike.send(JSON.stringify({ id: id }));
-      };
-      requestLike.onreadystatechange = () => {
-        if (requestLike.readyState === XMLHttpRequest.DONE) {
-          if (requestLike.status < 400) {
-            const { id } = JSON.parse(requestLike.response);
-            const like = document.querySelector(`#like_${id}`);
-            if (like.classList.contains("fa-regular")) {
-              like.classList.remove("fa-regular");
-              like.classList.add("fa-solid");
-            } else {
-              like.classList.remove("fa-solid");
-              like.classList.add("fa-regular");
-            }
-          }
-        }
-      };
+const onClickLike = (id) => {
+  const url = "/like/";
+  requestLike.open("POST", url, true);
+  requestLike.setRequestHeader(
+    "content-Type",
+    "application/x-www-form-urlencoded"
+  );
+  requestLike.send(JSON.stringify({ id: id }))
+}
+
+requestLike.onreadystatechange = () => {
+  if (requestLike.readyState === XMLHttpRequest.DONE) { //서버가 응답할 준비를 마침
+    const { id, type } = JSON.parse(requestLike.response);
+    const element = document.querySelector(`#favorite-${id}`);
+    const i = element.querySelector(".like button i");
+    i.classList.toggle("fas");
+    i.classList.toggle("far");
+  }
+}

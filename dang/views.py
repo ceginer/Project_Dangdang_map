@@ -6,6 +6,7 @@ from django.db.models import Q
 import csv
 from .models import Favorite, User, Post, Cafe, Place, Accomodation, Medical, Location
 
+
 import json
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -15,7 +16,7 @@ from django.contrib.auth.models import User
 from django.contrib import auth
 # Create your views here.
 
-from .models import User, Location, Cafe, Place, Accomodation, Medical, Post 
+from .models import User, Location, Cafe, Place, Accomodation, Medical, Post
 
 def login(request):
 
@@ -198,19 +199,22 @@ def csvToModel(request):
 from .models import Post
 from .forms import PostForm
         ##즐겨찾기 기능
-@csrf_exempt
+
 #views.py
 
 #좋아요기능
-@csrf_exempt
-def like_ajax(request):
-  req = json.loads(request.body)
-  fav_id = req['id']
-  favorite = Favorite.objects.get(id=fav_id)
 
-  if favorite.like == True:
-    favorite.like = False
-  else:
-    favorite.like = True
-  favorite.save()
-  return JsonResponse({ 'id': fav_id })
+
+
+
+@csrf_exempt
+def like(request):
+    req = json.loads(request.body)
+    fav_id = req['id']
+    favorite = Favorite.objects.get(id=fav_id)
+    if favorite.like == True:
+        favorite.like = False
+    elif favorite.like == False:
+        favorite.like = True
+    favorite.save()
+    return JsonResponse({'id':fav_id, 'type' : favorite.like})
