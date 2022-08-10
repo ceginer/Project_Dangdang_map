@@ -20,12 +20,13 @@ urlpatterns = [
   path('cities/<str:location>', views.mainList, name='mainList'),
   path('csvToModel', views.csvToModel, name='csvToModel'), # db 설정용 url
   path('cafe/<int:id>', views.cafeDetail, name='cafeDetail'), # 상세페이지(카페)
-  path('accommo/<int:id>', views.accommoDetail, name='accommoDetail'), # 상세페이지(카페)
-  path('place/<int:id>', views.placeDetail, name='placeDetail'), # 상세페이지(카페)
+  path('accommo/<int:id>', views.accommoDetail, name='accommoDetail'), # 상세페이지(숙소)
+  path('place/<int:id>', views.placeDetail, name='placeDetail'), # 상세페이지(장소)
   path('', views.home, name='home'),
   path('admin/', admin.site.urls),
   path('login/', views.login, name='login'),
   path('join/', views.join, name='join'),
-  path('logout/', views.logout, name='logout'),
+  path('logout', views.logout, name='logout'),
   path('mypage/', views.mypage, name='mypage'),
+  path('detail', views.detail, name='detail'),
 ] + static(settings.STATIC_URL, document_root = settings.STATIC_ROOT) +static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
