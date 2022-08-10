@@ -73,5 +73,5 @@ class Post(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     cafe = models.ForeignKey(Cafe, on_delete=models.CASCADE)
     place = models.ForeignKey(Place, on_delete=models.CASCADE)
-    cafe = models.ForeignKey(Accomodation, on_delete=models.CASCADE)
-    location = models.ForeignKey(Location, on_delete=models.CASCADE)
+    accomos = models.ForeignKey(Accomodation, on_delete=models.CASCADE)
+    # location = models.ForeignKey(Location, on_delete=models.CASCADE)

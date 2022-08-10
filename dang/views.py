@@ -2,10 +2,13 @@ from asyncio.windows_events import NULL
 from http.client import HTTPResponse
 from re import template
 from unicodedata import category
-from django.shortcuts import render, redirect,HttpResponse
+from django.shortcuts import render, redirect,HttpResponse, get_object_or_404
 from django.db.models import Q
 import csv
 from .models import User, Post, Cafe, Place, Accomodation, Medical, Location
+
+from .forms import PostForm
+
 
 import json
 from django.http import JsonResponse
@@ -278,3 +281,25 @@ def csvToModel(request):
     p.close()
 
     return HttpResponse('create model~')
+
+    ##### 멍초이스 작성
+
+def create(request, category, categry_id):
+    if category == "Cafe":
+        post = Cafe.objects.get(id=categry_id)
+    if category == "Accomodation":
+        post = Accomodation.objects.get(id=categry_id)
+    if category == "Place":
+        post = Place.objects.get(id=categry_id)
+
+    if request.method == "POST":
+        form = PostForm(request.POST)
+        if form.is_valid():
+            post=form.save()
+            post.save()
+            return redirect('/cafe 상세페이지')
+    else:
+        form=PostForm()
+    return render(request, 'dang/mainList.html', {'form':form , 'post':post})
+
+
