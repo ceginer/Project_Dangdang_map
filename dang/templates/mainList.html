@@ -59,12 +59,19 @@
           </h1>
           <span class="type">{{place.type}}</span>
           <h3 class="phone">{{place.phone}}</h3>
-          <div class="heart">
-            <img src="\static\img\heart.svg"></img>
+          <div class="fav_like" id="{{ favorite.id }}" onclick="onClickLike({{ favorite.id }})">
+            {% if favorite.like == False %}
+              <i id="like_{{ favorite.id }}" class="fa-regular fa-heart"></i>
+            {% else %}
+              <i id="like_{{ favorite.id }}" class="fa-solid fa-heart"></i>
+            {% endif %}
           </div>
-        </div>
       </div>
     {% endfor %}
   </div>
 </div>
 {% endblock %}
+
+
+
+

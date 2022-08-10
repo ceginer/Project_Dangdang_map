@@ -180,4 +180,29 @@ requestRight.onreadystatechange = () => {
 };
 
 
-//목록에서 장소이름 클릭하면 상세페이지 뜨는 부분
+//찜하기 기능
+const requestLike = new XMLHttpRequest();
+      const onClickLike = (id) => {
+        const url = "/like_ajax/";
+        requestLike.open("POST", url, true);
+        requestLike.setRequestHeader(
+          "Content-Type",
+          "application/x-www-form-urlencoded"
+        );
+        requestLike.send(JSON.stringify({ id: id }));
+      };
+      requestLike.onreadystatechange = () => {
+        if (requestLike.readyState === XMLHttpRequest.DONE) {
+          if (requestLike.status < 400) {
+            const { id } = JSON.parse(requestLike.response);
+            const like = document.querySelector(`#like_${id}`);
+            if (like.classList.contains("fa-regular")) {
+              like.classList.remove("fa-regular");
+              like.classList.add("fa-solid");
+            } else {
+              like.classList.remove("fa-solid");
+              like.classList.add("fa-regular");
+            }
+          }
+        }
+      };

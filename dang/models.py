@@ -1,3 +1,4 @@
+from operator import mod
 from tabnanny import verbose
 from distutils.command.upload import upload
 from django.db import models
@@ -28,6 +29,7 @@ class Cafe(models.Model):
     mapx = models.CharField(max_length=100, null=True)
     mapy = models.CharField(max_length=100, null=True)
 
+
 class Place(models.Model):
     name = models.CharField(max_length=100)
     location = models.CharField(max_length=100)
@@ -41,6 +43,7 @@ class Place(models.Model):
     img = models.ImageField(upload_to='', null=True)
     mapx = models.CharField(max_length=100, null=True)
     mapy = models.CharField(max_length=100, null=True)
+
 
 class Accomodation(models.Model):
     name = models.CharField(max_length=100)
@@ -56,6 +59,7 @@ class Accomodation(models.Model):
     img = models.ImageField(upload_to='', null=True)
     mapx = models.CharField(max_length=100, null=True)
     mapy = models.CharField(max_length=100, null=True)
+    
 
 class Medical(models.Model):
     medicalName = models.CharField(max_length=100)
@@ -75,3 +79,6 @@ class Post(models.Model):
     place = models.ForeignKey(Place, on_delete=models.CASCADE)
     cafe = models.ForeignKey(Accomodation, on_delete=models.CASCADE)
     location = models.ForeignKey(Location, on_delete=models.CASCADE)
+
+class Favorite(models.Model):
+    like = models.BooleanField(default=False, verbose_name="찜하기")

@@ -8,6 +8,34 @@
     <link rel="stylesheet" href="{% static 'css/reset.css' %}">
     <link rel="stylesheet" href="{% static 'css/base_home.css' %}" />
     <link rel="stylesheet" href="{% static 'css/mainList.css' %}" />
+    <script src="https://kit.fontawesome.com/a8a24f1fa9.js" crossorigin="anonymous"></script>
+    <script>
+      const requestLike = new XMLHttpRequest();
+      const onClickLike = (id) => {
+        const url = "/like_ajax/";
+        requestLike.open("POST", url, true);
+        requestLike.setRequestHeader(
+          "Content-Type",
+          "application/x-www-form-urlencoded"
+        );
+        requestLike.send(JSON.stringify({ id: id }));
+      };
+      requestLike.onreadystatechange = () => {
+        if (requestLike.readyState === XMLHttpRequest.DONE) {
+          if (requestLike.status < 400) {
+            const { id } = JSON.parse(requestLike.response);
+            const like = document.querySelector(`#like_${id}`);
+            if (like.classList.contains("fa-regular")) {
+              like.classList.remove("fa-regular");
+              like.classList.add("fa-solid");
+            } else {
+              like.classList.remove("fa-solid");
+              like.classList.add("fa-regular");
+            }
+          }
+        }
+      };
+    </script>
     <!-- <link rel="stylesheet" href="\static\css\base_home.css" /> -->
     <title>대동멍지도</title>
   </head>

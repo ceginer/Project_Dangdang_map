@@ -4,7 +4,7 @@ from unicodedata import category
 from django.shortcuts import render, redirect,HttpResponse
 from django.db.models import Q
 import csv
-from .models import User, Post, Cafe, Place, Accomodation, Medical, Location
+from .models import Favorite, User, Post, Cafe, Place, Accomodation, Medical, Location
 
 import json
 from django.http import JsonResponse
@@ -194,3 +194,23 @@ def csvToModel(request):
     p.close()
 
     return HttpResponse('create model~')
+
+from .models import Post
+from .forms import PostForm
+        ##즐겨찾기 기능
+@csrf_exempt
+#views.py
+
+#좋아요기능
+@csrf_exempt
+def like_ajax(request):
+  req = json.loads(request.body)
+  fav_id = req['id']
+  favorite = Favorite.objects.get(id=fav_id)
+
+  if favorite.like == True:
+    favorite.like = False
+  else:
+    favorite.like = True
+  favorite.save()
+  return JsonResponse({ 'id': fav_id })
