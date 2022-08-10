@@ -75,3 +75,15 @@ class Post(models.Model):
     place = models.ForeignKey(Place, on_delete=models.CASCADE, related_name='place_post', null=True)
     accomo = models.ForeignKey(Accomodation, on_delete=models.CASCADE, related_name='accomo_post', null=True)
 
+## 찜하기 구상중
+class Jjim(models.Model):
+    like = models.BooleanField(default=False)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_jjim')
+    cafe = models.ForeignKey(Cafe, on_delete=models.CASCADE, related_name='cafe_jjim')
+    place = models.ForeignKey(Place, on_delete=models.CASCADE, related_name='place_jjim')
+    accomo = models.ForeignKey(Accomodation, on_delete=models.CASCADE, related_name='accomo_jjim')
+
+# 찜하기를 위해서 필요한 것들 -> user id와 cafe(or place or accomo)의 id
+# 찜 불러오기를 위해서 필요한 것들 -> 
+# 마이페이지 찜 리스트 -> 역참조 하면 됨
+
