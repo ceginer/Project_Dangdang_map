@@ -150,20 +150,52 @@ def listGo(request):
 ## 상세페이지 부분 입니다. (cafeDetail, accommoDetail, placeDetail)
 def cafeDetail(request, id):
     cafe = Cafe.objects.get(id=id)
-    context = { "cafe":cafe }
+    reviews = cafe.cafe_post.all() # 역참조한건데 제대로 되나 test 해봐야 함
+    context = { "cafe":cafe, "reviews":reviews }
     return render(request, '무슨무슨.html', context=context)
     
 def accommoDetail(request, id):
     accomo = Accomodation.objects.get(id=id)
-    context = { "accomo":accomo }
+    reviews = accomo.accomo_post.all() # 역참조한건데 제대로 되나 test 해봐야 함
+    context = { "accomo":accomo, "reviews":reviews }
     return render(request, '무슨무슨.html', context=context)
 
 def placeDetail(request, id):
     place = Place.objects.get(id=id)
-    context = { "place":place }
+    reviews = place.place_post.all() # 역참조한건데 제대로 되나 test 해봐야 함
+    context = { "place":place, "reviews":reviews }
     return render(request, '무슨무슨.html', context=context)
 
+## 멍초이스 (post) 부분
 
+def delete(request, id):
+    Post.objects.filter(id=id).delete()
+    return redirect("/") # 삭제하고 나면 어디로 보낼까요?
+
+def update(request, id):
+    if request.method == "POST":
+        name = request.POST["name"]
+        postGood = request.POST["postGood"]
+        postBad = request.POST["postBad"]
+        # 등등 (수정해야 함)
+
+        post = Post.objects.filter(id=id)
+        # if 문으로 어떤 카테고리인지 체크 -> cafe라면 accomo, place는 null 값이기 때문에
+        if post.cafe:
+            cate = 'cafe'
+        elif post.place:
+            cate = 'place'
+        elif post.accomo:
+            cate = 'accomo'
+
+        Post.objects.filter(id=id).update(name=name,postGood=postGood,postBad=postBad)
+        return redirect(f"/post/{cate}/{id}")
+    
+    post = Post.objects.get(id=id)
+    context = {
+        "post":post
+    }
+    return render(request, template_name="무슨무슨.html", context=context)
 
 
 ### db에 csv 파일 넣는 함수입니다.

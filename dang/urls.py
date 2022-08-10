@@ -28,4 +28,6 @@ urlpatterns = [
   path('join/', views.join, name='join'),
   path('logout/', views.logout, name='logout'),
   path('mypage/', views.mypage, name='mypage'),
+  path('delete/<int:id>', views.delete, name="delete"), # post 삭제
+  path('update/<int:id>', views.update, name="update"), # post 수정
 ] + static(settings.STATIC_URL, document_root = settings.STATIC_ROOT) +static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
