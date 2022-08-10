@@ -38,7 +38,6 @@ requestGo.onreadystatechange = () => {
   if (requestGo.readyState === XMLHttpRequest.DONE) {
     if (requestGo.status < 400) {
       const { location, category, detail } = JSON.parse(requestGo.response);
-
       test = document.querySelector(".right");
       test.innerHTML += `${location} ${category} ${detail}`;
     }
@@ -179,3 +178,6 @@ requestRight.onreadystatechange = () => {
     }
   }
 };
+
+
+//목록에서 장소이름 클릭하면 상세페이지 뜨는 부분
