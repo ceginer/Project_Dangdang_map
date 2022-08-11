@@ -36,17 +36,17 @@ const onClickGo = () => {
 requestGo.onreadystatechange = () => {
   if (requestGo.readyState === XMLHttpRequest.DONE) {
     if (requestGo.status < 400) {
-      const { location, category, detail } = JSON.parse(requestGo.response);
-      test = document.querySelector(".right");
-      test.innerHTML = "";
-      const { list } = JSON.parse(requestGo.response);
-      console.log(list);
-      for (var i = 0; i < list.length; i++) {
-        const add = document.createElement("div");
-        add.classList.add("list-box");
-        add.innerHTML = `${list[i]["name"]} ${list[i]["address"]} ${list[i]["phone"]}`;
-        test.append(add);
-      }
+      // const { location, category, detail } = JSON.parse(requestGo.response);
+      // test = document.querySelector(".right");
+      // test.innerHTML = "";
+      // const { list } = JSON.parse(requestGo.response);
+      // console.log(list);
+      // for (var i = 0; i < list.length; i++) {
+      //   const add = document.createElement("div");
+      //   add.classList.add("list-box");
+      //   add.innerHTML = `${list[i]["name"]} ${list[i]["address"]} ${list[i]["phone"]}`;
+      //   test.append(add);
+      // }
       const { list } = JSON.parse(requestGo.response);
 
       lists = JSON.parse(list);
