@@ -22,7 +22,6 @@ const onClickGo = () => {
   } else if (cateSelected.includes("장소")) {
     category = "place";
   }
-
   const detailList = document.getElementsByName("detail");
   detailList.forEach((d) => {
     if (d.checked) {
@@ -48,6 +47,13 @@ requestGo.onreadystatechange = () => {
         add.innerHTML = `${list[i]["name"]} ${list[i]["address"]} ${list[i]["phone"]}`;
         test.append(add);
       }
+      const { list } = JSON.parse(requestGo.response);
+
+      lists = JSON.parse(list);
+
+      // 사용할 때는 lists[a]["fields"][b]로 사용하면 됩니다.
+      // a 는 index 번호, b는 속성
+      // ex) list[0]["fields"]["name"] --> 0번째 장소의 이름
     }
   }
 };
