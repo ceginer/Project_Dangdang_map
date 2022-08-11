@@ -1,14 +1,15 @@
-{% load static %}
+{% extends "base.html" %} {% block content %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="{% static 'css/detail.css' %}" />
-    <title>Detail</title>
+
+    <title>cafeDetail</title>
   </head>
   <body>
+    <a href="/create/{{category}}/{{id}}">리뷰추가버튼</a>
     <header class="detail-header">
       <!-- 지역장소 이미지 띄었으면 좋겠음 -->
       <div class="header-img">
@@ -107,3 +108,4 @@
     </div>
   </body>
 </html>
+{% endblock %}
