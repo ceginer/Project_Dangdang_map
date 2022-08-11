@@ -144,7 +144,6 @@ def listGo(request):
         list= Place.objects.filter(Q(location=loc)& Q(type=type))
 
     lists = serializers.serialize('json',list)
-    # 아래는 test용 JsonResponse 입니다. 수정필요
     return JsonResponse({'list':lists})
 
 ## 상세페이지 부분 입니다. (cafeDetail, accommoDetail, placeDetail)
