@@ -120,22 +120,74 @@ def btn_right(request):
 
 ## list page에서 ajax 처리했을 때
 # 수정 필요: 용어? 통일
+def cafeToDictionary(list):
+    output = {}
+    output["name"] = list.name
+    output["location"] = list.location
+    output["address"] = list.address
+    output["phone"] = list.phone
+    output["type"] = list.type
+    output["menuInfo"] = list.menuInfo
+    output["hourInfo"] = list.hourInfo
+    output["link1"] = list.link1
+    output["desc"] = list.desc
+    # output["img"] = str(list.img)
+    output["mapx"] = list.mapx
+    output["mapy"] = list.mapy
+    return output
+
+def placeToDictionary(list):
+    output = {}
+    output["name"] = list.name
+    output["location"] = list.location
+    output["address"] = list.address
+    output["phone"] = list.phone
+    output["star"] = list.star
+    output["link1"] = list.link1
+    output["link2"] = list.link2
+    output["type"] = list.type
+    output["desc"] = list.desc
+    # output["img"] = str(list.img)
+    output["mapx"] = list.mapx
+    output["mapy"] = list.mapy
+    return output
+
+
+## list page에서 ajax 처리했을 때
+# 수정 필요: 용어? 통일
 @csrf_exempt
 def listGo(request):
     req = json.loads(request.body)
     loc = req['location'] # 강원,경기,제주 등등 17개 도
     cate = req['category'] # cafe, accommodation, place
     type = req['detail'] # (애견동반, 애견전용) or (공원, 명소) 등등
-
-    if cate == 'cafe':
-        list= Cafe.objects.filter(Q(location=loc)& Q(type=type))
+    # 여기서 data 처리해서 반환해주세요
+    print(req,loc,cate,type)
+    if cate == 'cafe': 
+        # cafes = Cafe.objects.filter(Q(location=loc) & Q(type=type))
+        cafes=Cafe.objects.filter(Q(location=loc) & Q(type=type))
+        tempCafe = []
+        for i in range(len(cafes)):
+            tempCafe.append(cafeToDictionary(cafes[i]))
+        print(cafes)
+        list = tempCafe
     elif cate == 'accomodation':
-        list= Accomodation.objects.filter(Q(location=loc)& Q(type=type))
+        accomos = Accomodation.objects.filter(Q(location=loc) & Q(type=type))
+        tempAccomo = []
+        for i in range(len(accomos)):
+            tempAccomo.append(placeToDictionary(accomos[i]))
+        list = tempAccomo
     elif cate == 'place':
-        list= Place.objects.filter(Q(location=loc)& Q(type=type))
+        places = Place.objects.filter(Q(location=loc) & Q(type=type))
+        tempPlace = []
+        for i in range(len(places)):
+            tempPlace.append(placeToDictionary(places[i]))
+        list = tempPlace
 
-    lists = serializers.serialize('json',list)
-    return JsonResponse({'list':lists})
+    data = {'list':list}
+    # 아래는 test용 JsonResponse 입니다. 수정필요
+    return JsonResponse(data)
+    
 
 ## 상세페이지 부분 입니다. (cafeDetail, accommoDetail, placeDetail)
 def cafeDetail(request, id):
