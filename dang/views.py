@@ -98,12 +98,12 @@ def detail(request):
     #
     return render(request, 'detail.html')
 
-def mainList(request):
-    #
-    context = { "category" : "medical", "location" : NULL }
-    #
-    #
-    return render(request, 'medicalList.html', context=context)
+# def mainList(request):
+#     #
+#     context = { "category" : "medical", "location" : NULL }
+#     #
+#     #
+#     return render(request, 'medicalList.html', context=context)
 
 def mainList(request, location): # main에서 지역 선택했을 때
     #
@@ -211,6 +211,7 @@ def listGo(request):
         tempCafe = []
         for i in range(len(cafes)):
             tempCafe.append(cafeToDictionary(cafes[i]))
+        print(cafes)
         list = tempCafe
     elif cate == 'accomodation':
         accomos = Accomodation.objects.filter(Q(location=loc) & Q(type=type))
@@ -224,7 +225,7 @@ def listGo(request):
         for i in range(len(places)):
             tempPlace.append(placeToDictionary(places[i]))
         list = tempPlace
-    
+
     data = {'list':list}
     # 아래는 test용 JsonResponse 입니다. 수정필요
     return JsonResponse(data)
@@ -321,5 +322,5 @@ def like(request):
         favorite.like = False
         favorite.like = True
     elif favorite.like == False:
-    favorite.save()
+        favorite.save()
     return JsonResponse({'id':fav_id, 'type' : favorite.like})
