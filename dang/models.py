@@ -75,10 +75,14 @@ class Post(models.Model):
     place = models.ForeignKey(Place, on_delete=models.CASCADE, related_name='place_post', null=True)
     accomo = models.ForeignKey(Accomodation, on_delete=models.CASCADE, related_name='accomo_post', null=True)
 
+
 ## 찜하기 구상중
 class Jjim(models.Model):
     like = models.BooleanField(default=False)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_jjim')
+
+    # place_type = models.ChoiceFeild("cafe","place","accomo")  # 코드리뷰
+    # id =
     cafe = models.ForeignKey(Cafe, on_delete=models.CASCADE, related_name='cafe_jjim')
     place = models.ForeignKey(Place, on_delete=models.CASCADE, related_name='place_jjim')
     accomo = models.ForeignKey(Accomodation, on_delete=models.CASCADE, related_name='accomo_jjim')
@@ -87,3 +91,20 @@ class Jjim(models.Model):
 # 찜 불러오기를 위해서 필요한 것들 -> 
 # 마이페이지 찜 리스트 -> 역참조 하면 됨
 
+## djanago many to One
+## django 기능임 
+# 
+#원래 하려던 거는 태그
+
+
+# ## foreign key 
+# class User():
+#     jjim_cafe foreignkey
+
+# jjimcafe.set.creat() 이거 함수 찾아보기
+
+# 플레이스타입도 받고 플레이스 아이디도 받고
+# class JJim:
+#     user-foreignkey
+#     plcae_type
+#     plcae_id
