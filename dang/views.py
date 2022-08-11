@@ -1,10 +1,14 @@
 from asyncio.windows_events import NULL
 from http.client import HTTPResponse
+from re import template
 from unicodedata import category
-from django.shortcuts import render, redirect,HttpResponse
+from django.shortcuts import render, redirect,HttpResponse, get_object_or_404
 from django.db.models import Q
 import csv
 from .models import User, Post, Cafe, Place, Accomodation, Medical, Location
+
+from .forms import PostForm
+
 
 import json
 from django.http import JsonResponse
@@ -125,6 +129,71 @@ def cates(request):
 def locationBtn(request):
     return JsonResponse({})
 
+@csrf_exempt
+def btn_left(request):
+    return JsonResponse({})
+
+@csrf_exempt
+def btn_right(request):
+    return JsonResponse({})
+
+
+## list page에서 ajax 처리했을 때
+# 수정 필요: 용어? 통일
+# @csrf_exempt
+# def listGo(request):
+#     req = json.loads(request.body)
+#     loc = req['location'] # 강원,경기,제주 등등 17개 도
+#     cate = req['category'] # cafe, accommodation, place
+#     type = req['detail'] # (애견동반, 애견전용) or (공원, 명소) 등등
+
+    # if cate == 'cafe':
+    #     cafes= Cafe.objects.filter(Q(location=loc)& Q(type=type))
+    #     context = {'list' : cafes }
+    # elif cate == 'accommodation':
+    #     accommos= Accomodation.objects.filter(Q(location=loc)& Q(type=type))
+    #     context = {'list' : accommos }  
+    # elif cate == 'place':
+    #     places= Place.objects.filter(Q(location=loc)& Q(type=type))
+    #     context = {'list' : places }
+    
+    # for place in list:
+
+    
+    # JsonResponse(context)
+
+def cafeToDictionary(list):
+    output = {}
+    output["name"] = list.name
+    output["location"] = list.location
+    output["address"] = list.address
+    output["phone"] = list.phone
+    output["type"] = list.type
+    output["menuInfo"] = list.menuInfo
+    output["hourInfo"] = list.hourInfo
+    output["link1"] = list.link1
+    output["desc"] = list.desc
+    # output["img"] = str(list.img)
+    output["mapx"] = list.mapx
+    output["mapy"] = list.mapy
+    return output
+
+def placeToDictionary(list):
+    output = {}
+    output["name"] = list.name
+    output["location"] = list.location
+    output["address"] = list.address
+    output["phone"] = list.phone
+    output["star"] = list.star
+    output["link1"] = list.link1
+    output["link2"] = list.link2
+    output["type"] = list.type
+    output["desc"] = list.desc
+    # output["img"] = str(list.img)
+    output["mapx"] = list.mapx
+    output["mapy"] = list.mapy
+    return output
+
 
 ## list page에서 ajax 처리했을 때
 # 수정 필요: 용어? 통일
@@ -134,7 +203,33 @@ def listGo(request):
     loc = req['location'] # 강원,경기,제주 등등 17개 도
     cate = req['category'] # cafe, accommodation, place
     type = req['detail'] # (애견동반, 애견전용) or (공원, 명소) 등등
-
+    # 여기서 data 처리해서 반환해주세요
+    print(req,loc,cate,type)
+    if cate == 'cafe': 
+        # cafes = Cafe.objects.filter(Q(location=loc) & Q(type=type))
+        cafes=Cafe.objects.filter(Q(location=loc) & Q(type=type))
+        tempCafe = []
+        for i in range(len(cafes)):
+            tempCafe.append(cafeToDictionary(cafes[i]))
+        list = tempCafe
+    elif cate == 'accomodation':
+        accomos = Accomodation.objects.filter(Q(location=loc) & Q(type=type))
+        tempAccomo = []
+        for i in range(len(accomos)):
+            tempAccomo.append(placeToDictionary(accomos[i]))
+        list = tempAccomo
+    elif cate == 'place':
+        places = Place.objects.filter(Q(location=loc) & Q(type=type))
+        tempPlace = []
+        for i in range(len(places)):
+            tempPlace.append(placeToDictionary(places[i]))
+        list = tempPlace
+    
+    data = {'list':list}
+    # 아래는 test용 JsonResponse 입니다. 수정필요
+    return JsonResponse(data)
+    
+    
 
     # 아래는 test용 JsonResponse 입니다. 수정필요
     # return JsonResponse(context)
@@ -194,3 +289,25 @@ def csvToModel(request):
     p.close()
 
     return HttpResponse('create model~')
+
+    ##### 멍초이스 작성
+
+def create(request, category, categry_id):
+    if category == "Cafe":
+        post = Cafe.objects.get(id=categry_id)
+    if category == "Accomodation":
+        post = Accomodation.objects.get(id=categry_id)
+    if category == "Place":
+        post = Place.objects.get(id=categry_id)
+
+    if request.method == "POST":
+        form = PostForm(request.POST)
+        if form.is_valid():
+            post=form.save()
+            post.save()
+            return redirect('/cafe 상세페이지')
+    else:
+        form=PostForm()
+    return render(request, 'dang/mainList.html', {'form':form , 'post':post})
+
+

@@ -37,14 +37,27 @@ const onClickGo = () => {
 requestGo.onreadystatechange = () => {
   if (requestGo.readyState === XMLHttpRequest.DONE) {
     if (requestGo.status < 400) {
-      const { location, category, detail } = JSON.parse(requestGo.response);
-
       test = document.querySelector(".right");
-      test.innerHTML += `${location} ${category} ${detail}`;
+      test.innerHTML = "";
+      const { list } = JSON.parse(requestGo.response);
+      console.log(list);
+      for (var i = 0; i < list.length; i++) {
+        const add = document.createElement("div");
+        add.classList.add("list-box");
+        add.innerHTML = `${list[i]["name"]} ${list[i]["address"]} ${list[i]["phone"]}`;
+        test.append(add);
+      }
     }
   }
 };
+// const { list } = JSON.parse(requestGo.response);
+//       test = document.querySelector(".right");
 
+//       test.appned('p')
+//       list.forEach((place) => {
+//         const add = document.createElement('p');
+//         test.append(add)
+//       });
 //
 const requestLoc = new XMLHttpRequest();
 
@@ -86,37 +99,37 @@ requestCate.onreadystatechange = () => {
       if (cate == "카페") {
         detailBox.innerHTML = `<div class="cate-selected">${cate} 세부사항을 선택하세요!</div><form action="">
   <div>
-    <input type="radio" name="detail" value="dogs-only" />애견 전용
+    <input type="radio" name="detail" value="애견전용" />애견전용
   </div>
   <div>
-    <input type="radio" name="detail" value="dogs-can" />애견 동반
+    <input type="radio" name="detail" value="애견동반" />애견동반
   </div>
 </form>`;
       } else if (cate == "숙소") {
         detailBox.innerHTML = `<div class="cate-selected">${cate} 세부사항을 선택하세요!</div><form action="">
   <div>
-    <input type="radio" name="detail" value="hotel" />호텔
+    <input type="radio" name="detail" value="호텔" />호텔
   </div>
   <div>
-    <input type="radio" name="detail" value="motel" />모텔
+    <input type="radio" name="detail" value="모텔" />모텔
   </div>
   <div>
-    <input type="radio" name="detail" value="resort" />리조트
+    <input type="radio" name="detail" value="리조트" />리조트
   </div>
   <div>
-    <input type="radio" name="detail" value="pension" />펜션
+    <input type="radio" name="detail" value="펜션" />펜션
   </div>
 </form>`;
       } else if (cate == "장소") {
         detailBox.innerHTML = `<div class="cate-selected">${cate} 세부사항을 선택하세요!</div><form action="">
   <div>
-    <input type="radio" name="detail" value="park" />공원
+    <input type="radio" name="detail" value="공원" />공원
   </div>
   <div>
-    <input type="radio" name="detail" value="pool" />수영장
+    <input type="radio" name="detail" value="수영장" />수영장
   </div>
   <div>
-    <input type="radio" name="detail" value="beach" />해변
+    <input type="radio" name="detail" value="해변" />해변
   </div>
 </form>`;
       }
