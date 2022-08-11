@@ -37,6 +37,7 @@ const onClickGo = () => {
 requestGo.onreadystatechange = () => {
   if (requestGo.readyState === XMLHttpRequest.DONE) {
     if (requestGo.status < 400) {
+      const { location, category, detail } = JSON.parse(requestGo.response);
       test = document.querySelector(".right");
       test.innerHTML = "";
       const { list } = JSON.parse(requestGo.response);
@@ -192,3 +193,26 @@ requestRight.onreadystatechange = () => {
     }
   }
 };
+
+
+//찜하기 기능
+const requestLike = new XMLHttpRequest();
+const onClickLike = (id) => {
+  const url = "/like/";
+  requestLike.open("POST", url, true);
+  requestLike.setRequestHeader(
+    "content-Type",
+    "application/x-www-form-urlencoded"
+  );
+  requestLike.send(JSON.stringify({ id: id }))
+}
+
+requestLike.onreadystatechange = () => {
+  if (requestLike.readyState === XMLHttpRequest.DONE) { //서버가 응답할 준비를 마침
+    const { id, type } = JSON.parse(requestLike.response);
+    const element = document.querySelector(`#favorite-${id}`);
+    const i = element.querySelector(".like button i");
+    i.classList.toggle("fas");
+    i.classList.toggle("far");
+  }
+}

@@ -114,17 +114,3 @@ a {
 }
 
 /* mainList.html */
-.list-box {
-  border: solid;
-  display: flex;
-}
-.left {
-  border: solid;
-  width: 24rem;
-}
-.left-cate {
-  border: solid;
-  display: flex;
-  justify-content: space-around;
-  padding: 15px 7px;
-}

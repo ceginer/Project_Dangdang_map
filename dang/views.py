@@ -5,7 +5,7 @@ from unicodedata import category
 from django.shortcuts import render, redirect,HttpResponse, get_object_or_404
 from django.db.models import Q
 import csv
-from .models import User, Post, Cafe, Place, Accomodation, Medical, Location
+from .models import Favorite, User, Post, Cafe, Place, Accomodation, Medical, Location
 
 from .forms import PostForm
 
@@ -19,7 +19,7 @@ from django.contrib.auth.models import User
 from django.contrib import auth
 # Create your views here.
 
-from .models import User, Location, Cafe, Place, Accomodation, Medical, Post 
+from .models import User, Location, Cafe, Place, Accomodation, Medical, Post
 
 def login(request):
 
@@ -238,17 +238,17 @@ def listGo(request):
 def cafeDetail(request, id):
     cafe = Cafe.objects.get(id=id)
     context = { "cafe":cafe }
-    return render(request, '무슨무슨.html', context=context)
+    return render(request, 'cafeDetail.html', context=context)
     
 def accommoDetail(request, id):
     accomo = Accomodation.objects.get(id=id)
     context = { "accomo":accomo }
-    return render(request, '무슨무슨.html', context=context)
+    return render(request, 'accommoDetail.html', context=context)
 
 def placeDetail(request, id):
     place = Place.objects.get(id=id)
     context = { "place":place }
-    return render(request, '무슨무슨.html', context=context)
+    return render(request, 'placeDetail.html', context=context)
 
 
 
@@ -311,3 +311,15 @@ def create(request, category, categry_id):
     return render(request, 'dang/mainList.html', {'form':form , 'post':post})
 
 
+
+@csrf_exempt
+def like(request):
+    req = json.loads(request.body)
+    fav_id = req['id']
+    favorite = Favorite.objects.get(id=fav_id)
+    if favorite.like == True:
+        favorite.like = False
+        favorite.like = True
+    elif favorite.like == False:
+    favorite.save()
+    return JsonResponse({'id':fav_id, 'type' : favorite.like})
