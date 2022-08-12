@@ -44,7 +44,7 @@
           <div class="img-box"><img src="" alt="" /></div>
           <div class="accom-text-box">
             <h1>
-              <a href="/{{location}}/{{place.id}}" class="name">{{place.name}}</a>
+              <a href="/detail/{{category}}/{{place.id}}" class="name">{{place.name}}</a>
             </h1>
             <span class="type">{{place.type}}</span>
             <h3 class="phone">{{place.phone}}</h3>
@@ -63,15 +63,6 @@
         </div>
         {% endfor %}
       </div>
-      <!-- <div class="page-shift-container">
-        <div class="mainList-shift-btn-left">
-          <button onclick="onClickMainList('left')">&lt;</button>
-        </div>
-        <div id="page-num">0</div>
-        <div class="mainList-shift-btn-right">
-          <button onclick="onClickMainList('right')">&gt;</button>
-        </div>
-      </div> -->
       <div class="pagination-bar">
         {% if posts.has_previous %}
         <a href="?page=1">[맨 앞으로]</a>
@@ -92,6 +83,15 @@
 <script>
 
 </script>
+<!-- <div class="page-shift-container">
+  <div class="mainList-shift-btn-left">
+    <button onclick="onClickMainList('left')">&lt;</button>
+  </div>
+  <div id="page-num">0</div>
+  <div class="mainList-shift-btn-right">
+    <button onclick="onClickMainList('right')">&gt;</button>
+  </div>
+</div> -->
 
 
 

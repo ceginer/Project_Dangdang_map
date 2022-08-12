@@ -62,28 +62,35 @@ locationDic = {'seoul':'서울','gyeongi':'경기','incheon':'인천','gangwon':
 
 def home(request):
     locationList = locationDic.values()
-
     context = { "locationList" : locationList }
-
     return render(request,'home.html', context=context)
 
-
-def navToList(request, location):
-    if location == 'cafe':
+# nav바에서 카테고리 눌렀을 때
+def navToList(request, category):
+    if category == 'cafe':
         filteredLocation=Cafe.objects.filter(Q(location='서울')&Q(type='애견동반'))
-    elif location == 'place':
+    elif category == 'place':
         filteredLocation=Place.objects.filter(Q(location='서울')&Q(type='명소'))
-    elif location == 'accomo':
+    elif category == 'accomo':
         filteredLocation=Accomodation.objects.filter(Q(location='서울')&Q(type='호텔'))
 
     paginator = Paginator(filteredLocation, 5)
     page = request.GET.get('page')
     posts = paginator.get_page(page)
 
-    context = { 'location' : location, 'posts': posts}
+    context = {'category': category ,'posts': posts}
     return render(request, 'mainList.html', context=context)
 
-
+## mainList 목록눌렀을때 상세페이지로 이동 (listDetail.html)
+def listDetail(request, category, id):
+    if category == 'cafe':
+        here = Cafe.objects.get(id=id)
+    elif category == 'place':
+        here = Place.objects.get(id=id)
+    elif category == 'accomo':
+        here = Accomodation.objects.get(id=id)
+    context = {'category': category ,'here': here}
+    return render(request, 'listDetail.html', context=context)
 
 def mainList(request, location): # main에서 지역 선택했을 때
     only_loc= Cafe.objects.filter(Q(location=location)& Q(type='애견동반'))
@@ -166,14 +173,12 @@ def listGo(request):
     cate = req['category'] # cafe, accommodation, place
     type = req['detail'] # (애견동반, 애견전용) or (공원, 명소) 등등
     # 여기서 data 처리해서 반환해주세요
-    print(req,loc,cate,type)
     if cate == 'cafe': 
         # cafes = Cafe.objects.filter(Q(location=loc) & Q(type=type))
         cafes=Cafe.objects.filter(Q(location=loc) & Q(type=type))
         tempCafe = []
         for i in range(len(cafes)):
             tempCafe.append(cafeToDictionary(cafes[i]))
-        print(cafes)
         list = tempCafe
     elif cate == 'accomodation':
         accomos = Accomodation.objects.filter(Q(location=loc) & Q(type=type))
@@ -193,25 +198,14 @@ def listGo(request):
     return JsonResponse(data)
     
 
-## 상세페이지 부분 입니다. (cafeDetail, accommoDetail, placeDetail)
-def cafeDetail(request, id):
-    cafe = Cafe.objects.get(id=id)
-    reviews = cafe.cafe_post.all() # 역참조한건데 제대로 되나 test 해봐야 함
-    category = 'cafe'
-    context = { "cafe":cafe, "reviews":reviews, "id":id, "category":category }
-    return render(request, 'cafeDetail.html', context=context)
+# def cafeDetail(request, id):
+#     cafe = Cafe.objects.get(id=id)
+#     reviews = cafe.cafe_post.all() # 역참조한건데 제대로 되나 test 해봐야 함
+#     category = 'cafe'
+#     context = { "cafe":cafe, "reviews":reviews, "id":id, "category":category }
+#     return render(request, 'cafeDetail.html', context=context)
     
-def accommoDetail(request, id):
-    accomo = Accomodation.objects.get(id=id)
-    reviews = accomo.accomo_post.all() # 역참조한건데 제대로 되나 test 해봐야 함
-    context = { "accomo":accomo, "reviews":reviews }
-    return render(request, 'accommoDetail.html', context=context)
 
-def placeDetail(request, id):
-    place = Place.objects.get(id=id)
-    reviews = place.place_post.all() # 역참조한건데 제대로 되나 test 해봐야 함
-    context = { "place":place, "reviews":reviews }
-    return render(request, 'playDetail.html', context=context)
 
 ## 멍초이스 (post) 부분
 
