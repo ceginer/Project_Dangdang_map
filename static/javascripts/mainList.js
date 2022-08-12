@@ -1,3 +1,116 @@
+//home.html부분
+
+const requestHomeLeft = new XMLHttpRequest();
+const onClickHomeLeft = () => {
+  requestHomeLeft.open("POST", "/btn_left/", true);
+  requestHomeLeft.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+  requestHomeLeft.send(JSON.stringify({}));
+};
+
+requestHomeLeft.onreadystatechange = () => {
+  if (requestHomeLeft.readyState === XMLHttpRequest.DONE) {
+    if (requestHomeLeft.status <= 400) {
+      let element = document.querySelector("#num"); 
+      let count = Number(element.innerHTML) - 1; 
+      
+      if (count == -1) {
+        count = 2
+      }
+      else {
+        count %= 2
+      }
+
+      element.innerHTML = `${count}`;
+      
+      if (count == 0) {
+        const locationSet = document.querySelector(".shift-locations");
+        locationSet.innerHTML = `<div class="home_location"><a href="/cities/서울">서울</a></div>
+        <div class="home_location"><a href="/cities/경기">경기</a></div>
+        <div class="home_location"><a href="/cities/인천">인천</a></div>
+        <div class="home_location"><a href="/cities/강원">강원</a></div>
+        <div class="home_location"><a href="/cities/충북">충북</a></div>
+        <div class="home_location"><a href="/cities/충남">충남</a></div>`
+        const page = document.querySelector(".page_dot");
+        page.innerHTML ='<img src="/static/img/page_1.svg" alt="">'
+      }
+      else if (count == 1) {
+        const locationSet = document.querySelector(".shift-locations");
+        locationSet.innerHTML = `<div class="home_location"><a href="/cities/대전">대전</a></div>
+        <div class="home_location"><a href="/cities/경북">경북</a></div>
+        <div class="home_location"><a href="/cities/경남">경남</a></div>
+        <div class="home_location"><a href="/cities/대구">대구</a></div>
+        <div class="home_location"><a href="/cities/울산">울산</a></div>
+        <div class="home_location"><a href="/cities/부산">부산</a></div>`
+        const page = document.querySelector(".page_dot");
+        page.innerHTML ='<img src="/static/img/page_2.svg" alt="">'
+      }
+      else {
+        const locationSet = document.querySelector(".shift-locations");
+        locationSet.innerHTML = `<div class="home_location"><a href="/cities/광주">광주</a></div>
+        <div class="home_location"><a href="/cities/전북">전북</a></div>
+        <div class="home_location"><a href="/cities/전남">전남</a></div>
+        <div class="home_location"><a href="/cities/제주">제주</a></div>`
+        const page = document.querySelector(".page_dot");
+        page.innerHTML ='<img src="/static/img/page_3.svg" alt="">'
+      }
+    }
+  }
+};
+
+const requestHomeRight = new XMLHttpRequest();
+const onClickHomeRight = () => {
+  requestHomeRight.open("POST", "/btn_right/", true);
+  requestHomeRight.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+  requestHomeRight.send(JSON.stringify({}));
+};
+
+requestHomeRight.onreadystatechange = () => {
+  if (requestHomeRight.readyState === XMLHttpRequest.DONE) {
+    if (requestHomeRight.status <= 400) {
+      let element = document.querySelector("#num"); 
+      let count = Number(element.innerHTML) + 1; 
+
+      count %= 3
+      
+      element.innerHTML = `${count}`;
+
+      if (count == 0) {
+        const locationSet = document.querySelector(".shift-locations");
+        locationSet.innerHTML = `<div class="home_location"><a href="/cities/서울">서울</a></div>
+        <div class="home_location"><a href="/cities/경기">경기</a></div>
+        <div class="home_location"><a href="/cities/인천">인천</a></div>
+        <div class="home_location"><a href="/cities/강원">강원</a></div>
+        <div class="home_location"><a href="/cities/충북">충북</a></div>
+        <div class="home_location"><a href="/cities/충남">충남</a></div>`
+        const page = document.querySelector(".page_dot");
+        page.innerHTML ='<img src="/static/img/page_1.svg" alt="">'
+      }
+      else if (count == 1) {
+        const locationSet = document.querySelector(".shift-locations");
+        locationSet.innerHTML = `<div class="home_location"><a href="/cities/대전">대전</a></div>
+        <div class="home_location"><a href="/cities/경북">경북</a></div>
+        <div class="home_location"><a href="/cities/경남">경남</a></div>
+        <div class="home_location"><a href="/cities/대구">대구</a></div>
+        <div class="home_location"><a href="/cities/울산">울산</a></div>
+        <div class="home_location"><a href="/cities/부산">부산</a></div>`
+        const page = document.querySelector(".page_dot");
+        page.innerHTML ='<img src="/static/img/page_2.svg" alt="">'
+      }
+      else {
+        const locationSet = document.querySelector(".shift-locations");
+        locationSet.innerHTML = `<div class="home_location"><a href="/cities/광주">광주</a></div>
+        <div class="home_location"><a href="/cities/전북">전북</a></div>
+        <div class="home_location"><a href="/cities/전남">전남</a></div>
+        <div class="home_location"><a href="/cities/제주">제주</a></div>`
+        const page = document.querySelector(".page_dot");
+        page.innerHTML ='<img src="/static/img/page_3.svg" alt="">'
+      }
+    }
+  }
+};
+
+
+
 // mainList.html 부분
 const requestGo = new XMLHttpRequest();
 const onClickGo = () => {
@@ -98,12 +211,12 @@ requestCate.onreadystatechange = () => {
 
       if (cate == "카페") {
         detailBox.innerHTML = `<div class="cate-selected">${cate} 세부사항을 선택하세요!</div><form action="">
-  <div>
+  <label>
     <input type="radio" name="detail" value="애견전용" />애견전용
-  </div>
-  <div>
+  </label>
+  <label>
     <input type="radio" name="detail" value="애견동반" />애견동반
-  </div>
+  </label>
 </form>`;
       } else if (cate == "숙소") {
         detailBox.innerHTML = `<div class="cate-selected">${cate} 세부사항을 선택하세요!</div><form action="">
@@ -213,5 +326,66 @@ requestLike.onreadystatechange = () => {
     const i = element.querySelector(".like button i");
     i.classList.toggle("fas");
     i.classList.toggle("far");
+  }
+};
+
+//main.html부분
+const requestMainList = new XMLHttpRequest();
+const onClickMainList = (direction) => {
+  requestMainList.open("POST", "/btn_main/", true);
+  requestMainList.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+  requestMainList.send(JSON.stringify({direction: direction}));
+};
+
+requestMainList.onreadystatechange = () => {
+  if (requestMainList.readyState === XMLHttpRequest.DONE) {
+    if (requestMainList.status <= 400) {
+      const {direction} = JSON.parse(requestMainList.response); 
+      let element = document.querySelector("#page-num"); 
+      let count = Number(element.innerHTML)
+      if (direction === "left") {
+        count -= 1;
+      }
+      else {
+        count += 1;
+      }
+
+      if (count == -1) {
+        count = 0
+      }
+
+      let start = count * 5 + 1;
+      let end = start + 4;
+
+      element.innerHTML = `${count}`;
+      
+      const locationSet = document.querySelector(".list-indexing");
+      if (start = 1) {
+        locationSet.innerHTML =`{% for place in list%}
+    {% if 1 <= forloop.counter and forloop.counter <= 5  %}
+    <div class="list-box-right">
+      <div class="img-box"><img src="" alt="" /></div>
+      <div class="accom-text-box">
+        <h1>
+          <a href="/{{category}}/{{place.id}}" class="name">{{place.name}}</a>
+        </h1>
+        <span class="type">{{place.type}}</span>
+        <h3 class="phone">{{place.phone}}</h3>
+        <div class="favorite" id="favorite-{{favorite.id}}">
+          <div class="like">
+            <button type="submit" onclick="onClickLike()">
+              {% csrf_token %} {% if favorite.like %}
+              <i class="fas fa-heart"></i>
+              {%else%}
+              <i class="far fa-heart"></i>
+              {%endif%}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endif %}{% endfor %}`;
+      }
+    }
   }
 };

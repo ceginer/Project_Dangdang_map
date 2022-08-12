@@ -10,9 +10,7 @@ app_name = "dang"
 
 urlpatterns = [
   path('', views.home, name='home'),
-  path('cafe', views.cafeList, name='cafeList'), # 메인 -> (nav) 클릭
-  path('place', views.placeList, name='placeList'), # 메인 -> (nav) 클릭
-  path('accomo', views.accomoList, name='accomoList'), # 메인 -> (nav) 클릭
+  path('<str:location>', views.navToList, name='navToList'), # 메인 -> (nav) cate클릭
   path('medical', views.medicalList, name='medicalList'), # 메인 -> (nav) 응급댕댕
   path('cates/', views.cates, name='cates'), # category 선택 ajax
   path('locationBtn/', views.locationBtn, name='locationBtn'), # 지역 고르기 ajax
@@ -29,6 +27,8 @@ urlpatterns = [
   path('like/', views.like, name='like'),
   path('btn_left/', views.btn_left, name='btn_left'), #ajax - 어디로 떠날까요
   path('btn_right/', views.btn_right, name='btn_right'), # ajax - 어디로 떠날까요
+  path('btn_main/', views.btn_main, name='btn_main'), #ajax - mainList 항목 버튼
+  
   path('create/<str:category>/<int:categry_id>', views.create, name='create'),  # 멍초이스 작성페이지
   path('delete/<int:id>', views.delete, name="delete"), # post 삭제
   path('update/<int:id>', views.update, name="update"), # post 수정

@@ -6,7 +6,7 @@ from django.shortcuts import render, redirect,HttpResponse, get_object_or_404
 from django.db.models import Q
 import csv
 from .models import Favorite, User, Post, Cafe, Place, Accomodation, Medical
-
+from django.core.paginator import Paginator
 from .forms import PostForm
 
 
@@ -44,7 +44,6 @@ def join(request):
                 password = request.POST['password1'],
                 email = request.POST['email'],
             )
-
             auth.login(request, user)
             return redirect('/')
         return render (request, 'join.html')
@@ -68,23 +67,22 @@ def home(request):
 
     return render(request,'home.html', context=context)
 
-def cafeList(request):
-    only_cate_cafe=Cafe.objects.filter(Q(location='서울')&Q(type='애견동반'))
-    category = 'cafe'
-    context = { "category" : "cafe", "location" : NULL, 'list' : only_cate_cafe,'category':category}
+
+def navToList(request, location):
+    if location == 'cafe':
+        filteredLocation=Cafe.objects.filter(Q(location='서울')&Q(type='애견동반'))
+    elif location == 'place':
+        filteredLocation=Place.objects.filter(Q(location='서울')&Q(type='명소'))
+    elif location == 'accomo':
+        filteredLocation=Accomodation.objects.filter(Q(location='서울')&Q(type='호텔'))
+
+    paginator = Paginator(filteredLocation, 5)
+    page = request.GET.get('page')
+    posts = paginator.get_page(page)
+
+    context = { 'location' : location, 'posts': posts}
     return render(request, 'mainList.html', context=context)
 
-def placeList(request):
-    only_cate_place=Place.objects.filter(Q(location='서울')& Q(type='명소'))
-    category = 'place'
-    context = { "category" : "place", "location" : NULL, 'list' : only_cate_place,'category':category}
-    return render(request, 'mainList.html', context=context)
-
-def accomoList(request):
-    only_cate_accom=Accomodation.objects.filter(Q(location='서울')& Q(type='호텔'))
-    category = 'accommo'
-    context = { "category" : "accomo", "location" : NULL , 'list' : only_cate_accom,'category':category}
-    return render(request, 'mainList.html', context=context)
 
 
 def mainList(request, location): # main에서 지역 선택했을 때
@@ -116,6 +114,12 @@ def btn_left(request):
 @csrf_exempt
 def btn_right(request):
     return JsonResponse({})
+
+@csrf_exempt
+def btn_main(request):
+    req = json.loads(request.body) 
+    direction = req['direction']
+    return JsonResponse({'direction': direction})
 
 
 ## list page에서 ajax 처리했을 때
@@ -320,4 +324,6 @@ def reviewDetail(request, id):
     context = {'review':review, 'place':placeInfo}
 
     return render(request, 'reviewDetail.html', context=context)
+
+
 
