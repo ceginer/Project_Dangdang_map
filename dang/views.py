@@ -58,16 +58,21 @@ def mypage(request):
     return render(request, 'mypage.html')
 
 # 임시로 만들어 둔 지역 list입니다. 나중에 db로 대체하든, 얘기해봐요..
-locationDic = {'seoul':'서울','gyeongi':'경기','incheon':'인천','gangwon':'강원','chungbuk':'충북','chungnam':'충남','deajeon':'대전','sejong':'세종','jeonbuk':'전북','jeonnam':'전남','gwangju':'광주','gyeongbuk':'경북','gyeongnam':'경남','daegu':'대구','ulsan':'울산','busan':'부산','daejeon':'대전','jeju':'제주' }
+locationDic = {'seoul':'서울','gyeongi':'경기','incheon':'인천','gangwon':'강원','chungbuk':'충북','chungnam':'충남','deajeon':'대전','sejong':'세종','jeonbuk':'전북','jeonnam':'전남','gwangju':'광주','gyeongbuk':'경북','gyeongnam':'경남','daegu':'대구','ulsan':'울산','busan':'부산','jeju':'제주' }
 
 def home(request):
     locationList = locationDic.values()
     context = { "locationList" : locationList }
     return render(request,'home.html', context=context)
 
-# nav바에서 카테고리 눌렀을 때
-def navToList(request, category, location, type):
+# 메인페이지 리스팅
+def toMainList(request, category, location, type):
     filteredLocation = 'nothing_yet'
+    locations = locationDic.values()
+    if request.method == "POST":
+        location = request.POST["location"]
+        category = request.POST["category"]
+        type = request.POST["type"]
     if category == 'cafe':
         filteredLocation=Cafe.objects.filter(Q(location=location)&Q(type=type))
     elif category == 'place':
@@ -81,7 +86,7 @@ def navToList(request, category, location, type):
     page = request.GET.get('page')
     posts = paginator.get_page(page)
 
-    context = {'category': category ,'posts': posts}
+    context = {'category': category ,'location': location,'locations': locations, 'type': type,'posts': posts}
     return render(request, 'mainList.html', context=context)
 
 ## mainList 목록눌렀을때 상세페이지로 이동 (listDetail.html)
@@ -157,38 +162,16 @@ def placeToDictionary(list):
 
 ## list page에서 ajax 처리했을 때
 # 수정 필요: 용어? 통일
-@csrf_exempt
-def listGo(request):
-    req = json.loads(request.body)
-    loc = req['location'] # 강원,경기,제주 등등 17개 도
-    cate = req['category'] # cafe, accommodation, place
-    type = req['detail'] # (애견동반, 애견전용) or (공원, 명소) 등등
-    # 여기서 data 처리해서 반환해주세요
-    if cate == 'cafe': 
-        # cafes = Cafe.objects.filter(Q(location=loc) & Q(type=type))
-        cafes=Cafe.objects.filter(Q(location=loc) & Q(type=type))
-        tempCafe = []
-        for i in range(len(cafes)):
-            tempCafe.append(cafeToDictionary(cafes[i]))
-        list = tempCafe
-    elif cate == 'accomodation':
-        accomos = Accomodation.objects.filter(Q(location=loc) & Q(type=type))
-        tempAccomo = []
-        for i in range(len(accomos)):
-            tempAccomo.append(placeToDictionary(accomos[i]))
-        list = tempAccomo
-    elif cate == 'place':
-        places = Place.objects.filter(Q(location=loc) & Q(type=type))
-        tempPlace = []
-        for i in range(len(places)):
-            tempPlace.append(placeToDictionary(places[i]))
-        list = tempPlace
-
-    data = {'list':list}
-    # 아래는 test용 JsonResponse 입니다. 수정필요
-    return JsonResponse(data)
+# @csrf_exempt
+# def listGo(request):
+#     req = json.loads(request.body)
+#     location = req['location'] # 강원,경기,제주 등등 17개 도
+#     category = req['category'] # cafe, accommodation, place
+#     type = req['detail'] # (애견동반, 애견전용) or (공원, 명소) 등등
+#     data = {'location':location, 'category':category, 'type':type}
+#     return JsonResponse(data)
     
-
+# 아래는 test용 JsonResponse 입니다. 수정필요
 # def cafeDetail(request, id):
 #     cafe = Cafe.objects.get(id=id)
 #     reviews = cafe.cafe_post.all() # 역참조한건데 제대로 되나 test 해봐야 함

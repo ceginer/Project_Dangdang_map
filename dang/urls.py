@@ -10,11 +10,9 @@ app_name = "dang"
 
 urlpatterns = [
   path('', views.home, name='home'),
-  path('<str:category>/<str:location>/<str:type>', views.navToList, name='navToList'), # 메인 -> (nav) 카테고리
+  path('list/<str:category>/<str:location>/<str:type>', views.toMainList, name='toMainList'), # 메인 -> (nav) 카테고리
   path('medical/list', views.medicalList, name='medicalList'), # 메인 -> (nav) 응급댕댕
   path('cates/', views.cates, name='cates'), # category 선택 ajax
-  path('listGo/', views.listGo, name='listGo'), # 선택 적용 ajax
-  path('cities/<str:location>', views.mainList, name='mainList'), # 메인 -> 지역 선택
   path('csvToModel', views.csvToModel, name='csvToModel'), # db 설정용 url
   path('detail/<str:category>/<int:id>', views.listDetail, name='listDetail'), #목록상세페이지
   path('login/', views.login, name='login'),

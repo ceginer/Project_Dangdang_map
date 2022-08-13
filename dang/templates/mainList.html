@@ -1,45 +1,101 @@
 {% extends "base.html" %} {% block content %}
 <div class="mainList">
   <div class="left">
-    <div class="selected-location">서울</div>
-    <div class="left-cate">
-      <button class="small-category" onclick="onClickCate(`카페`)">멍카페</button>
-      <button class="small-category" onclick="onClickCate(`숙소`)">멍숙소</button>
-      <button class="small-category" onclick="onClickCate(`장소`)">멍놀자</button>
-    </div>
-    <form action="" class="inner-form-list">
-      <label class="area-label"><input type="radio" name="location" value="서울" id="area-name"/>서울</label>
-      <label class="area-label"><input type="radio" name="location" value="경기" id="area-name"/>경기</label>
-      <label class="area-label"><input type="radio" name="location" value="인천" id="area-name"/>인천</label>
-      <label class="area-label"><input type="radio" name="location" value="강원" id="area-name"/>강원</label>
-      <label class="area-label"><input type="radio" name="location" value="충북" id="area-name"/>충북</label>
-      <label class="area-label"><input type="radio" name="location" value="충남" id="area-name"/>충남</label>
-      <label class="area-label"><input type="radio" name="location" value="대전" id="area-name"/>대전</label>
-      <label class="area-label"><input type="radio" name="location" value="세종" id="area-name"/>세종</label>
-      <label class="area-label"><input type="radio" name="location" value="전북" id="area-name"/>전북</label>
-      <label class="area-label"><input type="radio" name="location" value="전남" id="area-name"/>전남</label>
-      <label class="area-label"><input type="radio" name="location" value="광주" id="area-name"/>광주</label>
-      <label class="area-label"><input type="radio" name="location" value="경북" id="area-name"/>경북</label>
-      <label class="area-label"><input type="radio" name="location" value="경남" id="area-name"/>경남</label>
-      <label class="area-label"><input type="radio" name="location" value="대구" id="area-name"/>대구</label>
-      <label class="area-label"><input type="radio" name="location" value="울산" id="area-name"/>울산</label>
-      <label class="area-label"><input type="radio" name="location" value="부산" id="area-name"/>부산</label>
-      <label class="area-label"><input type="radio" name="location" value="제주" id="area-name"/>제주</label>
-    </form>
-    <div class="selected-category">카페 세부옵션</div>
-    <form class="option-box" action="" >
-      <div class="option-col">      
-        <label>
-          <input type="radio" name="detail" value="애견전용" />애견전용
-        </label>
-        <label>
-          <input type="radio" name="detail" value="애견동반" />애견동반
-        </label>
+    <form action="/list/cafe/서울/애견동반" method="post">
+      {% csrf_token %}
+      <div class="selected-location">{{location}}</div>
+      <fieldset id="group1">
+        <div class="left-cate">
+          <label class="small-category" onclick="onClickCate(`카페`)">
+            멍카페
+            {% if category == "cafe" %}
+            <input type="radio" name="category" value="cafe" id="form-category" checked/>
+            {% else %}
+            <input type="radio" name="category" value="cafe" id="form-category" />
+            {% endif %}
+          </label>
+          <label class="small-category" onclick="onClickCate(`숙소`)">
+            멍숙소
+            {% if category == "accomo" %}
+            <input type="radio" name="category" value="accomo" id="form-category" checked/>
+            {% else %}
+            <input type="radio" name="category" value="accomo" id="form-category"/>
+            {% endif %}
+          </label>
+          <label class="small-category" onclick="onClickCate(`장소`)">
+            멍놀자
+            {% if category == "place" %}
+            <input type="radio" name="category" value="place" id="form-category" checked/>
+            {% else %}
+            <input type="radio" name="category" value="place" id="form-category"/>
+            {% endif %}
+          </label>
+        </div>
+      </fieldset>
+      <fieldset id="group2">
+        <div class="form-location">
+          {% for loc in locations %}
+            {% if loc == location %}
+              <label class="area-label"><input type="radio" name="location" value="{{loc}}" id="area-name" checked/>{{loc}}</label>
+            {% else %}
+              <label class="area-label"><input type="radio" name="location" value="{{loc}}" id="area-name"/>{{loc}}</label>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </fieldset>
+      <div class="selected-category">카페 세부옵션</div>
+      <fieldset id="group2">
+        <div class="option-box">
+          {% if category == "cafe" %}
+            <div class="option-col">
+              <label>
+                <input type="radio" name="type" value="애견전용" />애견전용
+              </label>
+              <label>
+                <input type="radio" name="type" value="애견동반" checked/>애견동반
+              </label>
+            </div>
+          {% elif category == "accomo" %}
+            <div class="option-col">
+              <label>
+                <input type="radio" name="type" value="호텔" checked/>호텔
+              </label>
+              <label>
+                <input type="radio" name="type" value="모텔" />모텔
+              </label>
+            </div>
+            <div class="option-col">  
+              <label>
+                <input type="radio" name="type" value="리조트" />리조트
+              </label>
+              <label>
+                <input type="radio" name="type" value="펜션" />펜션
+              </label>
+            </div>
+          {% elif category == "place" %}
+            <div class="option-col"> 
+              <label>
+                <input type="radio" name="type" value="공원"/>공원
+              </label>
+              <label>
+                <input type="radio" name="type" value="수영장" />수영장
+              </label>
+            </div>   
+            <div class="option-col">      
+              <label>
+                <input type="radio" name="type" value="해변" />해변
+              </label>
+              <label>
+              <input type="radio" name="type" value="명소" checked/>명소
+              </label>
+            </div>
+          {% endif %}
+        </div>
+      </fieldset>     
+      <div>
+        <button type="submit" value="SUBMIT">검색</button>
       </div>
     </form>
-    <div>
-      <button onclick="onClickGo()" class="left-btns">검색</button>
-    </div>
   </div>
   <div class="right">
     <div class="list">

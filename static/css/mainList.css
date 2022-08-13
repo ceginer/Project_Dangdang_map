@@ -59,7 +59,7 @@
   width: 350px;
 }
 
-.mainList .inner-form-list {
+.mainList .form-location {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
@@ -72,7 +72,7 @@
   background-color: white;
 }
 
-.mainList .inner-form-list input[type=radio] {
+.mainList .input[type=radio] {
   display: none;
 }
 

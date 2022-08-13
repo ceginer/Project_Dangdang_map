@@ -33,31 +33,31 @@ requestHomeLeft.onreadystatechange = () => {
       if (count == 0) {
         const locationSet = document.querySelector(".shift-locations");
         locationSet.innerHTML = `<div class="home_location"><a href="/cities/서울">서울</a></div>
-        <div class="home_location"><a href="/cities/경기">경기</a></div>
-        <div class="home_location"><a href="/cities/인천">인천</a></div>
-        <div class="home_location"><a href="/cities/강원">강원</a></div>
-        <div class="home_location"><a href="/cities/충북">충북</a></div>
-        <div class="home_location"><a href="/cities/충남">충남</a></div>`
+        <div class="home_location"><a href="/list/cafe/경기/애견동반">경기</a></div>
+        <div class="home_location"><a href="/list/cafe/인천/애견동반">인천</a></div>
+        <div class="home_location"><a href="/list/cafe/강원/애견동반">강원</a></div>
+        <div class="home_location"><a href="/list/cafe/충북/애견동반">충북</a></div>
+        <div class="home_location"><a href="/list/cafe/충남/애견동반">충남</a></div>`
         const page = document.querySelector(".page_dot");
         page.innerHTML ='<img src="/static/img/page_1.svg" alt="">'
       }
       else if (count == 1) {
         const locationSet = document.querySelector(".shift-locations");
         locationSet.innerHTML = `<div class="home_location"><a href="/cities/대전">대전</a></div>
-        <div class="home_location"><a href="/cities/경북">경북</a></div>
-        <div class="home_location"><a href="/cities/경남">경남</a></div>
-        <div class="home_location"><a href="/cities/대구">대구</a></div>
-        <div class="home_location"><a href="/cities/울산">울산</a></div>
-        <div class="home_location"><a href="/cities/부산">부산</a></div>`
+        <div class="home_location"><a href="/list/cafe/경북/애견동반">경북</a></div>
+        <div class="home_location"><a href="/list/cafe/경남/애견동반">경남</a></div>
+        <div class="home_location"><a href="/list/cafe/대구/애견동반">대구</a></div>
+        <div class="home_location"><a href="/list/cafe/울산/애견동반">울산</a></div>
+        <div class="home_location"><a href="/list/cafe/부산/애견동반">부산</a></div>`
         const page = document.querySelector(".page_dot");
         page.innerHTML ='<img src="/static/img/page_2.svg" alt="">'
       }
       else {
         const locationSet = document.querySelector(".shift-locations");
         locationSet.innerHTML = `<div class="home_location"><a href="/cities/광주">광주</a></div>
-        <div class="home_location"><a href="/cities/전북">전북</a></div>
-        <div class="home_location"><a href="/cities/전남">전남</a></div>
-        <div class="home_location"><a href="/cities/제주">제주</a></div>`
+        <div class="home_location"><a href="/list/cafe/전북/애견동반">전북</a></div>
+        <div class="home_location"><a href="/list/cafe/전남/애견동반">전남</a></div>
+        <div class="home_location"><a href="/list/cafe/제주/애견동반">제주</a></div>`
         const page = document.querySelector(".page_dot");
         page.innerHTML ='<img src="/static/img/page_3.svg" alt="">'
       }
@@ -66,83 +66,6 @@ requestHomeLeft.onreadystatechange = () => {
 };
 
 // mainList.html 부분
-const requestGo = new XMLHttpRequest();
-const onClickGo = () => {
-  requestGo.open("POST", "/listGo/", true);
-  requestGo.setRequestHeader(
-    "Content-Type",
-    "application/x-www-form-urlencoded"
-  );
-  var location, category, detail;
-  const locList = document.getElementsByName("location"); //장소
-  locList.forEach((loc) => {
-    if (loc.checked) {
-      location = loc.value;
-    }
-  });
-
-  const cateSelected = document.querySelector(".selected-category").innerHTML; //카테고리
-  if (cateSelected.includes("카페")) {
-    category = "cafe";
-  } else if (cateSelected.includes("숙소")) {
-    category = "accomodation";
-  } else if (cateSelected.includes("장소")) {
-    category = "place";
-  }
-  const detailList = document.getElementsByName("detail"); //세부 옵션
-  detailList.forEach((d) => {
-    if (d.checked) {
-      detail = d.value;
-    }
-  });
-  requestGo.send(
-    JSON.stringify({ location: location, category: category, detail: detail })
-  );
-};
-
-requestGo.onreadystatechange = () => {
-  if (requestGo.readyState === XMLHttpRequest.DONE) {
-    if (requestGo.status < 400) {
-      test = document.querySelector(".right");
-      test.innerHTML = "";
-      const { list } = JSON.parse(requestGo.response);
-      console.log(list);
-      for (var i = 0; i < list.length; i++) {
-        const add = document.createElement("div");
-        add.classList.add("list-box");
-        add.innerHTML = `${list[i]["name"]} ${list[i]["address"]} ${list[i]["phone"]}`;
-        test.append(add);
-      }
-    }
-  }
-};
-// const { list } = JSON.parse(requestGo.response);
-//       test = document.querySelector(".right");
-
-//       test.appned('p')
-//       list.forEach((place) => {
-//         const add = document.createElement('p');
-//         test.append(add)
-//       });
-//
-const requestLoc = new XMLHttpRequest();
-
-const onClickLocation = (location) => {
-  requestLoc.open("POST", "/locations/", true);
-  requestLoc.setRequestHeader(
-    "Content-Type",
-    "application/x-www-form-urlencoded"
-  );
-  requestLoc.send(JSON.stringify({ location: location }));
-};
-
-requestLoc.onreadystatechange = () => {
-  if (requestLoc.readyState === XMLHttpRequest.DONE) {
-    if (requestLoc.status < 400) {
-      //  views.py/locations 에서 보내준 data 화면에 뿌리기
-    }
-  }
-};
 
 // 멍카페, 멍숙소, 멍놀자 세부선택 ajax 처리
 const requestCate = new XMLHttpRequest();
@@ -159,48 +82,51 @@ requestCate.onreadystatechange = () => {
   if (requestCate.readyState === XMLHttpRequest.DONE) {
     if (requestCate.status < 400) {
       const { cate } = JSON.parse(requestCate.response);
-      const detailBox = document.querySelector(".option-box");
       const locName = document.querySelector(".selected-category");
       locName.innerHTML = `${cate} 세부옵션`;
-
+      const detailBox = document.querySelector(".option-box");
       if (cate == "카페") {
         detailBox.innerHTML = `<div class="option-col">
     <label>
-      <input type="radio" name="detail" value="애견전용" />애견전용
+      <input type="radio" name="type" value="애견전용" />애견전용
     </label>
     <label>
-      <input type="radio" name="detail" value="애견동반" />애견동반
+      <input type="radio" name="type" value="애견동반" checked/>애견동반
     </label>
   </div>`;
       } else if (cate == "숙소") {
         detailBox.innerHTML = `<div class="option-col">
         <label>
-          <input type="radio" name="detail" value="호텔" />호텔
+          <input type="radio" name="type" value="호텔" checked/>호텔
         </label>
         <label>
-          <input type="radio" name="detail" value="모텔" />모텔
+          <input type="radio" name="type" value="모텔" />모텔
         </label>
         </div>
         <div class="option-col">
         <label>
-          <input type="radio" name="detail" value="리조트" />리조트
+          <input type="radio" name="type" value="리조트" />리조트
         </label>
         <label>
-          <input type="radio" name="detail" value="펜션" />펜션
+          <input type="radio" name="type" value="펜션" />펜션
         </label>
       </div>`;
       } else if (cate == "장소") {
         detailBox.innerHTML = `<div class="option-col">
-    <label>
-      <input type="radio" name="detail" value="공원" />공원
-    </label>
-    <label>
-      <input type="radio" name="detail" value="수영장" />수영장
-    </label>  
-  </div>
-  <label>
-    <input type="radio" name="detail" value="해변" />해변
-  </label>`;
+        <label>
+          <input type="radio" name="type" value="공원"/>공원
+        </label>
+        <label>
+          <input type="radio" name="type" value="수영장" />수영장
+        </label>  
+      </div>
+      <div class="option-col">
+      <label>
+        <input type="radio" name="type" value="해변" />해변
+      </label>
+      <label>
+      <input type="radio" name="type" value="명소" checked/>명소
+      </label></div>`;
       }
     }
   }
