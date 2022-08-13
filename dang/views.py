@@ -45,7 +45,7 @@ def join(request):
                 email = request.POST['email'],
             )
 
-            auth.login(request, user)
+            auth.login(request, user, backend='django.contrib.auth.backends.ModelBackend')
             return redirect('/')
         return render (request, 'join.html')
     return render (request, 'join.html')
