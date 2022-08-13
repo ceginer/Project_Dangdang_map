@@ -1,12 +1,16 @@
 from asyncio.windows_events import NULL
 from http.client import HTTPResponse
+from re import template
 from unicodedata import category
-from django.shortcuts import render, redirect,HttpResponse
+from django.shortcuts import render, redirect,HttpResponse, get_object_or_404
 from django.db.models import Q
 import csv
-from .models import Favorite, User, Post, Cafe, Place, Accomodation, Medical, Location
+from .models import Favorite, User, Post, Cafe, Place, Accomodation, Medical
+
+from .forms import PostForm
 
 
+from django.core import serializers
 import json
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -16,7 +20,6 @@ from django.contrib.auth.models import User
 from django.contrib import auth
 # Create your views here.
 
-from .models import User, Location, Cafe, Place, Accomodation, Medical, Post
 
 def login(request):
 
@@ -66,48 +69,28 @@ def home(request):
     return render(request,'home.html', context=context)
 
 def cafeList(request):
-    #
     only_cate_cafe=Cafe.objects.filter(Q(location='서울')&Q(type='애견동반'))
-    context = { "category" : "cafe", "location" : NULL, 'list' : only_cate_cafe}
-    #
-    #
+    category = 'cafe'
+    context = { "category" : "cafe", "location" : NULL, 'list' : only_cate_cafe,'category':category}
     return render(request, 'mainList.html', context=context)
 
 def placeList(request):
-    #
     only_cate_place=Place.objects.filter(Q(location='서울')& Q(type='명소'))
-    context = { "category" : "place", "location" : NULL, 'list' : only_cate_place}
-    #
-    #
+    category = 'place'
+    context = { "category" : "place", "location" : NULL, 'list' : only_cate_place,'category':category}
     return render(request, 'mainList.html', context=context)
 
 def accomoList(request):
-    #
     only_cate_accom=Accomodation.objects.filter(Q(location='서울')& Q(type='호텔'))
-    context = { "category" : "accomo", "location" : NULL , 'list' : only_cate_accom}
-    #
-    #
+    category = 'accommo'
+    context = { "category" : "accomo", "location" : NULL , 'list' : only_cate_accom,'category':category}
     return render(request, 'mainList.html', context=context)
 
-def detail(request):
-    #
-    #
-    #
-    return render(request, 'detail.html')
-
-def mainList(request):
-    #
-    context = { "category" : "medical", "location" : NULL }
-    #
-    #
-    return render(request, 'medicalList.html', context=context)
 
 def mainList(request, location): # main에서 지역 선택했을 때
-    #
     only_loc= Cafe.objects.filter(Q(location=location)& Q(type='애견동반'))
-    context = { "location" : location, 'list' : only_loc }
-    #
-    #
+    category = 'cafe'
+    context = { "location" : location, 'list' : only_loc ,'category':category}
     return render(request, 'mainList.html', context=context)
 
 def medicalList(request): # main에서 지역 선택했을 때
@@ -126,6 +109,14 @@ def cates(request):
 def locationBtn(request):
     return JsonResponse({})
 
+@csrf_exempt
+def btn_left(request):
+    return JsonResponse({})
+
+@csrf_exempt
+def btn_right(request):
+    return JsonResponse({})
+
 
 ## list page에서 ajax 처리했을 때
 # 수정 필요: 용어? 통일
@@ -136,27 +127,61 @@ def listGo(request):
     cate = req['category'] # cafe, accommodation, place
     type = req['detail'] # (애견동반, 애견전용) or (공원, 명소) 등등
 
+    if cate == 'cafe':
+        list= Cafe.objects.filter(Q(location=loc)& Q(type=type))
+    elif cate == 'accomodation':
+        list= Accomodation.objects.filter(Q(location=loc)& Q(type=type))
+    elif cate == 'place':
+        list= Place.objects.filter(Q(location=loc)& Q(type=type))
 
-    # 아래는 test용 JsonResponse 입니다. 수정필요
-    # return JsonResponse(context)
+    lists = serializers.serialize('json',list)
+    return JsonResponse({'list':lists})
 
 ## 상세페이지 부분 입니다. (cafeDetail, accommoDetail, placeDetail)
 def cafeDetail(request, id):
     cafe = Cafe.objects.get(id=id)
-    context = { "cafe":cafe }
+    reviews = cafe.cafe_post.all() # 역참조한건데 제대로 되나 test 해봐야 함
+    category = 'cafe'
+    context = { "cafe":cafe, "reviews":reviews, "id":id, "category":category }
     return render(request, 'cafeDetail.html', context=context)
     
 def accommoDetail(request, id):
     accomo = Accomodation.objects.get(id=id)
-    context = { "accomo":accomo }
+    reviews = accomo.accomo_post.all() # 역참조한건데 제대로 되나 test 해봐야 함
+    context = { "accomo":accomo, "reviews":reviews }
     return render(request, 'accommoDetail.html', context=context)
 
 def placeDetail(request, id):
     place = Place.objects.get(id=id)
-    context = { "place":place }
-    return render(request, 'placeDetail.html', context=context)
+    reviews = place.place_post.all() # 역참조한건데 제대로 되나 test 해봐야 함
+    context = { "place":place, "reviews":reviews }
+    return render(request, 'playDetail.html', context=context)
 
+## 멍초이스 (post) 부분
 
+def delete(request, id):
+    Post.objects.filter(id=id).delete()
+    return redirect("/") # 삭제하고 나면 어디로 보낼까요?
+
+def update(request, id): # url수정하기
+    post = get_object_or_404(Post, pk=id)
+    if request.method == "POST":
+        form = PostForm(request.POST, instance=post)
+        if form.is_valid():
+            post=form.save()
+            post.save()
+        
+            # if 문으로 어떤 카테고리인지 체크 -> cafe라면 accomo, place는 null 값이기 때문에
+            if post.cafe:
+                cate = 'cafe'
+            elif post.place:
+                cate = 'place'
+            elif post.accomo:
+                cate = 'accomo'
+
+            return redirect(f"/post/{cate}/{id}")
+    form = PostForm(instance=post)
+    return render(request, "무슨무슨.html", {'form':form})
 
 
 ### db에 csv 파일 넣는 함수입니다.
@@ -196,14 +221,25 @@ def csvToModel(request):
 
     return HttpResponse('create model~')
 
-from .models import Post
-from .forms import PostForm
-        ##즐겨찾기 기능
+    ##### 멍초이스 작성
 
-#views.py
+def create(request, category, categry_id):
+    if category == "cafe":
+        post = Cafe.objects.get(id=categry_id)
+    if category == "accommo":
+        post = Accomodation.objects.get(id=categry_id)
+    if category == "place":
+        post = Place.objects.get(id=categry_id)
 
-#좋아요기능
-
+    if request.method == "POST":
+        form = PostForm(request.POST)
+        if form.is_valid():
+            post=form.save()
+            post.save()
+            return redirect('/${category}/${categry_id}')
+    else:
+        form=PostForm()
+    return render(request, 'reviewWrite.html', {'form':form , 'post':post})
 
 
 
@@ -214,7 +250,22 @@ def like(request):
     favorite = Favorite.objects.get(id=fav_id)
     if favorite.like == True:
         favorite.like = False
-    elif favorite.like == False:
         favorite.like = True
-    favorite.save()
+    elif favorite.like == False:
+        favorite.save()
     return JsonResponse({'id':fav_id, 'type' : favorite.like})
+
+def reviewDetail(request, id):
+    review = Post.objects.get(id=id)
+
+    if review.cafe_post: # 역참조 test 해봐야 함. 안 될 수도
+        placeInfo = review.cafe_post.all()
+    elif review.place_post:
+        placeInfo = review.place_post.all()
+    elif review.accomo_post:
+        placeInfo = review.accomo_post.all()
+    
+    context = {'review':review, 'place':placeInfo}
+
+    return render(request, 'reviewDetail.html', context=context)
+

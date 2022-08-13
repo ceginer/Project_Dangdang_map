@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import User, Post, Cafe, Place, Accomodation, Medical, Location
+from .models import User, Post, Cafe, Place, Accomodation, Medical
 
 # Register your models here.
 @admin.register(User)
@@ -24,8 +24,4 @@ class AccomodationAdmin(admin.ModelAdmin):
 
 @admin.register(Medical)
 class MedicalAdmin(admin.ModelAdmin):
-    pass
-
-@admin.register(Location)
-class LocationAdmin(admin.ModelAdmin):
     pass

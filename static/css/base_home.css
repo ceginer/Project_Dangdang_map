@@ -39,24 +39,57 @@ a {
 /* home.html */
 
 .container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: auto;
   background-color: rgba(255, 240, 161, 1);
 }
 
+.banner img{
+  object-fit: cover;
+  margin: 20px 0 0 0;
+}
+
+.page_dot {
+  padding: 30px;
+}
+
+.where_to_leave {
+  text-align: left;
+  width: 100%;
+  padding: 70px 220px 0;
+  font-size: xx-large;
+}
 .home_location_list {
   display: flex;
-  justify-content: space-around;
+  justify-content: left;
   align-items: center;
-  height: 30vh;
+  width: 100%;
+  gap: 2rem;
+  padding: 50px 150px 0 150px;
 }
+
+.home_location {
+  width: 151px;
+  height: 151px;
+}
+
 .shift-locations {
   display: flex;
-  justify-content: space-around;
+  justify-content: left;
   align-items: center;
-  gap: 1rem;
+  width: 100%;
+  gap: 2rem;
+  padding: 0;
 }
 
 .home_location {
   border: 1px solid rgb(102, 97, 97);
+}
+
+#num {
+  display:none
 }
 
 .home_best_container {
@@ -82,3 +115,146 @@ a {
 
 /* mainList.html */
 
+/* mypage.html */
+.Like_ls{
+  position: relative;
+  text-align: center;
+  color: rgb(255, 255, 255);
+  padding-bottom: 30px;
+}
+
+.Like_title{
+  position: absolute;
+  top: 43px;
+  left: 140px;
+  font-size: 1.5rem;
+  background-color: #BDDFFF;
+  padding: 14px;
+  border: 3px solid rgb(9, 9, 9);
+  margin: 3px;
+  border-radius: 5px;
+
+}
+
+.myReview_ls{
+  position: relative;
+  text-align: center;
+  color: rgb(255, 255, 255);
+  padding-bottom: 50px;
+}
+
+.myReview_title{
+  position: absolute;
+  top: 43px;
+  left: 140px;
+  font-size: 1.5rem;
+  background-color: #BDDFFF;
+  padding: 14px;
+  border: 3px solid rgb(9, 9, 9);
+  margin: 3px;
+  border-radius: 5px;
+}
+
+/* Login.html */
+.log_in{
+  position: relative;
+  text-align: left;
+  color: rgb(26, 26, 26);
+  padding-bottom: 30px;
+  background-color: #FFF0A1;
+}
+
+.login_form{
+  position: absolute;
+  top: 250px;
+  right: 300px;
+  font-size: 1.5rem;
+  font-family: 'Dongle', sans-serif;
+}
+.log_in h1 {
+  position: absolute;
+  top: 200px;
+  right: 450px;
+  font-family: 'Dongle', sans-serif;
+  font-size: 3rem;
+}
+
+input[type=text], input[type=password] {
+  width: 354px;
+  padding: 12px 5px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 3px solid rgb(11, 11, 11);
+  box-sizing: border-box;
+  border-radius: 5px;
+}
+
+input[type=submit] {
+  width: 30%;
+  padding: 5px 3px;
+  margin: 2px 0;
+  display: inline-block;
+  border: 3px solid rgb(11, 11, 11);
+  box-sizing: border-box;
+  border-radius: 5px;
+  font-family: 'Dongle', sans-serif;
+  font-size: 1.5rem;
+}
+
+/* join.html */
+body {
+  background-color: #FFF0A1;
+}
+
+.sign_up{
+  position: relative;
+  text-align: left;
+  color: rgb(26, 26, 26);
+  padding-bottom: 30px;
+  background-color: #FFF0A1;
+}
+
+.join_form{
+  position: absolute;
+  top: 200px;
+  right: 300px;
+  font-size: 1.5rem;
+  font-family: 'Dongle', sans-serif;
+}
+
+.sign_up h2 {
+  position: absolute;
+  top: 150px;
+  right: 450px;
+  font-family: 'Dongle', sans-serif;
+  font-size: 3rem;
+}
+
+
+input[type=text], input[type=password], input[type=email] {
+  width: 354px;
+  padding: 12px 5px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 3px solid rgb(11, 11, 11);
+  box-sizing: border-box;
+  border-radius: 5px;
+}
+
+input[type=submit] {
+  width: 30%;
+  padding: 5px 3px;
+  margin: 2px 0;
+  display: inline-block;
+  border: 3px solid rgb(11, 11, 11);
+  box-sizing: border-box;
+  border-radius: 5px;
+  font-family: 'Dongle', sans-serif;
+  font-size: 1.5rem;
+}
+
+p1{
+  position: absolute;
+  top: 300px;
+  right: 5px;
+}
