@@ -27,31 +27,31 @@
   height: 58.92px;
   justify-content: center;
   gap: 1rem;
-  padding: 15px 7px;
+  padding: 8px 7px 20px 7px;
   background-color: rgba(255, 240, 161, 1);
   background-image: url(/static/img/Group.svg);
   background-size: cover;
   background-position: center;
   margin: 20px 0 0 15px;
-  padding: 10px;
 }
 
-.mainList .cate-cafe:hover {
-  background-image: url("/static/img/1key.svg");
-  background-size: cover;
-  background-position: center;
+.mainList .small-category {
+  cursor: pointer;
+  box-sizing: border-box;
+  border: 2px solid #000000;
+  border-radius: 10px;
+  background-color: white;
+  padding: 5px;
+  width: 80px;
+  text-align: center;
 }
 
-.mainList .cate-accomo:hover {
-  background-image: url("/static/img/2key.svg");
-  background-size: cover;
-  background-position: center;
+.mainList .small-category:hover {
+  background-color: rgba(255, 240, 161, 1);
 }
 
-.mainList .cate-place:hover {
-  background-image: url("/static/img/3key.svg");
-  background-size: cover;
-  background-position: center;
+.mainList .small-category:focus {
+  background-color: rgba(255, 240, 161, 1);
 }
 
 .mainList .left-location {
@@ -80,9 +80,36 @@
   cursor: pointer;
   box-sizing: border-box;
   border: 2px solid #000000;
-  border-radius: 10px;
+  border-radius: 15px;
   background-color: white;
+  width: 59px;
   padding: 5px;
+  text-align: center;
+}
+
+.mainList .area-label:hover {
+  background-color: rgba(255, 240, 161, 1);
+}
+/* 외안되 */
+.mainList .area-label:focus {
+  background-color: rgba(255, 240, 161, 1);
+}
+
+.mainList .option-box {
+  display: flex;
+  background-color: white;
+  border: 1px #000000;
+  border-style: dashed;
+  flex-direction: row;
+  padding: 20px 40px;
+  margin: 0 10px;
+  gap: 10rem;
+}
+
+.mainList .option-col {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 .mainList .right {

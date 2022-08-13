@@ -8,7 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="{% static 'css/reset.css' %}">
   <link rel="stylesheet" href="{% static 'css/base_home.css' %}" />
-  <link rel="stylesheet" href="{% static 'css/mainList.css' %}?v=4.0" />
+  <link rel="stylesheet" href="{% static 'css/mainList.css' %}?v=6.2" />
   <script src="https://kit.fontawesome.com/a8a24f1fa9.js" crossorigin="anonymous"></script>
   <title>대동멍지도</title>
 </head>
@@ -18,10 +18,10 @@
     <div class="navbar-container">
       <div class="category-container">
         <a href="/"><img src="\static\img\dmj_logo.svg" alt=""></a>
-        <a href="/accomo">멍숙소</a>
-        <a href="/cafe">멍카페</a>
-        <a href="/place">멍놀자</a>
-        <a href="/medical"><img src="\static\img\Medical.svg" alt=""></a>
+        <a href="/cafe/서울/애견동반">멍카페</a>
+        <a href="/accomo/서울/호텔">멍숙소</a>
+        <a href="/place/서울/명소">멍놀자</a>
+        <a href="/medical/list"><img src="\static\img\Medical.svg" alt=""></a>
       </div>
       <div class="login-container">
         {% if user.is_authenticated %}
@@ -36,7 +36,7 @@
   </header>
   {% block content %} {% endblock %}
 
-  <script type="text/javascript" src="{% static 'javascripts/mainList.js' %}?v=2.5"></script>
+  <script type="text/javascript" src="{% static 'javascripts/mainList.js' %}?v=3.7"></script>
 </body>
 
 </html>

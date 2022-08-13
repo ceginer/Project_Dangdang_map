@@ -66,15 +66,18 @@ def home(request):
     return render(request,'home.html', context=context)
 
 # nav바에서 카테고리 눌렀을 때
-def navToList(request, category):
+def navToList(request, category, location, type):
+    filteredLocation = 'nothing_yet'
     if category == 'cafe':
-        filteredLocation=Cafe.objects.filter(Q(location='서울')&Q(type='애견동반'))
+        filteredLocation=Cafe.objects.filter(Q(location=location)&Q(type=type))
     elif category == 'place':
-        filteredLocation=Place.objects.filter(Q(location='서울')&Q(type='명소'))
+        filteredLocation=Place.objects.filter(Q(location=location)&Q(type=type))
     elif category == 'accomo':
-        filteredLocation=Accomodation.objects.filter(Q(location='서울')&Q(type='호텔'))
-
-    paginator = Paginator(filteredLocation, 5)
+        filteredLocation=Accomodation.objects.filter(Q(location=location)&Q(type=type))
+    try:
+        paginator = Paginator(filteredLocation, 5)
+    except:
+        pass
     page = request.GET.get('page')
     posts = paginator.get_page(page)
 
@@ -109,18 +112,6 @@ def cates(request):
     req = json.loads(request.body)
     cate = req['cate'] # 카페, 숙소, 장소
     return JsonResponse({'cate' : cate})
-
-@csrf_exempt
-def locationBtn(request):
-    return JsonResponse({})
-
-@csrf_exempt
-def btn_left(request):
-    return JsonResponse({})
-
-@csrf_exempt
-def btn_right(request):
-    return JsonResponse({})
 
 @csrf_exempt
 def btn_main(request):

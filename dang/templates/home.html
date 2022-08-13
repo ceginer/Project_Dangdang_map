@@ -4,7 +4,7 @@
   <div class="where_to_leave">어디로 떠날까요?</div>
   <div class="home_location_list">
     <div class="shift-btn-left">
-      <img src="\static\img\left.svg" onclick="onClickHomeLeft()" alt="">
+      <img src="\static\img\left.svg" onclick="onClickHome('left')" alt="">
     </div>
       <div class="shift-locations">
         <div class="home_location"><a href="/cities/서울">서울</a></div>
@@ -15,7 +15,7 @@
         <div class="home_location"><a href="/cities/충남">충남</a></div>
       </div>
     <div class="shift-btn-right">
-      <img src="\static\img\right.svg" onclick="onClickHomeRight()" alt="">
+      <img src="\static\img\right.svg" onclick="onClickHome('right')" alt="">
     </div>
   </div>
   <div id="num">0</div>
@@ -24,7 +24,7 @@
     <div>베스트 장소</div>
     <div class="home_best_list">
       <div class="shift-btn">
-        <button onclick="onClickLeft()">&lt;</button>
+        <button onclick="onClickLeft('left')">&lt;</button>
       </div>
       <form action="" id="location-select">
         <div class="best_shift_lists">
@@ -49,7 +49,7 @@
         </div>
       </form>
       <div class="shift-btn">
-        <button onclick="onClickRight()">&gt;</button>
+        <button onclick="onClickRight('right')">&gt;</button>
       </div>
     </div>
   </div>
