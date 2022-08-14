@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,29 +9,31 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Dongle:wght@400;700&display=swap" rel="stylesheet">
-    
+
 </head>
+
 <body>
     {% extends 'base.html'%}
     {% load socialaccount %}
     {% block content %}
-    <div class = log_in>
+    <div class=log_in>
         <h1>Login</h1>
-        <div class = "login_form">
+        <div class="login_form">
             <form method="POST">
                 {% csrf_token %}
                 id: <br>
-                <input name = "username" type = "text">
+                <input name="username" type="text">
                 <br>
                 password: <br>
-                <input name = "password" type = "password">
+                <input name="password" type="password">
                 <br><br>
-                <input type = "submit" class= btn value = "Login">
-                <p1><a href ="{% provider_login_url 'google' %}"><img src="\static\img\google_login.svg" alt=""></a></p1>
+                <input type="submit" class=btn value="Login">
+                <p1><a href="{% provider_login_url 'google' %}"><img src="\static\img\google_login.svg" alt=""></a></p1>
             </form>
         </div>
-        <div style="text-align: center;"><img src = "\static\img\login_sq.svg" alt=""></div>
+        <div style="text-align: center;"><img src="\static\img\login_sq.svg" alt=""></div>
     </div>
     {% endblock %}
 </body>
+
 </html>

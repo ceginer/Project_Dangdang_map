@@ -1,87 +1,143 @@
 {% extends "base.html" %} {% block content %}
 <div class="mainList">
-  <div class="list-box">
-    <div class="left">
-      <div class="left-cate">
-        <div class="cate-cafe" onclick="onClickCate(`카페`)">
-          <img src="\static\img\key.svg" width="78px" alt="" />
+  <div class="left">
+    <form action="/list/cafe/서울/애견동반" method="post">
+      {% csrf_token %}
+      <div class="selected-location">{{location}}</div>
+      <fieldset id="group1">
+        <div class="left-cate">
+          <label class="small-category" onclick="onClickCate(`카페`)">
+            멍카페
+            {% if category == "cafe" %}
+            <input type="radio" name="category" value="cafe" id="form-category" checked />
+            {% else %}
+            <input type="radio" name="category" value="cafe" id="form-category" />
+            {% endif %}
+          </label>
+          <label class="small-category" onclick="onClickCate(`숙소`)">
+            멍숙소
+            {% if category == "accomo" %}
+            <input type="radio" name="category" value="accomo" id="form-category" checked />
+            {% else %}
+            <input type="radio" name="category" value="accomo" id="form-category" />
+            {% endif %}
+          </label>
+          <label class="small-category" onclick="onClickCate(`장소`)">
+            멍놀자
+            {% if category == "place" %}
+            <input type="radio" name="category" value="place" id="form-category" checked />
+            {% else %}
+            <input type="radio" name="category" value="place" id="form-category" />
+            {% endif %}
+          </label>
         </div>
-        <div class="cate-accomo" onclick="onClickCate(`숙소`)">
-          <img src="\static\img\key2.svg" width="78px" alt="" />
+      </fieldset>
+      <fieldset id="group2">
+        <div class="form-location">
+          {% for loc in locations %}
+          {% if loc == location %}
+          <label class="area-label"><input type="radio" name="location" value="{{loc}}" id="area-name"
+              checked />{{loc}}</label>
+          {% else %}
+          <label class="area-label"><input type="radio" name="location" value="{{loc}}" id="area-name" />{{loc}}</label>
+          {% endif %}
+          {% endfor %}
         </div>
-        <div class="cate-place" onclick="onClickCate(`장소`)">
-          <img src="\static\img\key3.svg" width="78px" alt="" />
-        </div>
-      </div>
-
-      <div class="left-location">
-        <div class="left-location-list">
-          <!-- {% for location in locations %}
-          <div class="list-location" onclick="onClickLocation({{location.name}})">
-            {{location.name}}
+      </fieldset>
+      <div class="selected-category">카페 세부옵션</div>
+      <fieldset id="group2">
+        <div class="option-box">
+          {% if category == "cafe" %}
+          <div class="option-col">
+            <label>
+              <input type="radio" name="type" value="애견전용" />애견전용
+            </label>
+            <label>
+              <input type="radio" name="type" value="애견동반" checked />애견동반
+            </label>
           </div>
-          {% endfor %} -->
-          <form action="" id="location-select">
-            <!-- 여기 생각해봐야함 list로 넘겨줘서 for문 돌릴지 아님 그냥 이렇게 일일이 할지? -->
-            <div><input type="radio" name="location" value="서울" />서울</div>
-            <div><input type="radio" name="location" value="경기" />경기</div>
-            <div><input type="radio" name="location" value="인천" />인천</div>
-            <div><input type="radio" name="location" value="강원" />강원</div>
-            <div><input type="radio" name="location" value="충북" />충북</div>
-            <div><input type="radio" name="location" value="충남" />충남</div>
-            <div><input type="radio" name="location" value="대전" />대전</div>
-            <div><input type="radio" name="location" value="세종" />세종</div>
-            <div><input type="radio" name="location" value="전북" />전북</div>
-
-            <!-- <div><input type="radio" name="location" value="jeonnam" />전남</div>
-              <div><input type="radio" name="location" value="gwangju" />광주</div>
-              <div><input type="radio" name="location" value="gyeongbuk" />경북</div>
-              <div><input type="radio" name="location" value="gyeongnam" />경남</div>
-              <div><input type="radio" name="location" value="daegu" />대구</div>
-              <div><input type="radio" name="location" value="ulsan" />울산</div>
-              <div><input type="radio" name="location" value="busan" />부산</div>
-              <div><input type="radio" name="location" value="daejeon" />대전</div>
-              <div><input type="radio" name="location" value="jeju" />제주</div> -->
-          </form>
+          {% elif category == "accomo" %}
+          <div class="option-col">
+            <label>
+              <input type="radio" name="type" value="호텔" checked />호텔
+            </label>
+            <label>
+              <input type="radio" name="type" value="모텔" />모텔
+            </label>
+          </div>
+          <div class="option-col">
+            <label>
+              <input type="radio" name="type" value="리조트" />리조트
+            </label>
+            <label>
+              <input type="radio" name="type" value="펜션" />펜션
+            </label>
+          </div>
+          {% elif category == "place" %}
+          <div class="option-col">
+            <label>
+              <input type="radio" name="type" value="공원" />공원
+            </label>
+            <label>
+              <input type="radio" name="type" value="수영장" />수영장
+            </label>
+          </div>
+          <div class="option-col">
+            <label>
+              <input type="radio" name="type" value="해변" />해변
+            </label>
+            <label>
+              <input type="radio" name="type" value="명소" checked />명소
+            </label>
+          </div>
+          {% endif %}
         </div>
-        <div class="shift-btn">
-          <button onclick="onClickLeft()">&lt;</button>
-          <button onclick="onClickRight()">&gt;</button>
-        </div>
-      </div>
-      <div id="left-detail">default로 server에서 넘겨준 값 넣어야 함!</div>
+      </fieldset>
       <div>
-        <button onclick="onClickGo()" class="left-btns">Select</button>
+        <button type="submit" value="SUBMIT">검색</button>
       </div>
-    </div>
+    </form>
   </div>
   <div class="right">
     <div class="list">
-      {% for place in list%}
-      <div class="list-box-right">
-        <div class="img-box"><img src="" alt="" /></div>
-        <div class="accom-text-box">
-          <h1>
-            <a href="/{{category}}/{{place.id}}" class="name">{{place.name}}</a>
-          </h1>
-          <span class="type">{{place.type}}</span>
-          <h3 class="phone">{{place.phone}}</h3>
-          <div class="favorite" id="favorite-{{favorite.id}}">
-            <div class="like">
-              <button type="submit" onclick="onClickLike({{ favorite.id }} )">
-                {% csrf_token %} {% if favorite.like %}
-                <i class="fas fa-heart"></i>
-                {%else%}
-                <i class="far fa-heart"></i>
-                {%endif%}
-              </button>
+      <div class="list-indexing">
+        {% for place in posts%}
+        <div class="list-box-right">
+          <div class="img-box"><img src="" alt="" /></div>
+          <div class="accom-text-box">
+            <h1>
+              <a href="/detail/{{category}}/{{place.id}}" class="name">{{place.name}}</a>
+            </h1>
+            <span class="type">{{place.type}}</span>
+            <h3 class="phone">{{place.phone}}</h3>
+            <div class="favorite" id="favorite-{{favorite.id}}">
+              <div class="like">
+                <button type="submit" onclick="onClickLike()">
+                  {% csrf_token %} {% if favorite.like %}
+                  <i class="fas fa-heart"></i>
+                  {%else%}
+                  <i class="far fa-heart"></i>
+                  {%endif%}
+                </button>
+              </div>
             </div>
           </div>
         </div>
         {% endfor %}
       </div>
+      <div class="pagination-bar">
+        {% if posts.has_previous %}
+        <a href="?page=1">[맨 앞으로]</a>
+        <a href="?page={{ posts.previous_page_number }}">[앞으로]</a>
+        {% endif %}
+        <span>{{posts.number}}</span>
+        {% if posts.has_next %}
+        <a href="?page={{ posts.next_page_number }}">[다음으로]</a>
+        <a href="?page={{ posts.paginator.num_pages }}">[맨 뒤로]</a>
+        {% endif %}
+      </div>
     </div>
   </div>
-
-  {% endblock %}
 </div>
+
+{% endblock %}

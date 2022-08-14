@@ -113,4 +113,4 @@ class Jjim(models.Model):
 #     plcae_type
 #     plcae_id
 class Favorite(models.Model):
-  like = models.BooleanField(default=False, verbose_name='찜')
+    like = models.BooleanField(default=False, verbose_name='찜')
