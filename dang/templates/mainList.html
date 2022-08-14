@@ -33,22 +33,6 @@
           <label for="form-category3" class="small-category" onclick="onClickCate(`장소`)">멍놀자</label>
         </div>
       </fieldset>
-      <fieldset id="group2">
-        <div class="form-location">
-          {% for loc in locations %}
-            {% if loc == location %}
-            <input type="radio" name="location" value="{{loc}}" id="location-{{loc}}" checked/>
-            <label for="location-{{loc}}" class="area-label">{{loc}}</label>
-            {% else %}
-            <input type="radio" name="location" value="{{loc}}" id="location-{{loc}}"/>
-            <label for="location-{{loc}}" class="area-label">{{loc}}</label>
-            {% endif %}
-          {% endfor %}
-        </div>
-      </fieldset>
-      <!-- 아래줄 동작에 필요 -->
-      <div class="selected-category">카페 옵션선택</div> 
-      <div class="selected-type">{{type}}</div>
       <fieldset id="group3">
         <div class="option-box">
           {% if category == "cafe" %}
@@ -107,6 +91,22 @@
           {% endif %}
         </div>
       </fieldset>     
+      <fieldset id="group2">
+        <div class="form-location">
+          {% for loc in locations %}
+            {% if loc == location %}
+            <input type="radio" name="location" value="{{loc}}" id="location-{{loc}}" checked/>
+            <label for="location-{{loc}}" class="area-label">{{loc}}</label>
+            {% else %}
+            <input type="radio" name="location" value="{{loc}}" id="location-{{loc}}"/>
+            <label for="location-{{loc}}" class="area-label">{{loc}}</label>
+            {% endif %}
+            {% endfor %}
+          </div>
+      </fieldset>
+      <!-- 아래줄 동작에 필요 -->
+      <div class="selected-category">카페 옵션선택</div> 
+      <div class="selected-type">{{type}}</div>
       <div>
         <button class="search-btn" type="submit" value="SUBMIT">
           SEARCH
@@ -118,38 +118,51 @@
     <div class="list">
       <div class="list-indexing">
         {% for place in posts%}
-        <div class="list-box-right">
-          <div class="img-box"><img src="" alt="" /></div>
-          <div class="accom-text-box">
-            <h1>
-              <a href="/detail/{{category}}/{{place.id}}" class="name">{{place.name}}</a>
-            </h1>
-            <span class="type">{{place.type}}</span>
-            <h3 class="phone">{{place.phone}}</h3>
-            <div class="favorite" id="favorite-{{favorite.id}}">
-              <div class="like">
-                <button type="submit" onclick="onClickLike()">
-                  {% csrf_token %} {% if favorite.like %}
-                  <i class="fas fa-heart"></i>
-                  {%else%}
-                  <i class="far fa-heart"></i>
-                  {%endif%}
-                </button>
+            <div class="list-box-right">
+              <div class="img-and-info">
+                <div class="img-box"><img src="" alt="" /></div>
+                <div class="accom-text-box">
+                  <div class="name-and-type-row">
+                    <h1>
+                      <a href="/detail/{{category}}/{{place.id}}" class="name">{{place.name}}</a>
+                    </h1>
+                    <span class="type">{{place.type}}</span>
+                  </div>
+                  <h3 class="phone">{{place.address}}</h3>
+                  <div class="ranking-star">{{place.star}}</div>
+                </div>
+              </div>
+              <div class="favorite" id="favorite-{{favorite.id}}">
+                <div class="like">
+                  <button type="submit" onclick="onClickLike()">
+                    {% csrf_token %} {% if favorite.like %}
+                    <i class="fas fa-heart"></i>
+                    {%else%}
+                    <i class="far fa-heart"></i>
+                    {%endif%}
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
         {% endfor %}
       </div>
       <div class="pagination-bar">
         {% if posts.has_previous %}
-        <a href="?page=1">[맨 앞으로]</a>
-        <a href="?page={{ posts.previous_page_number }}">[앞으로]</a>
+        <!-- <a href="?page=1">[맨 앞으로]</a> -->
+        <a href="?page={{ posts.previous_page_number }}">
+          <img src="/static/img/main_left.svg" alt="">
+        </a>
+        {% else %}
+        <div><img src="/static/img/main_left.svg" alt=""></div>
         {% endif %}
-        <span>{{posts.number}}</span>
+        <span class="square"><div>{{posts.number}}</div></span>
         {% if posts.has_next %}
-        <a href="?page={{ posts.next_page_number }}">[다음으로]</a>
-        <a href="?page={{ posts.paginator.num_pages }}">[맨 뒤로]</a>
+        <a href="?page={{ posts.next_page_number }}">
+          <img src="/static/img/main_right.svg" alt="">
+        </a>
+        {% else %}
+        <div><img src="/static/img/main_right.svg" alt=""></div>
+        <!-- <a href="?page={{ posts.paginator.num_pages }}">[맨 뒤로]</a> -->
         {% endif %}
       </div>
     </div>

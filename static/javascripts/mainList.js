@@ -13,9 +13,8 @@ requestHomeLeft.onreadystatechange = () => {
       const {direction} = JSON.parse(requestHomeLeft.response); 
       let element = document.querySelector("#num"); 
       let count = Number(element.innerHTML); 
-      
       if (direction == "left") {
-        count -= -1;
+        count -= 1;
         if (count == -1) {
           count = 2
         }
@@ -48,14 +47,14 @@ requestHomeLeft.onreadystatechange = () => {
         <div class="home_location"><a href="/list/cafe/경북/애견동반">경북</a></div>
         <div class="home_location"><a href="/list/cafe/경남/애견동반">경남</a></div>
         <div class="home_location"><a href="/list/cafe/대구/애견동반">대구</a></div>
-        <div class="home_location"><a href="/list/cafe/울산/애견동반">울산</a></div>
-        <div class="home_location"><a href="/list/cafe/부산/애견동반">부산</a></div>`
+        <div class="home_location"><a href="/list/cafe/울산/애견동반">울산</a></div>`
         const page = document.querySelector(".page_dot");
         page.innerHTML ='<img src="/static/img/page_2.svg" alt="">'
       }
       else {
         const locationSet = document.querySelector(".shift-locations");
-        locationSet.innerHTML = `<div class="home_location"><a href="/list/cafe/광주/애견동반">광주</a></div>
+        locationSet.innerHTML = `<div class="home_location"><a href="/list/cafe/부산/애견동반">부산</a></div>
+        <div class="home_location"><a href="/list/cafe/광주/애견동반">광주</a></div>
         <div class="home_location"><a href="/list/cafe/전북/애견동반">전북</a></div>
         <div class="home_location"><a href="/list/cafe/전남/애견동반">전남</a></div>
         <div class="home_location"><a href="/list/cafe/제주/애견동반">제주</a></div>`
@@ -142,7 +141,7 @@ requestCate.onreadystatechange = () => {
     }
   }
 };
-// 타입 체크박스 체크상태 변경
+// 새로 고침시 타입 체크박스 체크상태 변경
 const selectedType = document.querySelector(".selected-type").innerHTML;
 const changeType = document.getElementsByName("type");
 changeType.forEach((type) => {
