@@ -16,24 +16,75 @@
   margin: 0 50px;
 }
 
+/* 반응형 나중에 수정 */
 .mainList .left {
-  width: 420px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 420px; 
   margin: 0 100px;
+}
+
+.mainList .left-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.mainList .location-header-row-box {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 348px;
+  height: 120px;
+  justify-content: center;
+  background-image: url(/static/img/select_location.svg);
+  background-size: cover;
+  background-position: center;
+  margin: 0 0 5px 10px;
+  padding: 0 0 10px 0;
+}
+
+.mainList .location-img {
+  width: 75px;
+  height: 75px;
+  border: #000000 solid 1px;
+}
+
+.mainList .location-text-col-box {
+  display: flex;
+  flex-direction: column;
+  padding: 0 0 0 15px;
+  gap: 0.5rem;
+}
+
+.mainList .location-text-col-box .selected-location {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #000000;
+}
+
+.mainList .location-text-col-box .fighting {
+  line-height: normal;
 }
 
 .mainList .left-cate {
   display: flex;
-  width: 351px;
+  width: 356px;
   height: 58.92px;
   justify-content: center;
-  gap: 1rem;
-  padding: 8px 7px 20px 7px;
-  background-color: rgba(255, 240, 161, 1);
-  background-image: url(/static/img/Group.svg);
+  gap: 1.5rem;
+  padding: 10px 0 20px 0;
+  background-image: url(/static/img/Group2.svg);
   background-size: cover;
   background-position: center;
-  margin: 20px 0 0 15px;
+  margin: 10px 0 0 5px;
 }
+
+.mainList input[type="radio"] {
+  display:none;
+}
+
 
 .mainList .small-category {
   cursor: pointer;
@@ -41,17 +92,22 @@
   border: 2px solid #000000;
   border-radius: 10px;
   background-color: white;
+  box-shadow: 2px 2px 3px#c2bbbb;
   padding: 5px;
   width: 80px;
   text-align: center;
 }
 
-.mainList .small-category:hover {
-  background-color: rgba(255, 240, 161, 1);
+.mainList input[type="radio"]:checked + .small-category,
+.mainList input[type="radio"]:checked + .area-label {
+  background-color: rgb(255 211 124);
+  font-weight: bold;
 }
 
-.mainList .small-category:focus {
+.mainList .small-category:hover,
+.mainList .area-label:hover {
   background-color: rgba(255, 240, 161, 1);
+  font-weight: bold;
 }
 
 .mainList .left-location {
@@ -68,13 +124,10 @@
   gap: 1rem;
   border: 2px solid #000000;
   border-radius: 30px;
-  margin: 30px;
+  margin: 10px 0 20px 0;
   background-color: white;
 }
 
-.mainList .input[type=radio] {
-  display: none;
-}
 
 .mainList .area-label {
   cursor: pointer;
@@ -82,28 +135,52 @@
   border: 2px solid #000000;
   border-radius: 15px;
   background-color: white;
+  box-shadow: 2px 2px 3px#c2bbbb;
   width: 59px;
   padding: 5px;
   text-align: center;
 }
 
-.mainList .area-label:hover {
-  background-color: rgba(255, 240, 161, 1);
-}
-/* 외안되 */
-.mainList .area-label:focus {
-  background-color: rgba(255, 240, 161, 1);
+.mainList .selected-type { 
+  display: none;
 }
 
+.mainList .selected-category {
+  display: none;
+  width: 350px;
+  border: #d6d6d6 solid 2px;
+  border-radius: 8px;
+  background: #f7f7f7;
+  text-align: center;
+  padding: 10px;
+  font-weight: 700;
+  font-size: large;
+}
+
+
 .mainList .option-box {
+  background-image: url(/static/img/category_box.svg);
   display: flex;
-  background-color: white;
-  border: 1px #000000;
-  border-style: dashed;
+  width: 300px;
+  height: 90px;
   flex-direction: row;
   padding: 20px 40px;
-  margin: 0 10px;
-  gap: 10rem;
+  margin: 5px 10px;
+  gap: 4rem;
+}
+
+.mainList .option-col span {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin: -5px 10px 0 0;
+  vertical-align: middle;
+  background-image: url(/static/img/notchecked.svg);
+  cursor: pointer;
+}
+
+.mainList .option-box input[type="radio"]:checked + span {
+  background-image: url(/static/img/checked.svg);
 }
 
 .mainList .option-col {
@@ -112,13 +189,39 @@
   gap: 1rem;
 }
 
+.mainList .type-menu:hover {
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.mainList .search-btn {
+  width: 100px;
+  height: 30px;
+  border: none;
+  box-shadow: 2px 2px 3px#c2bbbb;
+  font-size: medium;
+  padding: 2px 0 0 0;
+  background: #fbfbfb;
+  border-radius: 7px;
+  cursor: pointer;
+}
+
+.mainList .search-btn:hover {
+  background-color: rgb(255 211 124);
+}
+
 .mainList .right {
-  margin: 20px 50px;
+  margin: 0 50px;
+}
+
+.mainList .img-and-info{
+  display: flex;
+  justify-content: left;
 }
 
 .mainList .list-box-right {
   display: flex;
-  justify-content: left;
+  justify-content: space-between;
   width: 802px;
   height: 100px;
   margin: 1rem 1.2rem 0 1rem;
@@ -127,26 +230,48 @@
 }
 
 .mainList .img-box {
-  width: 100px;
-  height: 100%;
-  margin: 0 30px 0 0;
+  width: 90px;
+  height: 90px;
+  margin: 5px 50px 5px 5px;
+  border: 1px solid #000000;
 }
 
 .mainList .accom-text-box {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  gap: 0.5rem;
+}
+
+.mainList .accom-text-box .name-and-type-row {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+}
+
+.mainList .accom-text-box h1 .name {
+  font-size: large;
+  font-weight: bold;
+}
+
+.mainList .accom-text-box .type {
+  color: gray;
 }
 
 .mainList .list {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   width: 844px;
-
+  height: 620px;
   box-sizing: border-box;
   border: 3px solid #000000;
   border-radius: 20px;
   background-color: white;
+}
+
+.mainList .favorite .like {
+  padding: 10px;
 }
 
 .page-shift-container {
@@ -160,6 +285,32 @@
 .pagination-bar {
   display: flex;
   justify-content: center;
+  padding: 3px 0 0 0;
+}
+
+.pagination-bar a img,
+.pagination-bar img,
+.pagination-bar a:nth-child(2) img,
+.pagination-bar img:nth-child(2) {
+
+  width: 30px;
+  height: 30x;
+  margin: 0 5px;
+  object-fit: cover;
+  cursor: pointer;
+}
+
+.mainList .square {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url(/static/img/paginator_square.svg);
+  background-size: cover;
+  width: 30px;
+  height: 30px;
+  margin: 0 100px;
+  text-align: center;
+  font-size: large;
 }
 
 /* .mainList .left-btns {

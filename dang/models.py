@@ -20,6 +20,7 @@ class Cafe(models.Model):
     location = models.CharField(max_length=100)
     address= models.CharField(max_length=100)
     phone= models.CharField(max_length=100, null=True)
+    star = models.CharField(max_length=100, null=True)
     type= models.CharField(max_length=100, null=True)
     menuInfo = models.TextField(null=True)
     hourInfo = models.TextField(null=True)
