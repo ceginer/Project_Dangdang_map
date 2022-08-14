@@ -43,7 +43,8 @@ requestHomeLeft.onreadystatechange = () => {
       }
       else if (count == 1) {
         const locationSet = document.querySelector(".shift-locations");
-        locationSet.innerHTML = `<div class="home_location"><a href="/list/cafe/대전">대전</a></div>
+        locationSet.innerHTML = `<div class="home_location"><a href="/list/cafe/대전/애견동반">대전</a></div>
+        <div class="home_location"><a href="/list/cafe/세종/애견동반">세종</a></div>
         <div class="home_location"><a href="/list/cafe/경북/애견동반">경북</a></div>
         <div class="home_location"><a href="/list/cafe/경남/애견동반">경남</a></div>
         <div class="home_location"><a href="/list/cafe/대구/애견동반">대구</a></div>
@@ -88,49 +89,60 @@ requestCate.onreadystatechange = () => {
       if (cate == "카페") {
         detailBox.innerHTML = `<div class="option-col">
     <label>
-      <input type="radio" name="type" value="애견전용" />애견전용
+      <input type="radio" name="type" value="애견전용" />
+      <span></span>애견전용
     </label>
     <label>
-      <input type="radio" name="type" value="애견동반" checked/>애견동반
+      <input type="radio" name="type" value="애견동반" checked/>
+      <span></span>애견동반
     </label>
   </div>`;
       } else if (cate == "숙소") {
         detailBox.innerHTML = `<div class="option-col">
         <label>
-          <input type="radio" name="type" value="호텔" checked/>호텔
+          <input type="radio" name="type" value="호텔" />
+          <span></span>호텔
         </label>
         <label>
-          <input type="radio" name="type" value="모텔" />모텔
+          <input type="radio" name="type" value="모텔" />
+          <span></span>모텔
         </label>
         </div>
         <div class="option-col">
         <label>
-          <input type="radio" name="type" value="리조트" />리조트
+          <input type="radio" name="type" value="리조트" />
+          <span></span>리조트
         </label>
         <label>
-          <input type="radio" name="type" value="펜션" />펜션
+          <input type="radio" name="type" value="펜션" checked/>
+          <span></span>펜션
         </label>
       </div>`;
       } else if (cate == "장소") {
         detailBox.innerHTML = `<div class="option-col">
         <label>
-          <input type="radio" name="type" value="공원"/>공원
+          <input type="radio" name="type" value="공원"/>
+          <span></span>공원
         </label>
         <label>
-          <input type="radio" name="type" value="수영장" />수영장
+          <input type="radio" name="type" value="수영장" />
+          <span></span>수영장
         </label>  
       </div>
       <div class="option-col">
       <label>
-        <input type="radio" name="type" value="해변" />해변
+        <input type="radio" name="type" value="해변" />
+        <span></span>해변
       </label>
       <label>
-      <input type="radio" name="type" value="명소" checked/>명소
+      <input type="radio" name="type" value="명소" checked/>
+      <span></span>명소
       </label></div>`;
       }
     }
   }
 };
+// 타입 체크박스 체크상태 변경
 const selectedType = document.querySelector(".selected-type").innerHTML;
 const changeType = document.getElementsByName("type");
 changeType.forEach((type) => {
