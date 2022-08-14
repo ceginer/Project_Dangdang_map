@@ -1,0 +1,39 @@
+.detail-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  background-color: white;
+}
+
+.detail-container .photo-container {
+  display: flex;
+  justify-content: left;
+  gap: 1rem;
+}
+
+.detail-container .detail-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.detail-container .place-detail-info{
+  display: flex;
+  flex-direction: row;
+}
+
+.detail-container .detail-info .info-text-box{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* .detail-container .detail-map {
+
+} */
+
+.detail-container .detail-review {
+  display: flex;
+  flex-direction: column;
+}

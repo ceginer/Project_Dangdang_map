@@ -1,29 +1,67 @@
+<!-- {% load static %} -->
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>임시 home</title>
-</head>
-<body>
-    {% load socialaccount %}
-    {% block content %}
-    <div id = "main">
-        <nav>
-            <a href ="/"></a>
-            <ul>
-                {% if user.is_authenticated %}
-                    <a href = "/logout"><li>로그아웃</li></a>
 
-                {% else %}
-                    <a href ="/login"><li>로그인</li></a>
-                    <a href ="/join"><li>회원가입</li></a>
-                    <a href ="{% provider_login_url 'google' %}"><li>구글 로그인</li></a>
-                {% endif %}
-            </ul>
-        </nav>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="{% static 'css/reset.css' %}">
+  <link rel="stylesheet" href="{% static 'css/base_home.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/mainList.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/cafeDetail.css' %}" />
+  <script src="https://kit.fontawesome.com/a8a24f1fa9.js" crossorigin="anonymous"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dongle:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
+  <title>대동멍지도</title>
+</head>
+
+<body>
+  <header>
+    <div class="navbar-container">
+      <div class="category-container">
+        <a href="/"><img src="\static\img\dmj_logo.svg" alt=""></a>
+        <a href="/list/cafe/서울/애견동반">멍카페</a>
+        <a href="/list/accomo/서울/호텔">멍숙소</a>
+        <a href="/list/place/서울/명소">멍놀자</a>
+        <a href="/medical/list"><img src="\static\img\Medical.svg" alt=""></a>
+      </div>
+      <div class="login-container">
+        {% if user.is_authenticated %}
+        <a href="/logout">로그아웃</a>
+        {% else %}
+        <a href="/join/"><img src="\static\img\Join.svg" alt=""></a>
+        <a href="/login/"><img src="\static\img\SignIn.svg" alt=""></a>
+        {% endif %}
+        <a href="/mypage/"><img src="\static\img\MyPage.svg" alt=""></a>
+      </div>
     </div>
-    {% endblock %}
+  </header>
+  {% block content %} {% endblock %}
+
+  <script type="text/javascript" src="{% static 'javascripts/mainList.js' %}?v=4.5"></script>
 </body>
+
+<footer>
+  <div class="footer-container">
+    <div class="footer-logo">
+      <img src="\static\img\footer_LOGO.png" alt="">
+    </div>
+    <div class ="footer_text">
+      <h1>TEAM.</h1> <br>
+      <h2> Pirogramming17</h2> <br>
+      <p>Project Manager. Jang_MyungJi</p><br>
+      <p>FRONTEND</p>
+      <h3>Kim_HanSeo</h3>
+      <h4>Kim_HunDo</h4> 
+      <h5>Jang_MyungJi</h5><br>
+      <p>BACKEND</p>
+      <h6>SonByeongWoo</h6>
+      <h7> Jeon_Sunny</h7>
+    </div>
+  </div>
+</footer>
+
 </html>
