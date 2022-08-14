@@ -87,53 +87,53 @@ requestCate.onreadystatechange = () => {
       const detailBox = document.querySelector(".option-box");
       if (cate == "카페") {
         detailBox.innerHTML = `<div class="option-col">
-    <label>
+    <label class="type-menu">
       <input type="radio" name="type" value="애견전용" />
       <span></span>애견전용
     </label>
-    <label>
+    <label class="type-menu">
       <input type="radio" name="type" value="애견동반" checked/>
       <span></span>애견동반
     </label>
   </div>`;
       } else if (cate == "숙소") {
         detailBox.innerHTML = `<div class="option-col">
-        <label>
+        <label class="type-menu">
           <input type="radio" name="type" value="호텔" />
           <span></span>호텔
         </label>
-        <label>
+        <label class="type-menu">
           <input type="radio" name="type" value="모텔" />
           <span></span>모텔
         </label>
         </div>
         <div class="option-col">
-        <label>
+        <label class="type-menu">
           <input type="radio" name="type" value="리조트" />
           <span></span>리조트
         </label>
-        <label>
+        <label class="type-menu">
           <input type="radio" name="type" value="펜션" checked/>
           <span></span>펜션
         </label>
       </div>`;
       } else if (cate == "장소") {
         detailBox.innerHTML = `<div class="option-col">
-        <label>
+        <label class="type-menu">
           <input type="radio" name="type" value="공원"/>
           <span></span>공원
         </label>
-        <label>
+        <label class="type-menu">
           <input type="radio" name="type" value="수영장" />
           <span></span>수영장
         </label>  
       </div>
       <div class="option-col">
-      <label>
+      <label class="type-menu">
         <input type="radio" name="type" value="해변" />
         <span></span>해변
       </label>
-      <label>
+      <label class="type-menu">
       <input type="radio" name="type" value="명소" checked/>
       <span></span>명소
       </label></div>`;
