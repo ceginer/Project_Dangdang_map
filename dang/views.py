@@ -1,4 +1,5 @@
 from asyncio.windows_events import NULL
+import email
 from http.client import HTTPResponse
 from re import template
 from unicodedata import category
@@ -16,7 +17,7 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from email.policy import default
 from django.shortcuts import render, redirect
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from django.contrib import auth
 # Create your views here.
 
@@ -24,30 +25,43 @@ from django.contrib import auth
 def login(request):
 
     if request.method == 'POST':
-        아이디 = request.POST['username']
-        비밀번호 = request.POST['password']
+        username = request.POST['username']
+        password = request.POST['password']
 
-        user = auth.authenticate(request, username=아이디, password=비밀번호)
+        user = auth.authenticate(request, username=username, password=password)
 
         if user is not None:
+            print("인증성공")
             auth.login(request, user)
-            return redirect('/')
         else:
-            return render(request, 'login.html', {'error': '아이디 또는 비밀번호가 일치하지 않습니다.'})
+            print("인증실패")
     return render(request, 'login.html')
 
 def join(request):
+    
     if request.method == 'POST' :
-        if request.POST['password1'] == request.POST['password2']:
-            user = User.objects.create_user(
-                username = request.POST['username'],
-                password = request.POST['password1'],
-                email = request.POST['email'],
-            )
-            auth.login(request, user)
-            return redirect('/')
-        return render (request, 'join.html')
-    return render (request, 'join.html')
+        print(request.POST)
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        email = request.POST['email']
+
+        user = User.objects.create_user(username, email, password)
+        user.save()
+        return redirect('dang:login')
+
+    return render(request, 'join.html')
+
+    #     if request.POST['password1'] == request.POST['password2']:
+    #         user = User.objects.create_user(
+    #             username = request.POST['username'],
+    #             password = request.POST['password1'],
+    #             email = request.POST['email'],
+    #         )
+    #         auth.login(request, user)
+    #         return redirect('/')
+    #     return render (request, 'join.html')
+    # return render (request, 'join.html')
+
 def logout(request):
     auth.logout(request)
     return redirect('/')
