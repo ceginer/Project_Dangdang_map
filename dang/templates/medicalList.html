@@ -1,34 +1,38 @@
 {% extends 'base.html' %} {% block content %}
 <div class="search_container">
   <select name="lacations" id="location">
-      <option value="gangwon">강원</option>
-      <option value="seoul">서울</option>
+    <option value="gangwon">강원</option>
+    <option value="seoul">서울</option>
+    <option value="gyeonggi">경기</option>
+    <option value="incheon">인천</option>
+    <option value="chungnam">충남</option>
+    <option value="chungbuk">충북</option>
+    <option value="gyeongnam">경남</option>
+    <option value="gyeongbuk">경북</option>
+    <option value="ulsan">울산</option>
+    <option value="gwangju">광주</option>
+    <option value="busan">부산</option>
+    <option value="daejeon">대전</option>
+    <option value="daegu">대구</option>
+    <option value="jeju">제주</option>
+    <option value="sejong">세종</option>
+    <option value="jeonnam">전남</option>
+    <option value="jeonbuk">전북</option>
   </select>
-  <div>
+  <div class="search">
     <input type="text" placeholder="검색어 입력">
-    <button>검색</button>
+    <button type="search">검색</button>
   </div>
 </div>
 <div class="medical_list_container">
   <div class="medical_item">
-    <div class="medical_img">
-      <img src="/static/img/medical1.jpg" alt="">
-    </div>
+
     <div class="medical_info">
       <div class="medical_name">강원도 병원</div>
       <div class="medical_address">강원도 강릉시</div>
       <div class="medical_phone">010-1234-5678</div>
+      <div class="info_bottom"><button class="find_location">위치 찾기</button></div>
     </div>
   </div>
-  <div class="medical_item">
-    <div class="medical_img">
-      <img src="/static/img/medical2.jpg" alt="">
-    </div>
-    <div class="medical_info">
-      <div class="medical_name">강원도 병원</div>
-      <div class="medical_address">강원도 강릉시</div>
-      <div class="medical_phone">010-1234-5678</div>
-    </div>
-  </div>
-</div>
-{% endblock %}
+
+  {% endblock %}
