@@ -6,7 +6,7 @@ from django.shortcuts import render, redirect,HttpResponse, get_object_or_404
 from django.db.models import Q
 import csv
 from .models import Favorite, User, Post, Cafe, Place, Accomodation, Medical
-
+from django.core.paginator import Paginator
 from .forms import PostForm
 
 
@@ -44,8 +44,7 @@ def join(request):
                 password = request.POST['password1'],
                 email = request.POST['email'],
             )
-
-            auth.login(request, user, backend='django.contrib.auth.backends.ModelBackend')
+            auth.login(request, user)
             return redirect('/')
         return render (request, 'join.html')
     return render (request, 'join.html')
@@ -59,33 +58,47 @@ def mypage(request):
     return render(request, 'mypage.html')
 
 # 임시로 만들어 둔 지역 list입니다. 나중에 db로 대체하든, 얘기해봐요..
-locationDic = {'seoul':'서울','gyeongi':'경기','incheon':'인천','gangwon':'강원','chungbuk':'충북','chungnam':'충남','deajeon':'대전','sejong':'세종','jeonbuk':'전북','jeonnam':'전남','gwangju':'광주','gyeongbuk':'경북','gyeongnam':'경남','daegu':'대구','ulsan':'울산','busan':'부산','daejeon':'대전','jeju':'제주' }
+locationDic = {'seoul':'서울','gyeongi':'경기','incheon':'인천','gangwon':'강원','chungbuk':'충북','chungnam':'충남','deajeon':'대전','sejong':'세종','jeonbuk':'전북','jeonnam':'전남','gwangju':'광주','gyeongbuk':'경북','gyeongnam':'경남','daegu':'대구','ulsan':'울산','busan':'부산','jeju':'제주' }
 
 def home(request):
     locationList = locationDic.values()
-
     context = { "locationList" : locationList }
-
     return render(request,'home.html', context=context)
 
-def cafeList(request):
-    only_cate_cafe=Cafe.objects.filter(Q(location='서울')&Q(type='애견동반'))
-    category = 'cafe'
-    context = { "category" : "cafe", "location" : NULL, 'list' : only_cate_cafe,'category':category}
+# 메인페이지 리스팅
+def toMainList(request, category, location, type):
+    filteredLocation = 'nothing_yet'
+    locations = locationDic.values()
+    if request.method == "POST":
+        location = request.POST["location"]
+        category = request.POST["category"]
+        type = request.POST["type"]
+    if category == 'cafe':
+        filteredLocation=Cafe.objects.filter(Q(location=location)&Q(type=type))
+    elif category == 'place':
+        filteredLocation=Place.objects.filter(Q(location=location)&Q(type=type))
+    elif category == 'accomo':
+        filteredLocation=Accomodation.objects.filter(Q(location=location)&Q(type=type))
+    try:
+        paginator = Paginator(filteredLocation, 5)
+    except:
+        pass
+    page = request.GET.get('page')
+    posts = paginator.get_page(page)
+
+    context = {'category': category ,'location': location,'locations': locations, 'type': type,'posts': posts}
     return render(request, 'mainList.html', context=context)
 
-def placeList(request):
-    only_cate_place=Place.objects.filter(Q(location='서울')& Q(type='명소'))
-    category = 'place'
-    context = { "category" : "place", "location" : NULL, 'list' : only_cate_place,'category':category}
-    return render(request, 'mainList.html', context=context)
-
-def accomoList(request):
-    only_cate_accom=Accomodation.objects.filter(Q(location='서울')& Q(type='호텔'))
-    category = 'accommo'
-    context = { "category" : "accomo", "location" : NULL , 'list' : only_cate_accom,'category':category}
-    return render(request, 'mainList.html', context=context)
-
+## mainList 목록눌렀을때 상세페이지로 이동 (listDetail.html)
+def listDetail(request, category, id):
+    if category == 'cafe':
+        here = Cafe.objects.get(id=id)
+    elif category == 'place':
+        here = Place.objects.get(id=id)
+    elif category == 'accomo':
+        here = Accomodation.objects.get(id=id)
+    context = {'category': category ,'here': here}
+    return render(request, 'listDetail.html', context=context)
 
 def mainList(request, location): # main에서 지역 선택했을 때
     only_loc= Cafe.objects.filter(Q(location=location)& Q(type='애견동반'))
@@ -106,56 +119,67 @@ def cates(request):
     return JsonResponse({'cate' : cate})
 
 @csrf_exempt
-def locationBtn(request):
-    return JsonResponse({})
-
-@csrf_exempt
-def btn_left(request):
-    return JsonResponse({})
-
-@csrf_exempt
-def btn_right(request):
-    return JsonResponse({})
+def btn_main(request):
+    req = json.loads(request.body) 
+    direction = req['direction']
+    return JsonResponse({'direction': direction})
 
 
 ## list page에서 ajax 처리했을 때
 # 수정 필요: 용어? 통일
-@csrf_exempt
-def listGo(request):
-    req = json.loads(request.body)
-    loc = req['location'] # 강원,경기,제주 등등 17개 도
-    cate = req['category'] # cafe, accommodation, place
-    type = req['detail'] # (애견동반, 애견전용) or (공원, 명소) 등등
+def cafeToDictionary(list):
+    output = {}
+    output["name"] = list.name
+    output["location"] = list.location
+    output["address"] = list.address
+    output["phone"] = list.phone
+    output["type"] = list.type
+    output["menuInfo"] = list.menuInfo
+    output["hourInfo"] = list.hourInfo
+    output["link1"] = list.link1
+    output["desc"] = list.desc
+    # output["img"] = str(list.img)
+    output["mapx"] = list.mapx
+    output["mapy"] = list.mapy
+    return output
 
-    if cate == 'cafe':
-        list= Cafe.objects.filter(Q(location=loc)& Q(type=type))
-    elif cate == 'accomodation':
-        list= Accomodation.objects.filter(Q(location=loc)& Q(type=type))
-    elif cate == 'place':
-        list= Place.objects.filter(Q(location=loc)& Q(type=type))
+def placeToDictionary(list):
+    output = {}
+    output["name"] = list.name
+    output["location"] = list.location
+    output["address"] = list.address
+    output["phone"] = list.phone
+    output["star"] = list.star
+    output["link1"] = list.link1
+    output["link2"] = list.link2
+    output["type"] = list.type
+    output["desc"] = list.desc
+    # output["img"] = str(list.img)
+    output["mapx"] = list.mapx
+    output["mapy"] = list.mapy
+    return output
 
-    lists = serializers.serialize('json',list)
-    return JsonResponse({'list':lists})
 
-## 상세페이지 부분 입니다. (cafeDetail, accommoDetail, placeDetail)
-def cafeDetail(request, id):
-    cafe = Cafe.objects.get(id=id)
-    reviews = cafe.cafe_post.all() # 역참조한건데 제대로 되나 test 해봐야 함
-    category = 'cafe'
-    context = { "cafe":cafe, "reviews":reviews, "id":id, "category":category }
-    return render(request, 'cafeDetail.html', context=context)
+## list page에서 ajax 처리했을 때
+# 수정 필요: 용어? 통일
+# @csrf_exempt
+# def listGo(request):
+#     req = json.loads(request.body)
+#     location = req['location'] # 강원,경기,제주 등등 17개 도
+#     category = req['category'] # cafe, accommodation, place
+#     type = req['detail'] # (애견동반, 애견전용) or (공원, 명소) 등등
+#     data = {'location':location, 'category':category, 'type':type}
+#     return JsonResponse(data)
     
-def accommoDetail(request, id):
-    accomo = Accomodation.objects.get(id=id)
-    reviews = accomo.accomo_post.all() # 역참조한건데 제대로 되나 test 해봐야 함
-    context = { "accomo":accomo, "reviews":reviews }
-    return render(request, 'accommoDetail.html', context=context)
+# 아래는 test용 JsonResponse 입니다. 수정필요
+# def cafeDetail(request, id):
+#     cafe = Cafe.objects.get(id=id)
+#     reviews = cafe.cafe_post.all() # 역참조한건데 제대로 되나 test 해봐야 함
+#     category = 'cafe'
+#     context = { "cafe":cafe, "reviews":reviews, "id":id, "category":category }
+#     return render(request, 'cafeDetail.html', context=context)
+    
 
-def placeDetail(request, id):
-    place = Place.objects.get(id=id)
-    reviews = place.place_post.all() # 역참조한건데 제대로 되나 test 해봐야 함
-    context = { "place":place, "reviews":reviews }
-    return render(request, 'playDetail.html', context=context)
 
 ## 멍초이스 (post) 부분
 
@@ -268,4 +292,6 @@ def reviewDetail(request, id):
     context = {'review':review, 'place':placeInfo}
 
     return render(request, 'reviewDetail.html', context=context)
+
+
 
