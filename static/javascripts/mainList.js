@@ -32,7 +32,7 @@ requestHomeLeft.onreadystatechange = () => {
       
       if (count == 0) {
         const locationSet = document.querySelector(".shift-locations");
-        locationSet.innerHTML = `<div class="home_location"><a href="/cities/서울">서울</a></div>
+        locationSet.innerHTML = `<div class="home_location"><a href="/list/cafe/서울/애견동반">서울</a></div>
         <div class="home_location"><a href="/list/cafe/경기/애견동반">경기</a></div>
         <div class="home_location"><a href="/list/cafe/인천/애견동반">인천</a></div>
         <div class="home_location"><a href="/list/cafe/강원/애견동반">강원</a></div>
@@ -43,7 +43,7 @@ requestHomeLeft.onreadystatechange = () => {
       }
       else if (count == 1) {
         const locationSet = document.querySelector(".shift-locations");
-        locationSet.innerHTML = `<div class="home_location"><a href="/cities/대전">대전</a></div>
+        locationSet.innerHTML = `<div class="home_location"><a href="/list/cafe/대전">대전</a></div>
         <div class="home_location"><a href="/list/cafe/경북/애견동반">경북</a></div>
         <div class="home_location"><a href="/list/cafe/경남/애견동반">경남</a></div>
         <div class="home_location"><a href="/list/cafe/대구/애견동반">대구</a></div>
@@ -54,7 +54,7 @@ requestHomeLeft.onreadystatechange = () => {
       }
       else {
         const locationSet = document.querySelector(".shift-locations");
-        locationSet.innerHTML = `<div class="home_location"><a href="/cities/광주">광주</a></div>
+        locationSet.innerHTML = `<div class="home_location"><a href="/list/cafe/광주/애견동반">광주</a></div>
         <div class="home_location"><a href="/list/cafe/전북/애견동반">전북</a></div>
         <div class="home_location"><a href="/list/cafe/전남/애견동반">전남</a></div>
         <div class="home_location"><a href="/list/cafe/제주/애견동반">제주</a></div>`
@@ -131,6 +131,14 @@ requestCate.onreadystatechange = () => {
     }
   }
 };
+const selectedType = document.querySelector(".selected-type").innerHTML;
+const changeType = document.getElementsByName("type");
+changeType.forEach((type) => {
+  if (type.value == selectedType) {
+    type.checked = true;
+  }
+});
+
 
 //찜하기 기능
 const requestLike = new XMLHttpRequest();
