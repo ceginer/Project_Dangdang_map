@@ -1,0 +1,33 @@
+{% extends 'base.html'%}{% block content %}
+<div class="detail-container">
+  <div class="photo-container">
+    <div class="place-photo">
+      {% if here.photo %}
+        <img src="{{here.photo}}" alt="">
+      {% else %}
+        <img src="\static\img\nophoto.png" alt="">
+      {% endif %}
+    </div>
+  <div class="detail-info">
+    <div class="place-name">{{here.name}}</div>
+    <div class="place-star">{{here.star}}</div>
+    <div class="place-detail-info">
+      <div class="info-logo-box"></div>
+      <div class="info-text-box">
+        <div class="info-text">{{here.address}}</div>
+        <div class="info-text">{{here.phone}}</div>
+        <div class="info-text">{{here.desc}}</div>
+        <div class="info-text"><a href="{{here.link1}}">[홈페이지 바로가기]</a></div>
+        <div class="info-text"><a href="{{here.link2}}">[네이버 지도로 보기]</a></div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="detail-map"></div>
+  <div class="dang-review">
+    <div class="write-btn">
+      <a href="/create/{{category}}/{{here.id}}"><button>리뷰쓰기!</button></a>
+    </div>
+  </div>
+</div>
+{% endblock %}

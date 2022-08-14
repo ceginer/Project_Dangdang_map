@@ -73,21 +73,24 @@ def toMainList(request, category, location, type):
         location = request.POST["location"]
         category = request.POST["category"]
         type = request.POST["type"]
-    if category == 'cafe':
-        filteredLocation=Cafe.objects.filter(Q(location=location)&Q(type=type))
-    elif category == 'place':
-        filteredLocation=Place.objects.filter(Q(location=location)&Q(type=type))
-    elif category == 'accomo':
-        filteredLocation=Accomodation.objects.filter(Q(location=location)&Q(type=type))
-    try:
-        paginator = Paginator(filteredLocation, 5)
-    except:
-        pass
-    page = request.GET.get('page')
-    posts = paginator.get_page(page)
+        return redirect(f"/list/{category}/{location}/{type}")
+    else:
+        if category == 'cafe':
+            filteredLocation=Cafe.objects.filter(Q(location=location)&Q(type=type))
+        elif category == 'place':
+            filteredLocation=Place.objects.filter(Q(location=location)&Q(type=type))
+        elif category == 'accomo':
+            filteredLocation=Accomodation.objects.filter(Q(location=location)&Q(type=type))
+        try:
+            filteredLocation = filteredLocation.order_by('id') # 가까운 순으로 정렬하면 좋을듯
+            paginator = Paginator(filteredLocation, 5)
+        except:
+            pass
+        page = request.GET.get('page')
+        posts = paginator.get_page(page)
 
-    context = {'category': category ,'location': location,'locations': locations, 'type': type,'posts': posts}
-    return render(request, 'mainList.html', context=context)
+        context = {'category': category ,'location': location,'locations': locations, 'type': type,'posts': posts}
+        return render(request, 'mainList.html', context=context)
 
 ## mainList 목록눌렀을때 상세페이지로 이동 (listDetail.html)
 def listDetail(request, category, id):
@@ -100,16 +103,7 @@ def listDetail(request, category, id):
     context = {'category': category ,'here': here}
     return render(request, 'listDetail.html', context=context)
 
-def mainList(request, location): # main에서 지역 선택했을 때
-    only_loc= Cafe.objects.filter(Q(location=location)& Q(type='애견동반'))
-    category = 'cafe'
-    context = { "location" : location, 'list' : only_loc ,'category':category}
-    return render(request, 'mainList.html', context=context)
-
-def medicalList(request): # main에서 지역 선택했을 때
-    #
-    #
-    #
+def medicalList(request): # main에서 응급댕댕 선택시
     return render(request, 'medicalList.html')
 
 @csrf_exempt
@@ -292,3 +286,6 @@ def reviewDetail(request, id):
     context = {'review':review, 'place':placeInfo}
 
     return render(request, 'reviewDetail.html', context=context)
+
+
+

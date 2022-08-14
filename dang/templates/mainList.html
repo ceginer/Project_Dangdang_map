@@ -9,7 +9,7 @@
           <label class="small-category" onclick="onClickCate(`카페`)">
             멍카페
             {% if category == "cafe" %}
-            <input type="radio" name="category" value="cafe" id="form-category" checked />
+            <input type="radio" name="category" value="cafe" id="form-category" checked/>
             {% else %}
             <input type="radio" name="category" value="cafe" id="form-category" />
             {% endif %}
@@ -17,17 +17,17 @@
           <label class="small-category" onclick="onClickCate(`숙소`)">
             멍숙소
             {% if category == "accomo" %}
-            <input type="radio" name="category" value="accomo" id="form-category" checked />
+            <input type="radio" name="category" value="accomo" id="form-category" checked/>
             {% else %}
-            <input type="radio" name="category" value="accomo" id="form-category" />
+            <input type="radio" name="category" value="accomo" id="form-category"/>
             {% endif %}
           </label>
           <label class="small-category" onclick="onClickCate(`장소`)">
             멍놀자
             {% if category == "place" %}
-            <input type="radio" name="category" value="place" id="form-category" checked />
+            <input type="radio" name="category" value="place" id="form-category" checked/>
             {% else %}
-            <input type="radio" name="category" value="place" id="form-category" />
+            <input type="radio" name="category" value="place" id="form-category"/>
             {% endif %}
           </label>
         </div>
@@ -35,64 +35,64 @@
       <fieldset id="group2">
         <div class="form-location">
           {% for loc in locations %}
-          {% if loc == location %}
-          <label class="area-label"><input type="radio" name="location" value="{{loc}}" id="area-name"
-              checked />{{loc}}</label>
-          {% else %}
-          <label class="area-label"><input type="radio" name="location" value="{{loc}}" id="area-name" />{{loc}}</label>
-          {% endif %}
+            {% if loc == location %}
+              <label class="area-label"><input type="radio" name="location" value="{{loc}}" id="area-name" checked/>{{loc}}</label>
+            {% else %}
+              <label class="area-label"><input type="radio" name="location" value="{{loc}}" id="area-name"/>{{loc}}</label>
+            {% endif %}
           {% endfor %}
         </div>
       </fieldset>
       <div class="selected-category">카페 세부옵션</div>
+      <div class="selected-type">{{type}}</div>
       <fieldset id="group2">
         <div class="option-box">
           {% if category == "cafe" %}
-          <div class="option-col">
-            <label>
-              <input type="radio" name="type" value="애견전용" />애견전용
-            </label>
-            <label>
-              <input type="radio" name="type" value="애견동반" checked />애견동반
-            </label>
-          </div>
+            <div class="option-col">
+              <label class="type-menu">
+                <input type="radio" name="type" value="애견전용" />애견전용
+              </label>
+              <label class="type-menu">
+                <input type="radio" name="type" value="애견동반" />애견동반
+              </label>
+            </div>
           {% elif category == "accomo" %}
-          <div class="option-col">
-            <label>
-              <input type="radio" name="type" value="호텔" checked />호텔
-            </label>
-            <label>
-              <input type="radio" name="type" value="모텔" />모텔
-            </label>
-          </div>
-          <div class="option-col">
-            <label>
-              <input type="radio" name="type" value="리조트" />리조트
-            </label>
-            <label>
-              <input type="radio" name="type" value="펜션" />펜션
-            </label>
-          </div>
+            <div class="option-col">
+              <label class="type-menu">
+                <input type="radio" name="type" value="호텔" />호텔
+              </label>
+              <label>
+                <input type="radio" name="type" value="모텔" />모텔
+              </label class="type-menu">
+            </div>
+            <div class="option-col">  
+              <label class="type-menu">
+                <input type="radio" name="type" value="리조트" />리조트
+              </label>
+              <label class="type-menu">
+                <input type="radio" name="type" value="펜션" />펜션
+              </label>
+            </div>
           {% elif category == "place" %}
-          <div class="option-col">
-            <label>
-              <input type="radio" name="type" value="공원" />공원
-            </label>
-            <label>
-              <input type="radio" name="type" value="수영장" />수영장
-            </label>
-          </div>
-          <div class="option-col">
-            <label>
-              <input type="radio" name="type" value="해변" />해변
-            </label>
-            <label>
-              <input type="radio" name="type" value="명소" checked />명소
-            </label>
-          </div>
+            <div class="option-col"> 
+              <label class="type-menu">
+                <input type="radio" name="type" value="공원"/>공원
+              </label>
+              <label class="type-menu">
+                <input type="radio" name="type" value="수영장" />수영장
+              </label>
+            </div>   
+            <div class="option-col">      
+              <label class="type-menu">
+                <input type="radio" name="type" value="해변" />해변
+              </label>
+              <label class="type-menu">
+              <input type="radio" name="type" value="명소" />명소
+              </label>
+            </div>
           {% endif %}
         </div>
-      </fieldset>
+      </fieldset>     
       <div>
         <button type="submit" value="SUBMIT">검색</button>
       </div>
@@ -141,3 +141,20 @@
 </div>
 
 {% endblock %}
+
+<script>
+
+</script>
+<!-- <div class="page-shift-container">
+  <div class="mainList-shift-btn-left">
+    <button onclick="onClickMainList('left')">&lt;</button>
+  </div>
+  <div id="page-num">0</div>
+  <div class="mainList-shift-btn-right">
+    <button onclick="onClickMainList('right')">&gt;</button>
+  </div>
+</div> -->
+
+
+
+
