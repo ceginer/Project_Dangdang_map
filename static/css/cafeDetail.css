@@ -4,7 +4,7 @@ body{
     background-color: rgb(255, 255, 255);
 }
 
-.detail_photo{
+.place-photo{
     position: relative;
     text-align: center;
     background-color: #FFFEF8;
@@ -13,7 +13,21 @@ body{
     padding: 50px;
 }
 
-.header_text{
+.real_photo{
+    position: absolute;
+    top: 30px;
+    left: 120px;
+}
+
+.no_photo{
+    position: absolute;
+    top: 100px;
+    left: 600px;
+    border: 1px solid  rgba(255, 240, 161, 1);
+    border-radius: 10px;
+}
+
+.place-photo h1{
     position: absolute;
     top: 30px;
     left: 120px;
@@ -39,9 +53,44 @@ body{
     position: absolute;
     top: 22px;
     left: 680px;
-    font-size: 3rem;
+    font-size: 3.5rem;
     color: rgb(18, 18, 18);
     font-family: 'Dongle', sans-serif;
+}
+
+.back_photo{
+    top: 50px;
+    left: 120px;
+}
+
+.place-detail-info{
+    position: relative;
+    top: 200px;
+    color: rgb(18, 18, 18);
+    font-size: 1.5rem;
+    font-family: 'Dongle', sans-serif;
+}
+
+.info-text-box{
+    width: 90%;
+    margin: 10px auto;
+}
+
+.info-text{
+    border: 1px solid red;
+    float: left;
+    width:100%;
+    box-sizing: border-box;
+}
+
+.info-text-desc{
+    border: 3px solid rgb(18, 18, 18);
+    background-color: #FFFFFF;
+    float: left;
+    margin-left: 5%;
+    width: 50%;
+    box-sizing: border-box;
+    border-radius: 5px;
 }
 
 .detail_map{
