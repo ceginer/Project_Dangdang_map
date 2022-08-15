@@ -294,13 +294,13 @@ def create(request,category,categry_id):
     if request.method == "POST":
         postGood = request.POST["postGood"]
         postBad = request.POST["postBad"]
-        postImage = request.FILES.get('postImage')
+        postImage = request.FILES['postImage']
         ranking = request.POST["ranking"]
 
         Post.objects.create(postType=category,postGood=postGood,postBad=postBad,postImage=postImage,ranking=ranking, user=me, placeId=categry_id)
         return redirect(f'/{category}/{categry_id}') ## 여기 수정해야 함!
 
-    return render(request, 'reviewWrite.html', {'placeName':placeName})
+    return render(request, 'reviewDetail.html', {'placeName':placeName})
 
 
 @csrf_exempt
