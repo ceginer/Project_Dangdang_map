@@ -1,3 +1,4 @@
+from email.policy import default
 from operator import mod
 from tabnanny import verbose
 from distutils.command.upload import upload
@@ -70,15 +71,18 @@ class Medical(models.Model):
     # location = models.ForeignKey(Location, on_delete=models.CASCADE)
 
 class Post(models.Model):
-    postType = models.CharField(max_length=100)
-    postGood= models.CharField(max_length=100)
-    postBad= models.CharField(max_length=100)
-    postImage= models.CharField(max_length=100)
-    ranking= models.CharField(max_length=100)
+    postType = models.CharField(max_length=100, null=True)
+    postImage= models.ImageField(blank=True, default="NULL", upload_to='posts/%Y%m%d', verbose_name="사진")
+    postGood= models.TextField(null=True)
+    postBad= models.TextField(null=True)
+    # postImage= models.ImageField(upload_to='', null=True)
+    ranking= models.IntegerField(null=True)
     user = models.ForeignKey(User, related_name='user_post', on_delete=models.CASCADE)
-    cafe = models.ForeignKey(Cafe, on_delete=models.CASCADE, related_name='cafe_post', null=True)
-    place = models.ForeignKey(Place, on_delete=models.CASCADE, related_name='place_post', null=True)
-    accomo = models.ForeignKey(Accomodation, on_delete=models.CASCADE, related_name='accomo_post', null=True)
+    placeId = models.IntegerField(null=True)
+    # cafe = models.ForeignKey(Cafe, on_delete=models.CASCADE, related_name='cafe_post', null=True)
+    # place = models.ForeignKey(Place, on_delete=models.CASCADE, related_name='place_post', null=True)
+    # accomo = models.ForeignKey(Accomodation, on_delete=models.CASCADE, related_name='accomo_post', null=True)
+
 
 
 ## 찜하기 구상중

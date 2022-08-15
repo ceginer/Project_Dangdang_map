@@ -1,16 +1,58 @@
+{% extends "base.html" %} {% block content %}
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body>
-    <form method="POST">
-      {% csrf_token %}
-      <div>{{form.as_p}}</div>
-      <button type="submit">save</button>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>create review</title>
+</head>
+
+<body>
+  <div class="review_container">
+    <div class="review_top">
+      <div class="logo_img"><img src="" /></div>
+      <h1>멍 리뷰</h1>
+      <span>당신의 소중한 후기는 많은 댕댕이들에게 도움이 됩니다:)</span>
+      <div class="review_update_btn">
+        <button>Modify</button>
+        <button>Update</button>
+      </div>
+    </div>
+    <form action="" method="POST" enctype="multipart/form-data">
+      <div class="post_container">
+
+        <form action="/create" method="POST" enctype="multipart/form-data">
+
+
+        {% csrf_token %}
+        <div class="post_review">
+          <p>
+            다녀온 곳: {{placeName}}
+          </p>
+          <input type="file" name="postImage" />
+          <br>
+          별점 선택: <input name="ranking" type="integer">
+          <br>
+          <div class="post-good">
+            이런 점이 좋았어요 :
+            <br>
+            <input name="postGood" type="text">
+          </div>
+          <br>
+          <div class="post-bad">
+            이런 점이 아쉬워요 :
+            <br>
+            <input name="postBad" type="text">
+          </div>
+
+        </div>
+        <button class="create_btn" type="submit">Create</button>
+      </div>
     </form>
-  </body>
+  </div>
+</body>
+
 </html>
+{% endblock %}
