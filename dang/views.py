@@ -270,8 +270,8 @@ def create(request, category, categry_id):
         if form.is_valid():
             post=form.save()
             post.save()
+            post.update(user=me, postType=category,placeId=categry_id)
 
-            this = Post.objects.filter(Q())
             return redirect('/${category}/${categry_id}')
     else:
         form=PostForm()
