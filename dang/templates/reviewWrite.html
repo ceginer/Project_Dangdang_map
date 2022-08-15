@@ -22,15 +22,14 @@
     </div>
     <form method="POST">
       <div class="post_container">
+
+        <form action="/create" method="POST" enctype="multipart/form-data">
+
+
         {% csrf_token %}
         <div class="post_review">
           <p>
-            다녀온 곳: <input class="post_place" name="postType" type="text">
-            사용자 id:
-            <select name="username" type="select">
-              <option value="username">{{ user.username }}</option>
-            </select>
-
+            다녀온 곳: {{placeName}}
           </p>
           <input type="file" name="postImage" />
           <br>
