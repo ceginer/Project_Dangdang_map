@@ -74,8 +74,9 @@ class Post(models.Model):
     postGood= models.CharField(max_length=100, null=True)
     postBad= models.CharField(max_length=100, null=True)
     postImage= models.ImageField(upload_to='', null=True)
-    ranking= models.IntegerField()
+    ranking= models.IntegerField(null=True)
     user = models.ForeignKey(User, related_name='user_post', on_delete=models.CASCADE)
+    placeId = models.
     cafe = models.ForeignKey(Cafe, on_delete=models.CASCADE, related_name='cafe_post', null=True)
     place = models.ForeignKey(Place, on_delete=models.CASCADE, related_name='place_post', null=True)
     accomo = models.ForeignKey(Accomodation, on_delete=models.CASCADE, related_name='accomo_post', null=True)
