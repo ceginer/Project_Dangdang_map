@@ -1,6 +1,7 @@
 from asyncio.windows_events import NULL
 import email
 from http.client import HTTPResponse
+from multiprocessing import context
 from re import template
 from unicodedata import category
 from django.shortcuts import render, redirect,HttpResponse, get_object_or_404
@@ -254,29 +255,52 @@ def csvToModel(request):
 
     ##### 멍초이스 작성
 
-def create(request, category, categry_id):
+# def create(request, category, categry_id):
+#     current_user = request.user # 현재 접속한 user를 가져온다.
+#     me = User.objects.get(username=current_user) # User db에서 현재 접속한 user를 찾는다.
+    
+#     if category == "cafe":
+#         post = Cafe.objects.get(id=categry_id)
+#     if category == "accommo":
+#         post = Accomodation.objects.get(id=categry_id)
+#     if category == "place":
+#         post = Place.objects.get(id=categry_id)
+
+#     if request.method == "POST":
+#         form = PostForm(request.POST)
+#         if form.is_valid():
+#             post=form.save()
+#             post.update(user=me.id, postType=category,placeId=categry_id)
+#             post.save()
+
+#             return redirect('/${category}/${categry_id}')
+#     else:
+#         form=PostForm()
+#     return render(request, 'reviewWrite.html', {'form':form , 'post':post})
+
+def create(request,category,categry_id):
     current_user = request.user # 현재 접속한 user를 가져온다.
     me = User.objects.get(username=current_user) # User db에서 현재 접속한 user를 찾는다.
-    
-    if category == "cafe":
-        post = Cafe.objects.get(id=categry_id)
-    if category == "accommo":
-        post = Accomodation.objects.get(id=categry_id)
-    if category == "place":
-        post = Place.objects.get(id=categry_id)
+
+    if category == 'cafe':
+        place = Cafe.objects.get(id=categry_id)
+    elif category == 'accomo':
+        place = Accomodation.objects.get(id=categry_id)
+    else:
+        place = Place.objects.get(id=categry_id)
+
+    placeName = place.name
 
     if request.method == "POST":
-        form = PostForm(request.POST)
-        if form.is_valid():
-            post=form.save()
-            post.save()
-            post.update(user=me.id, postType=category,placeId=categry_id)
+        postGood = request.POST["postGood"]
+        postBad = request.POST["postBad"]
+        postImage = request.FILES.get('postImage')
+        ranking = request.POST["ranking"]
 
-            return redirect('/${category}/${categry_id}')
-    else:
-        form=PostForm()
-    return render(request, 'reviewWrite.html', {'form':form , 'post':post})
+        Post.objects.create(postType=category,postGood=postGood,postBad=postBad,postImage=postImage,ranking=ranking, user=me, placeId=categry_id)
+        return redirect(f'/{category}/{categry_id}') ## 여기 수정해야 함!
 
+    return render(request, 'reviewWrite.html', {'placeName':placeName})
 
 
 @csrf_exempt
