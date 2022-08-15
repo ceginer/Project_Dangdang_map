@@ -278,29 +278,34 @@ def csvToModel(request):
 #         form=PostForm()
 #     return render(request, 'reviewWrite.html', {'form':form , 'post':post})
 
-def create(request,category,categry_id):
-    current_user = request.user # 현재 접속한 user를 가져온다.
-    me = User.objects.get(username=current_user) # User db에서 현재 접속한 user를 찾는다.
+def create(request,category,category_id):
+    try:
+        current_user = request.user # 현재 접속한 user를 가져온다.
+        me = User.objects.get(username=current_user) # User db에서 현재 접속한 user를 찾는다.
 
-    if category == 'cafe':
-        place = Cafe.objects.get(id=categry_id)
-    elif category == 'accomo':
-        place = Accomodation.objects.get(id=categry_id)
-    else:
-        place = Place.objects.get(id=categry_id)
+        if category == 'cafe':
+            place = Cafe.objects.get(id=category_id)
+        elif category == 'accomo':
+            place = Accomodation.objects.get(id=category_id)
+        else:
+            place = Place.objects.get(id=category_id)
 
-    placeName = place.name
+        placeName = place.name
+        location=place.location
 
-    if request.method == "POST":
-        postGood = request.POST["postGood"]
-        postBad = request.POST["postBad"]
-        postImage = request.FILES['postImage']
-        ranking = request.POST["ranking"]
+        if request.method == "POST":
+            postGood = request.POST["postGood"]
+            postBad = request.POST["postBad"]
+            postImage = request.POST['postImage']
+            ranking = request.POST["ranking"]
+            new_post=Post.objects.create(user=me,postType=category,postImage=postImage,postGood=postGood,postBad=postBad,ranking=ranking, placeId=category_id)
 
-        Post.objects.create(postType=category,postGood=postGood,postBad=postBad,postImage=postImage,ranking=ranking, user=me, placeId=categry_id)
-        return redirect(f'/{category}/{categry_id}') ## 여기 수정해야 함!
-
-    return render(request, 'reviewDetail.html', {'placeName':placeName})
+            return render(request, 'reviewDetail.html', {'placeName':placeName,'post':new_post}) ## 여기 수정해야 함!
+        else:
+            return render(request, 'reviewWrite.html', {'placeName':placeName,'location':location, 'category':category})
+    except:
+        #로그인을 해주세요!
+        return redirect(f"/detail/{category}/{category_id}")
 
 
 @csrf_exempt
