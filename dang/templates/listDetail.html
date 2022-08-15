@@ -37,8 +37,8 @@
             {% if here.desc %}
               <div class="info-text-desc">{{here.desc}}</div>
             {% else %}
-               <div class ="no_detail">조금만 기다려주세요 아직 상세정보가 준비되지않았어요...<i style="font-size:100px; color:rgb(255, 231, 112);" class="fa-solid fa-face-sad-tear"></i></div>
-               
+              <div class ="no_detail">조금만 기다려주세요 아직 상세정보가 준비되지않았어요...<i style="font-size:100px; color:rgb(255, 231, 112);" class="fa-solid fa-face-sad-tear"></i></div>
+              
             {% endif %}
             
           </div>      
@@ -66,7 +66,7 @@
   
   <!-- 목록보기--> 
   <div class ="back_to_list">
-    <a href="/cafe">목록으로</a>
+    <a href="/list/{{category}}/{{here.location}}/{{here.type}}">목록으로</a>
   </div>
 </body>
 {% endblock %}
