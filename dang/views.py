@@ -3,6 +3,7 @@ import email
 from http.client import HTTPResponse
 from multiprocessing import context
 from re import template
+from tkinter import _PlaceInfo
 from unicodedata import category
 from django.shortcuts import render, redirect,HttpResponse, get_object_or_404
 from django.db.models import Q
@@ -356,13 +357,14 @@ def like(request):
 
 def reviewDetail(request, id):
     review = Post.objects.get(id=id)
+    category = review.postType
 
-    if review.cafe_post: # 역참조 test 해봐야 함. 안 될 수도
-        placeInfo = review.cafe_post.all()
-    elif review.place_post:
-        placeInfo = review.place_post.all()
-    elif review.accomo_post:
-        placeInfo = review.accomo_post.all()
+    if category == 'cafe':
+        placeInfo = Cafe.objects.get(id=review.placeId)
+    elif category == 'place':
+        placeInfo = Place.objects.get(id=review.placeId)
+    else:
+        placeInfo = Accomodation.objects.get(id=review.placeId)
     
     context = {'review':review, 'place':placeInfo}
 
