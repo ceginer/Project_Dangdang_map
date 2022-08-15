@@ -1,0 +1,148 @@
+@import url("./reset.css");
+
+#location[type=select] {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    /* White */
+
+    background: #FFFFFF;
+    /* Black */
+    width: 111px;
+    height: 48px;
+    border: 3px solid #333333;
+    border-radius: 8px;
+}
+
+.search_container {
+    display: flex;
+    flex-direction: row;
+    margin-left: 600px;
+    padding: 30px 0px;
+}
+
+.search input[type=text] {
+    width: 250.86px;
+    height: 43.96px;
+    background: #FFFFFF;
+    /* Black */
+
+    border: 3px solid #333333;
+    border-radius: 8px;
+
+}
+
+.search button[type=search] {
+    width: 66px;
+    height: 40px;
+
+    background: white;
+    border: 2px solid #BDDFFF;
+    border-radius: 8px;
+    color: #BDDFFF;
+    text-align: center;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+}
+
+s .search button[type=search]:hover {
+    width: 66px;
+    height: 40px;
+
+    background: #BDDFFF;
+    border: 2px solid #FFFFFF;
+    border-radius: 8px;
+    color: white;
+    text-align: center;
+
+
+}
+
+.medical_list_container {
+    width: 1330.07px;
+    height: 895px;
+    display: flex;
+    margin: 0 auto;
+    flex-direction: column;
+}
+
+.medical_item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 24px;
+    gap: 24px;
+
+    position: absolute;
+    width: 1330.07px;
+    height: 167px;
+
+
+    /* White */
+
+    background: #FFFFFF;
+    /* Black */
+
+    border: 3px solid #000000;
+    border-radius: 8px;
+}
+
+.medical_name {
+    width: 1282.07px;
+    height: 32px;
+    flex: none;
+    order: 0;
+    align-self: stretch;
+    flex-grow: 0;
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 32px;
+
+}
+
+.medical_address {
+    width: 1282.07px;
+    height: 24px;
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    flex: none;
+    order: 1;
+    align-self: stretch;
+    flex-grow: 0;
+}
+
+.info_bottom {
+    width: 1282.07px;
+    height: 42px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.find_location {
+    display: flex;
+    flex-direction: row;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 21px 20px;
+    gap: 8px;
+    color: white;
+    width: 104px;
+    height: 42px;
+
+    /* Dark Gray */
+
+    background: #707070;
+    border-radius: 8px;
+
+}
+
+.find_location:hover {
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.5);
+}
