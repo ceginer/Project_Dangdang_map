@@ -140,6 +140,7 @@ def cafeToDictionary(list):
     output["address"] = list.address
     output["phone"] = list.phone
     output["type"] = list.type
+    output["star"] = list.star
     output["menuInfo"] = list.menuInfo
     output["hourInfo"] = list.hourInfo
     output["link1"] = list.link1
@@ -211,7 +212,7 @@ def update(request, id): # url수정하기
 
             return redirect(f"/post/{cate}/{id}")
     form = PostForm(instance=post)
-    return render(request, "무슨무슨.html", {'form':form})
+    return render(request, "reviewWrite.html", {'form':form})
 
 
 ### db에 csv 파일 넣는 함수입니다.
