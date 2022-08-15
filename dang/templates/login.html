@@ -15,6 +15,7 @@
 
 <body>
     {% extends 'base.html'%}
+    {% load socialaccount %}
     {% block content %}
     {% if user.is_authenticated %}
     <div class="card text-center">
@@ -51,6 +52,7 @@
                     회원가입
                     <!-- <img src="\static\img\Join.svg" alt=""> -->
                 </a>
+                <a href = "{% provider_login_url 'google'%}">구글 로그인</a>
             </form>
         </div>
         <div style="text-align: center;"><img src="\static\img\login_sq.svg" alt=""></div>
