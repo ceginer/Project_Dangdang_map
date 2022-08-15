@@ -3,32 +3,33 @@
 const requestHomeLeft = new XMLHttpRequest(); //어디로 떠날까요? 부분
 const onClickHome = (direction) => {
   requestHomeLeft.open("POST", "/btn_main/", true);
-  requestHomeLeft.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-  requestHomeLeft.send(JSON.stringify({direction: direction}));
+  requestHomeLeft.setRequestHeader(
+    "Content-Type",
+    "application/x-www-form-urlencoded"
+  );
+  requestHomeLeft.send(JSON.stringify({ direction: direction }));
 };
 
 requestHomeLeft.onreadystatechange = () => {
   if (requestHomeLeft.readyState === XMLHttpRequest.DONE) {
     if (requestHomeLeft.status <= 400) {
-      const {direction} = JSON.parse(requestHomeLeft.response); 
-      let element = document.querySelector("#num"); 
-      let count = Number(element.innerHTML); 
+      const { direction } = JSON.parse(requestHomeLeft.response);
+      let element = document.querySelector("#num");
+      let count = Number(element.innerHTML);
       if (direction == "left") {
         count -= 1;
         if (count == -1) {
-          count = 2
+          count = 2;
+        } else {
+          count %= 2;
         }
-        else {
-          count %= 2
-        }
-      }
-      else {
+      } else {
         count += 1;
-        count %= 3
+        count %= 3;
       }
 
       element.innerHTML = `${count}`;
-      
+
       if (count == 0) {
         const locationSet = document.querySelector(".shift-locations");
         locationSet.innerHTML = `<div class="home_location"><a href="/list/cafe/서울/애견동반">
@@ -42,11 +43,10 @@ requestHomeLeft.onreadystatechange = () => {
         <div class="home_location"><a href="/list/cafe/충북/애견동반">
         <img src="/static/img/main_loc/Tag-15.png" alt=""></a></div>
         <div class="home_location"><a href="/list/cafe/충남/애견동반">
-        <img src="/static/img/main_loc/Tag-16.png" alt=""></a></div>`
+        <img src="/static/img/main_loc/Tag-16.png" alt=""></a></div>`;
         const page = document.querySelector(".page_dot");
-        page.innerHTML ='<img src="/static/img/page_1.svg" alt="">'
-      }
-      else if (count == 1) {
+        page.innerHTML = '<img src="/static/img/page_1.svg" alt="">';
+      } else if (count == 1) {
         const locationSet = document.querySelector(".shift-locations");
         locationSet.innerHTML = `<div class="home_location"><a href="/list/cafe/대전/애견동반">
         <img src="/static/img/main_loc/Tag-5.png" alt=""></a></div>
@@ -59,11 +59,10 @@ requestHomeLeft.onreadystatechange = () => {
         <div class="home_location"><a href="/list/cafe/대구/애견동반">
         <img src="/static/img/main_loc/Tag-9.png" alt=""></a></div>
         <div class="home_location"><a href="/list/cafe/울산/애견동반">
-        <img src="/static/img/main_loc/Tag-10.png" alt=""></a></div>`
+        <img src="/static/img/main_loc/Tag-10.png" alt=""></a></div>`;
         const page = document.querySelector(".page_dot");
-        page.innerHTML ='<img src="/static/img/page_2.svg" alt="">'
-      }
-      else {
+        page.innerHTML = '<img src="/static/img/page_2.svg" alt="">';
+      } else {
         const locationSet = document.querySelector(".shift-locations");
         locationSet.innerHTML = `<div class="home_location"><a href="/list/cafe/부산/애견동반">
         <img src="/static/img/main_loc/Tag.png" alt=""></a></div>
@@ -74,9 +73,9 @@ requestHomeLeft.onreadystatechange = () => {
         <div class="home_location"><a href="/list/cafe/전남/애견동반">
         <img src="/static/img/main_loc/Tag-3.png" alt=""></a></div>
         <div class="home_location"><a href="/list/cafe/제주/애견동반">
-        <img src="/static/img/main_loc/Tag-4.png" alt=""></a></div>`
+        <img src="/static/img/main_loc/Tag-4.png" alt=""></a></div>`;
         const page = document.querySelector(".page_dot");
-        page.innerHTML ='<img src="/static/img/page_3.svg" alt="">'
+        page.innerHTML = '<img src="/static/img/page_3.svg" alt="">';
       }
     }
   }
@@ -167,26 +166,37 @@ changeType.forEach((type) => {
   }
 });
 
-
 //찜하기 기능
 const requestLike = new XMLHttpRequest();
-const onClickLike = (id) => {
+const onClickLike = (category, place_id, favorite) => {
   const url = "/like/";
   requestLike.open("POST", url, true);
   requestLike.setRequestHeader(
     "content-Type",
     "application/x-www-form-urlencoded"
   );
-  requestLike.send(JSON.stringify({ id: id }));
+  console.log(category, place_id, favorite); // test코드
+  requestLike.send(
+    JSON.stringify({
+      category: category,
+      place_id: place_id,
+    })
+  );
 };
 
 requestLike.onreadystatechange = () => {
   if (requestLike.readyState === XMLHttpRequest.DONE) {
     //서버가 응답할 준비를 마침
-    const { id, type } = JSON.parse(requestLike.response);
-    const element = document.querySelector(`#favorite-${id}`);
+    const { place_id, isLogin } = JSON.parse(requestLike.response);
+    console.log(place_id);
+    const element = document.querySelector(`#favorite-${place_id}`);
     const i = element.querySelector(".like button i");
-    i.classList.toggle("fas");
-    i.classList.toggle("far");
+    const btn = element.querySelector(".like button").innerHTML;
+    if (isLogin) {
+      i.classList.toggle("far");
+      i.classList.toggle("fas");
+    } else {
+      alert("로그인 하세요!");
+    }
   }
 };
