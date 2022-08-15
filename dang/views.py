@@ -3,7 +3,6 @@ import email
 from http.client import HTTPResponse
 from multiprocessing import context
 from re import template
-from tkinter import _PlaceInfo
 from unicodedata import category
 from django.shortcuts import render, redirect,HttpResponse, get_object_or_404
 from django.db.models import Q
@@ -220,26 +219,18 @@ def delete(request, id):
     Post.objects.filter(id=id).delete()
     return redirect("/") # 삭제하고 나면 어디로 보낼까요?
 
-def update(request, id): # url수정하기
-    post = get_object_or_404(Post, pk=id)
+def update(request, id): 
     if request.method == "POST":
-        form = PostForm(request.POST, instance=post)
-        if form.is_valid():
-            post=form.save()
-            post.save()
-        
-            # if 문으로 어떤 카테고리인지 체크 -> cafe라면 accomo, place는 null 값이기 때문에
-            if post.cafe:
-                cate = 'cafe'
-            elif post.place:
-                cate = 'place'
-            elif post.accomo:
-                cate = 'accomo'
+        postGood = request.POST["postGood"]
+        postBad = request.POST["postBad"]
+        postImage = request.FILES['postImage']
+        ranking = request.POST["ranking"]
 
-            return redirect(f"/post/{cate}/{id}")
-    form = PostForm(instance=post)
-    return render(request, "reviewWrite.html", {'form':form})
-
+        Post.objects.filter(id=id).update(postGood=postGood,postBad=postBad,postImage=postImage,ranking=ranking)
+        return redirect(f"reviewDetail/{id}")
+    post = Post.objects.get(id=id)
+    context = {"post":post}
+    return render(request, "reviewWrite.html",context=context)
 
 ### db에 csv 파일 넣는 함수입니다.
 ### migrations 날리고 dbsqlite 날리고 사용해야 합니다. 한번만 작동해주세요..!! 여러번 하면 여러번 들어가요
@@ -360,13 +351,13 @@ def reviewDetail(request, id):
     category = review.postType
 
     if category == 'cafe':
-        placeInfo = Cafe.objects.get(id=review.placeId)
+        place = Cafe.objects.get(id=review.placeId)
     elif category == 'place':
-        placeInfo = Place.objects.get(id=review.placeId)
+        place = Place.objects.get(id=review.placeId)
     else:
-        placeInfo = Accomodation.objects.get(id=review.placeId)
+        place = Accomodation.objects.get(id=review.placeId)
     
-    context = {'review':review, 'place':placeInfo}
+    context = {'review':review, 'place':place}
 
     return render(request, 'reviewDetail.html', context=context)
 
