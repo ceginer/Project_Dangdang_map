@@ -95,11 +95,9 @@ def toMainList(request, category, location, type):
             filteredLocation=Place.objects.filter(Q(location=location)&Q(type=type))
         elif category == 'accomo':
             filteredLocation=Accomodation.objects.filter(Q(location=location)&Q(type=type))
-        try:
-            filteredLocation = filteredLocation.order_by('id') # 가까운 순으로 정렬하면 좋을듯
-            paginator = Paginator(filteredLocation, 5)
-        except:
-            pass
+
+        filteredLocation = filteredLocation.order_by('id') # 가까운 순으로 정렬하면 좋을듯
+        paginator = Paginator(filteredLocation, 5)
         page = request.GET.get('page')
         posts = paginator.get_page(page)
 
@@ -300,6 +298,4 @@ def reviewDetail(request, id):
     context = {'review':review, 'place':placeInfo}
 
     return render(request, 'reviewDetail.html', context=context)
-
-
 

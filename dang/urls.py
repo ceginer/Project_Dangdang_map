@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django.urls import path 
+from django.urls import path, include 
 
 from . import views
 
@@ -25,6 +25,7 @@ urlpatterns = [
   path('delete/<int:id>', views.delete, name="delete"), # post 삭제
   path('update/<int:id>', views.update, name="update"), # post 수정
   path('reviewDetail/<int:id>', views.reviewDetail, name='reviewDetail'), # 리뷰 디테일로 넘어간다.
+  path('accounts/', include('allauth.urls')),
 ] + static(settings.STATIC_URL, document_root = settings.STATIC_ROOT) +static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
 
 
