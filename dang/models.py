@@ -71,10 +71,10 @@ class Medical(models.Model):
 
 class Post(models.Model):
     postType = models.CharField(max_length=100)
-    postGood= models.CharField(max_length=100)
-    postBad= models.CharField(max_length=100)
-    postImage= models.CharField(max_length=100)
-    ranking= models.CharField(max_length=100)
+    postGood= models.CharField(max_length=100, null=True)
+    postBad= models.CharField(max_length=100, null=True)
+    postImage= models.ImageField(upload_to='', null=True)
+    ranking= models.IntegerField()
     user = models.ForeignKey(User, related_name='user_post', on_delete=models.CASCADE)
     cafe = models.ForeignKey(Cafe, on_delete=models.CASCADE, related_name='cafe_post', null=True)
     place = models.ForeignKey(Place, on_delete=models.CASCADE, related_name='place_post', null=True)
