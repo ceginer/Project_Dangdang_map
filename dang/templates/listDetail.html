@@ -63,6 +63,25 @@
       <a href="/create/{{category}}/{{here.id}}">WriteReview!</a>
     </div>
   </div>
+  <div class="review_list">
+    {% for review in reviews %}
+      <div class="review">
+        <div>
+          {% if review.postImage %}
+            <div>리뷰이미지 있음</div> 
+          {% else %}
+            <img src="\static\img\nophoto.png" alt="">
+          {% endif %}
+        </div>
+        <div>작성자: {{review.user.username}}</div>
+        <div>별점: {{review.ranking}}</div>
+        <div>좋은점: {{review.postGood}}</div>
+        <div>싫은점: {{review.postBad}}</div>
+        <div>유형: {{review.postType}}</div>
+        <hr>
+      </div>
+    {% endfor %}
+  </div>
   
   <!-- 목록보기--> 
   <div class ="back_to_list">

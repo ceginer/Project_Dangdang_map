@@ -137,8 +137,15 @@ def listDetail(request, category, id):
         here = Place.objects.get(id=id)
     elif category == 'accomo':
         here = Accomodation.objects.get(id=id)
-    context = {'category': category ,'here': here}
+
+    try:
+        reviews = Post.objects.filter(placeId=id)
+    except:
+        reviews = '아직 리뷰가 없습니다.'
+        pass
+    context = {'category': category ,'here': here, 'reviews': reviews}
     return render(request, 'listDetail.html', context=context)
+    Like.objects.filter(Q(user=me.id) & Q(placeType=category))
 
 def medicalList(request): # main에서 응급댕댕 선택시
     return render(request, 'medicalList.html')
