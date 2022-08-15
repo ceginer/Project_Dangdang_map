@@ -255,6 +255,9 @@ def csvToModel(request):
     ##### 멍초이스 작성
 
 def create(request, category, categry_id):
+    current_user = request.user # 현재 접속한 user를 가져온다.
+    me = User.objects.get(username=current_user) # User db에서 현재 접속한 user를 찾는다.
+    
     if category == "cafe":
         post = Cafe.objects.get(id=categry_id)
     if category == "accommo":
@@ -267,6 +270,8 @@ def create(request, category, categry_id):
         if form.is_valid():
             post=form.save()
             post.save()
+            post.update(user=me, postType=category,placeId=categry_id)
+
             return redirect('/${category}/${categry_id}')
     else:
         form=PostForm()
