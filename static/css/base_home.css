@@ -71,8 +71,15 @@ a {
 }
 
 .home_location {
+  display: flex;
   width: 151px;
   height: 151px;
+}
+
+.home_location img{
+  object-fit: cover;
+  width: 154px;
+  height: 155px;
 }
 
 .shift-locations {
@@ -82,10 +89,6 @@ a {
   width: 100%;
   gap: 2rem;
   padding: 0;
-}
-
-.home_location {
-  border: 1px solid rgb(102, 97, 97);
 }
 
 .shift-btn-left img:hover,

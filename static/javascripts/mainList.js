@@ -31,33 +31,50 @@ requestHomeLeft.onreadystatechange = () => {
       
       if (count == 0) {
         const locationSet = document.querySelector(".shift-locations");
-        locationSet.innerHTML = `<div class="home_location"><a href="/list/cafe/서울/애견동반">서울</a></div>
-        <div class="home_location"><a href="/list/cafe/경기/애견동반">경기</a></div>
-        <div class="home_location"><a href="/list/cafe/인천/애견동반">인천</a></div>
-        <div class="home_location"><a href="/list/cafe/강원/애견동반">강원</a></div>
-        <div class="home_location"><a href="/list/cafe/충북/애견동반">충북</a></div>
-        <div class="home_location"><a href="/list/cafe/충남/애견동반">충남</a></div>`
+        locationSet.innerHTML = `<div class="home_location"><a href="/list/cafe/서울/애견동반">
+        <img src="/static/img/main_loc/Tag-14.png" alt=""></a></div>
+        <div class="home_location"><a href="/list/cafe/경기/애견동반">
+        <img src="/static/img/main_loc/Tag-12.png" alt=""></a></div>
+        <div class="home_location"><a href="/list/cafe/인천/애견동반">
+        <img src="/static/img/main_loc/Tag-13.png" alt=""></a></div>
+        <div class="home_location"><a href="/list/cafe/강원/애견동반">
+        <img src="/static/img/main_loc/Tag-11.png" alt=""></a></div>
+        <div class="home_location"><a href="/list/cafe/충북/애견동반">
+        <img src="/static/img/main_loc/Tag-15.png" alt=""></a></div>
+        <div class="home_location"><a href="/list/cafe/충남/애견동반">
+        <img src="/static/img/main_loc/Tag-16.png" alt=""></a></div>`
         const page = document.querySelector(".page_dot");
         page.innerHTML ='<img src="/static/img/page_1.svg" alt="">'
       }
       else if (count == 1) {
         const locationSet = document.querySelector(".shift-locations");
-        locationSet.innerHTML = `<div class="home_location"><a href="/list/cafe/대전/애견동반">대전</a></div>
-        <div class="home_location"><a href="/list/cafe/세종/애견동반">세종</a></div>
-        <div class="home_location"><a href="/list/cafe/경북/애견동반">경북</a></div>
-        <div class="home_location"><a href="/list/cafe/경남/애견동반">경남</a></div>
-        <div class="home_location"><a href="/list/cafe/대구/애견동반">대구</a></div>
-        <div class="home_location"><a href="/list/cafe/울산/애견동반">울산</a></div>`
+        locationSet.innerHTML = `<div class="home_location"><a href="/list/cafe/대전/애견동반">
+        <img src="/static/img/main_loc/Tag-5.png" alt=""></a></div>
+        <div class="home_location"><a href="/list/cafe/세종/애견동반">
+        <img src="/static/img/main_loc/Tag-6.png" alt=""></a></div>
+        <div class="home_location"><a href="/list/cafe/경북/애견동반">
+        <img src="/static/img/main_loc/Tag-7.png" alt=""></a></div>
+        <div class="home_location"><a href="/list/cafe/경남/애견동반">
+        <img src="/static/img/main_loc/Tag-8.png" alt=""></a></div>
+        <div class="home_location"><a href="/list/cafe/대구/애견동반">
+        <img src="/static/img/main_loc/Tag-9.png" alt=""></a></div>
+        <div class="home_location"><a href="/list/cafe/울산/애견동반">
+        <img src="/static/img/main_loc/Tag-10.png" alt=""></a></div>`
         const page = document.querySelector(".page_dot");
         page.innerHTML ='<img src="/static/img/page_2.svg" alt="">'
       }
       else {
         const locationSet = document.querySelector(".shift-locations");
-        locationSet.innerHTML = `<div class="home_location"><a href="/list/cafe/부산/애견동반">부산</a></div>
-        <div class="home_location"><a href="/list/cafe/광주/애견동반">광주</a></div>
-        <div class="home_location"><a href="/list/cafe/전북/애견동반">전북</a></div>
-        <div class="home_location"><a href="/list/cafe/전남/애견동반">전남</a></div>
-        <div class="home_location"><a href="/list/cafe/제주/애견동반">제주</a></div>`
+        locationSet.innerHTML = `<div class="home_location"><a href="/list/cafe/부산/애견동반">
+        <img src="/static/img/main_loc/Tag.png" alt=""></a></div>
+        <div class="home_location"><a href="/list/cafe/광주/애견동반">
+        <img src="/static/img/main_loc/Tag-1.png" alt=""></a></div>
+        <div class="home_location"><a href="/list/cafe/전북/애견동반">
+        <img src="/static/img/main_loc/Tag-2.png" alt=""></a></div>
+        <div class="home_location"><a href="/list/cafe/전남/애견동반">
+        <img src="/static/img/main_loc/Tag-3.png" alt=""></a></div>
+        <div class="home_location"><a href="/list/cafe/제주/애견동반">
+        <img src="/static/img/main_loc/Tag-4.png" alt=""></a></div>`
         const page = document.querySelector(".page_dot");
         page.innerHTML ='<img src="/static/img/page_3.svg" alt="">'
       }
@@ -89,11 +106,11 @@ requestCate.onreadystatechange = () => {
         detailBox.innerHTML = `<div class="option-col">
     <label class="type-menu">
       <input type="radio" name="type" value="애견전용" />
-      <span></span>애견전용
+      <span></span>애견전용 카페
     </label>
     <label class="type-menu">
       <input type="radio" name="type" value="애견동반" checked/>
-      <span></span>애견동반
+      <span></span>애견동반 카페
     </label>
   </div>`;
       } else if (cate == "숙소") {
