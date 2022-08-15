@@ -129,11 +129,15 @@ a {
 .Like_title{
   position: absolute;
   top: 43px;
-  left: 140px;
-  font-size: 1.5rem;
+  left: 70px;
+  font-size: 1.2rem;
+  font-family: 'Dongle', sans-serif;
   background-color: #BDDFFF;
-  padding: 14px;
-  border: 3px solid rgb(9, 9, 9);
+  padding-top: 3px;
+  padding-bottom: 3px;
+  padding-left: 50px;
+  padding-right: 50px;
+  border: 2px solid rgb(9, 9, 9);
   margin: 3px;
   border-radius: 5px;
 
@@ -149,13 +153,17 @@ a {
 .myReview_title{
   position: absolute;
   top: 43px;
-  left: 140px;
-  font-size: 1.5rem;
+  left: 70px;
+  font-size: 1.2rem;
+  font-family: 'Dongle', sans-serif;
   background-color: #BDDFFF;
-  padding: 14px;
-  border: 3px solid rgb(9, 9, 9);
+  border: 2px solid rgb(9, 9, 9);
   margin: 3px;
   border-radius: 5px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  padding-left: 50px;
+  padding-right: 50px;
 }
 
 /* Login.html */
