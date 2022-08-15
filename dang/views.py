@@ -270,7 +270,7 @@ def create(request, category, categry_id):
         if form.is_valid():
             post=form.save()
             post.save()
-            post.update(user=me, postType=category,placeId=categry_id)
+            post.update(user=me.id, postType=category,placeId=categry_id)
 
             return redirect('/${category}/${categry_id}')
     else:

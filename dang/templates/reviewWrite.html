@@ -24,13 +24,17 @@
       <div class="post_container">
         {% csrf_token %}
         <div class="post_review">
-
           <p>
             다녀온 곳: <input class="post_place" name="postType" type="text">
+            사용자 id:
+            <select name="username" type="select">
+              <option value="username">{{ user.username }}</option>
+            </select>
+
           </p>
           <input type="file" name="postImage" />
           <br>
-          별점 선택:
+          별점 선택: <input name="ranking" type="integer">
           <br>
           <div class="post-good">
             이런 점이 좋았어요 :

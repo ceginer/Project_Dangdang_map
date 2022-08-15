@@ -82,6 +82,7 @@ class Post(models.Model):
     # accomo = models.ForeignKey(Accomodation, on_delete=models.CASCADE, related_name='accomo_post', null=True)
 
 
+
 ## 찜하기 구상중
 class Jjim(models.Model):
     like = models.BooleanField(default=False)
