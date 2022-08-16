@@ -50,12 +50,24 @@
           {% else %}
           <a href="/join/"><img src="\static\img\Join.svg" alt="" /></a>
           <a href="/login/"><img src="\static\img\SignIn.svg" alt="" /></a>
-          {% endif %}
+          {% endif %} {% if user.is_authenticated %}
           <a href="/mypage/"><img src="\static\img\MyPage.svg" alt="" /></a>
+          {% else %}
+          <a onclick="onclickLogin()">
+            <img src="\static\img\MyPage.svg" alt="" />
+          </a>
+          {% endif %}
         </div>
       </div>
     </header>
     {% block content %} {% endblock %}
+
+    <script>
+      function onclickLogin() {
+        alert("로그인하세요!");
+        console.log("로그인하세요");
+      }
+    </script>
 
     <script
       type="text/javascript"
