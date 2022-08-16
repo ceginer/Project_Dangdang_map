@@ -80,34 +80,32 @@ def home(request):
     locationList = locationDic.values()
     reviews = []
     places = []
-    pks = []
     counts = []
+    
     try:
-        max_id = Post.objects.all().aggregate(max_id=Max("id"))['max_id']
-        posts = Post.objects.all().order_by('id')
-        if len(posts) >= 3:
-            while len(reviews) < 3:
-                pk = random.randint(1, max_id)
-                if pk not in pks:
-                    try:
-                        post = Post.objects.get(id=pk)
-                        if post.postType == 'cafe':
-                            place = Cafe.objects.get(id=post.placeId)
-                        elif post.postType == 'place':
-                            place = Place.objects.get(id=post.placeId)
-                        else :
-                            place = Accomodation.objects.get(id=post.placeId)
-                        reviews.append(post)
-                        places.append(place)
-                        pks.append(id)
-                        place_review = Post.objects.filter(placeId=place.id)
-                        counts.append(len(place_review))
-                    except:
-                        pass
-        else:
-            for post in posts:
+        place_ids = list(set(Post.objects.all().values_list('placeId', flat=True)))
+        if len(place_ids) > 3:
+            place_ids = random.sample(place_ids, 3)
+            for place_id in place_ids:
+                posts = Post.objects.filter(placeId=place_id)
+                random_id = random.choice(posts).id
+                post = Post.objects.get(id=random_id)
                 if post.postType == 'cafe':
-                    print(post.postType)
+                    place = Cafe.objects.get(id=post.placeId)
+                elif post.postType == 'place':
+                    place = Place.objects.get(id=post.placeId)
+                else :
+                    place = Accomodation.objects.get(id=post.placeId)
+                reviews.append(post)
+                places.append(place)
+                place_review = Post.objects.filter(placeId=place.id)
+                counts.append(len(place_review))
+        else:
+            for place_id in place_ids:
+                posts = Post.objects.filter(placeId=place_id)
+                random_id = random.choice(posts).id
+                post = Post.objects.get(id=random_id)
+                if post.postType == 'cafe':
                     place = Cafe.objects.get(id=post.placeId)
                 elif post.postType == 'place':
                     place = Place.objects.get(id=post.placeId)
