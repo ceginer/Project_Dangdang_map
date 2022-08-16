@@ -168,7 +168,7 @@ def medicals(request): # main에서 응급댕댕 선택시
         d = distance(x,y,xx,yy)
         Medical.objects.filter(id=med.id).update(distance=d)
 
-    medicals = Medical.objects.filter(location=loc).order_by('distance')
+    medicals = Medical.objects.filter(location=loc).order_by('distance')[:10]
 
     list = serializers.serialize('json',medicals)
 

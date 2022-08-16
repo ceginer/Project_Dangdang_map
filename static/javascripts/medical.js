@@ -18,9 +18,13 @@ requestMedical.onreadystatechange = () => {
   if (requestMedical.readyState === XMLHttpRequest.DONE) {
     if (requestMedical.status <= 400) {
       const { list, query, loc, x, y } = JSON.parse(requestMedical.response);
-      console.log(query, loc, x, y);
       medical = JSON.parse(list);
-      console.log(medical[0]);
+
+      // Test 코드
+      for (var i = 0; i < 10; i++) {
+        console.log(medical[i]["fields"]["name"]);
+        console.log(medical[i]["fields"]["phone"]);
+      }
     }
   }
 };
