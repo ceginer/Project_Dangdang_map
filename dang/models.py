@@ -67,11 +67,10 @@ class Accomodation(models.Model):
     
 
 class Medical(models.Model):
-    medicalName = models.CharField(max_length=100)
-    medicalPhone = models.CharField(max_length=100)
-    medicalAddress = models.CharField(max_length=100)
-    medicalLocation = models.CharField(max_length=100)
-    # location = models.ForeignKey(Location, on_delete=models.CASCADE)
+    name = models.CharField(max_length=100)
+    location = models.CharField(max_length=100)
+    address = models.CharField(max_length=100)
+    phone = models.CharField(max_length=100)
 
 class Post(models.Model):
     postType = models.CharField(max_length=100, null=True)

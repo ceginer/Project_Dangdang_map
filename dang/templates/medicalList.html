@@ -21,18 +21,19 @@
       <option value="jeonbuk">전북</option>
     </select>
     <div class="search">
-      <input type="text" placeholder="위치 검색">
-      <button type="search">검색</button>
+      <input type="text" placeholder="위치 검색" id="query-loc" />
+      <button type="search" onclick="onclickMedical()">검색</button>
     </div>
   </div>
   <div class="medical_list_container">
     <div class="medical_item">
-
       <div class="medical_info">
         <div class="medical_name">강원도 병원</div>
         <div class="medical_address">강원도 강릉시</div>
         <div class="medical_phone">010-1234-5678</div>
-        <div class="info_bottom"><button class="find_location">위치 찾기</button></div>
+        <div class="info_bottom">
+          <button class="find_location">위치 찾기</button>
+        </div>
       </div>
     </div>
   </div>
