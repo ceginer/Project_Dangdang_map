@@ -25,11 +25,17 @@
         {% if review %}
             <div class="random-review">
               <div class="random-info">
-                <div class="random-title">{{place.name}}</div>
-                <div class="random-ranking-type">{{review.ranking}}점 ({{count}}) {{place.type}}</div>
+                <a href="/detail/{{review.postType}}/{{place.id}}"><div class="random-title">{{place.name}}</div></a>
+                <div class="random-ranking-type">{{review.ranking}}점 ({{count}})   {{place.type}}</div>
                 <div class="random-location">{{place.address|truncatechars:15}}</div>
               </div>
-              <div class="random-image">이미지 자리</div>
+              <div class="random-image">
+                {% if review.postImage %}
+                  <img src="{{ review.postImage.url }}" />
+                {% else %}
+                  <img src="/static/img/no_image.png" />
+                {% endif %}
+              </div>
               <div class="random-comment">{{review.postGood|truncatechars:115}}</div>
             </div>
         {% else %}

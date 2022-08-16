@@ -87,7 +87,6 @@ def home(request):
         posts = Post.objects.all().order_by('id')
         if len(posts) >= 3:
             while len(reviews) < 3:
-                # print("안녕")
                 pk = random.randint(1, max_id)
                 if pk not in pks:
                     try:
@@ -108,9 +107,10 @@ def home(request):
         else:
             for post in posts:
                 if post.postType == 'cafe':
-                    place = Cafe.objects.get(id=post.placeId).first()
+                    print(post.postType)
+                    place = Cafe.objects.get(id=post.placeId)
                 elif post.postType == 'place':
-                    place = Place.objects.get(id=post.placeId).first()
+                    place = Place.objects.get(id=post.placeId)
                 else :
                     place = Accomodation.objects.get(id=post.placeId)
                 reviews.append(post)
@@ -119,6 +119,7 @@ def home(request):
                 counts.append(len(place_review))
         total_list=zip(reviews,places,counts)
     except:
+        total_list=zip(reviews,places,counts)
         #리뷰가 하나도 없어요!
         pass                
 
@@ -363,13 +364,13 @@ def create(request,category,category_id):
         if request.method == "POST":
             postGood = request.POST["postGood"]
             postBad = request.POST["postBad"]
-            postImage = request.POST['postImage']
+            postImage = request.FILES['postImage']
             ranking = request.POST["ranking"]
             new_post=Post.objects.create(user=me,postType=category,postImage=postImage,postGood=postGood,postBad=postBad,ranking=ranking, placeId=category_id)
 
             return render(request, 'reviewDetail.html', {'placeName':placeName,'post':new_post}) ## 여기 수정해야 함!
         else:
-            return render(request, 'reviewWrite.html', {'placeName':placeName,'location':location, 'category':category})
+            return render(request, 'reviewWrite.html', {'placeName':placeName,'location':location, 'category':category, 'category_id':category_id})
     except:
         #로그인을 해주세요!
         return redirect(f"/detail/{category}/{category_id}")

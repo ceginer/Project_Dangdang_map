@@ -141,6 +141,13 @@ a {
   padding: 5px;
 }
 
+.home-container .random-title:hover {
+  cursor: pointer;
+  background-color: rgba(255, 240, 161, 1);
+  font-weight: bold;
+
+}
+
 .home-container .random-ranking-type {
   color: gray;
 }
@@ -151,13 +158,17 @@ a {
   align-items: center;
   width: 325.5px;
   height: 190px;
-  border: black solid 1px;
   margin: 10px 0 0 5.5px;
+}
+
+.home-container .random-image img {
+  object-fit: cover;
+  width: 325.5px;
+  height: 190px;
 }
 
 .home-container .random-location {
   padding: 0 0 0 20px;
-  font-weight: bold;
 }
 
 .home-container .random-comment {
