@@ -1,27 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
-{% extends 'base.html'%}
-{% load static %}
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  {% extends 'base.html'%} {% load static %}
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>mypage</title>
-    <link rel="stylesheet" href="{% static 'css/mypage.css' %}">
-</head>
-<body>
-    
+    <link rel="stylesheet" href="{% static 'css/mypage.css' %}" />
+  </head>
+  <body>
     {% block content %}
-    <div class = "container">
-        <div class = "Like_ls">
-            <div style="text-align: center;"><img src = "\static\img\Like_sq.svg" alt=""></div>
-            <div class = "Like_title"><p>내가 찜한 목록</p></div>
+    <div class="container">
+      <div class="Like_ls">
+        <div style="text-align: center">
+          <img src="\static\img\Like_sq.svg" alt="" />
         </div>
-        <div class = "myReview_ls">
-            <div class ="myReview_title">내가 쓴 리뷰</div>
-            <div style="text-align: center;"><img src = "\static\img\myReview_sq.svg" alt=""></div>
+        <div class="Like_title"><p>내가 찜한 목록</p></div>
+      </div>
+      <div class="myReview_ls">
+        <div class="myReview_title">내가 쓴 리뷰</div>
+        <div style="text-align: center">
+          <img src="\static\img\myReview_sq.svg" alt="" />
         </div>
+      </div>
     </div>
     {% endblock %}
-</body>
+  </body>
 </html>
+
+<!-- 이렇게 쓰심 될 것 같아요!
+<div>
+    {% for like in likePlaces %}
+    <div>{{like.name}}</div> like에는 내가 찜한 장소객체가 담겨 있어요! Cafe, Place, Accommodation이 섞여 있어요
+    {% endfor %}
+</div>
+
+
+
+<div>
+    {% for post in posts %}
+    <div>{{post.postGood}}</div> 내가 쓴 리뷰들
+    {% endfor %}
+  </div> -->
