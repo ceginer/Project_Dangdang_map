@@ -17,8 +17,10 @@ const onclickMedical = () => {
 requestMedical.onreadystatechange = () => {
   if (requestMedical.readyState === XMLHttpRequest.DONE) {
     if (requestMedical.status <= 400) {
-      const { list, query, loc } = JSON.parse(requestMedical.response);
-      console.log(query, loc);
+      const { list, query, loc, x, y } = JSON.parse(requestMedical.response);
+      console.log(query, loc, x, y);
+      medical = JSON.parse(list);
+      console.log(medical[0]);
     }
   }
 };
