@@ -155,10 +155,11 @@ def medicals(request): # main에서 응급댕댕 선택시
     req = json.loads(request.body)
     loc = req['loc'] # 강원, 제주, 경기, 서울
     query = req['query']
-
     medicals = Medical.objects.filter(location=loc)
 
-    return JsonResponse({'medicals' : medicals, 'query':query, 'loc':loc})
+    list = serializers.serialize('json',medicals)
+
+    return JsonResponse({'list' : list, 'query':query, 'loc':loc})
 
 
 def update(request, id): 

@@ -7,9 +7,9 @@ const onclickMedical = () => {
     "Content-Type",
     "application/x-www-form-urlencoded"
   );
-  location = document.getElementById("location");
-  loc = location.options[location.selectedIndex].text;
-  query = document.getElementById("query-loc").value;
+  var location = document.getElementById("location");
+  var loc = location.options[location.selectedIndex].text;
+  var query = document.getElementById("query-loc").value;
   console.log(loc, query);
   requestMedical.send(JSON.stringify({ loc: loc, query: query }));
 };
@@ -17,7 +17,7 @@ const onclickMedical = () => {
 requestMedical.onreadystatechange = () => {
   if (requestMedical.readyState === XMLHttpRequest.DONE) {
     if (requestMedical.status <= 400) {
-      const { medicals, query, loc } = JSON.parse(requestMedical.response);
+      const { list, query, loc } = JSON.parse(requestMedical.response);
       console.log(query, loc);
     }
   }
