@@ -1,28 +1,47 @@
 {% extends 'base.html'%}
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="{% static 'css/reviewDetail.css' %}" />
-  <title>Document</title>
-</head>
+{% block content %}
 
 <body>
-  {% block content %}
   <div class="review-detail">
-    <div>리뷰디테일 페이지 입니다.</div>
+    <div class="review_top">
+      <div class="logo_img"><img src="" /></div>
+      <h1>멍 리뷰</h1>
+      <span>당신의 소중한 후기는 많은 댕댕이들에게 도움이 됩니다:)</span>
+      <div class="review_update_btn">
+        <button>Modify</button>
+        <button>Update</button>
+      </div>
+    </div>
+    <div class="review_mid">
+      {% if review.postImage %}
+      <p>
+      <div class="review_photo">
+        <img src="{{ review.postImage.url }}" style="width: 338px; height: 365px; border-radius: 33px;" />
+      </div>
+      </p>
+      {% endif %}
 
-    <div>{{placeName}}리뷰썻음</div>
-  </div>
+    </div>
+    <div class="review_bottom">
+      <div class="post-good">
+        <div class="post_span">이런 부분이 좋아요!</div>
+        <br>
+        <div class="post-good-box">
+          {{review.postGood}}
+        </div>
+      </div>
+      <div class="post-bad">
+        <div class="post_span">이런 부분이 아쉬워요!</div>
+        <br>
+        <div class="post-good-box">
+          {{review.postBad}}
+        </div>
+      </div>
+    </div>
 
-  <div class="back_to_list">
-    <a href="/detail/{{post.postType}}/{{post.placeId}}">목록으로</a>
+    <div class="back_to_list">
+      <a href="/detail/{{post.postType}}/{{post.placeId}}">목록으로</a>
+    </div>
   </div>
-  {% endblock %}
 </body>
-
-</html>
+{% endblock %}
