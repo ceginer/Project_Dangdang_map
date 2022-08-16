@@ -266,8 +266,9 @@ def placeToDictionary(list):
 ## 멍초이스 (post) 부분
 
 def delete(request, id):
-    Post.objects.filter(id=id).delete()
-    return redirect("/") # 삭제하고 나면 어디로 보낼까요?
+    if request.method == "POST":
+        Post.objects.filter(id=id).delete()
+        return redirect("/") # 삭제하고 나면 어디로 보낼까요?
 
 def update(request, id): 
     if request.method == "POST":
@@ -280,7 +281,7 @@ def update(request, id):
         return redirect(f"reviewDetail/{id}")
     post = Post.objects.get(id=id)
     context = {"post":post}
-    return render(request, "reviewWrite.html",context=context)
+    return render(request, "reviewUpdate.html", context=context)
 
 ### db에 csv 파일 넣는 함수입니다.
 ### migrations 날리고 dbsqlite 날리고 사용해야 합니다. 한번만 작동해주세요..!! 여러번 하면 여러번 들어가요

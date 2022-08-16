@@ -91,7 +91,7 @@
     margin: 0 auto;
 }
 
-input[type=text] {
+textarea[type=text] {
     width: 774px;
     height: 241px;
     background: #FFFFFF;
