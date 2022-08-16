@@ -78,18 +78,51 @@ locationDic = {'seoul':'서울','gyeongi':'경기','incheon':'인천','gangwon':
 
 def home(request):
     locationList = locationDic.values()
-    reviews_3 =[]
+    reviews = []
+    places = []
+    pks = []
+    counts = []
     try:
         max_id = Post.objects.all().aggregate(max_id=Max("id"))['max_id']
-        while len(reviews_3) < 3:
-            pk = random.randint(1, max_id)
-            review = Post.objects.filter(pk=pk).first()
-            if review:
-                reviews_3
+        posts = Post.objects.all().order_by('id')
+        if len(posts) >= 3:
+            while len(reviews) < 3:
+                # print("안녕")
+                pk = random.randint(1, max_id)
+                if pk not in pks:
+                    try:
+                        post = Post.objects.get(id=pk)
+                        if post.postType == 'cafe':
+                            place = Cafe.objects.get(id=post.placeId)
+                        elif post.postType == 'place':
+                            place = Place.objects.get(id=post.placeId)
+                        else :
+                            place = Accomodation.objects.get(id=post.placeId)
+                        reviews.append(post)
+                        places.append(place)
+                        pks.append(id)
+                        place_review = Post.objects.filter(placeId=place.id)
+                        counts.append(len(place_review))
+                    except:
+                        pass
+        else:
+            for post in posts:
+                if post.postType == 'cafe':
+                    place = Cafe.objects.get(id=post.placeId).first()
+                elif post.postType == 'place':
+                    place = Place.objects.get(id=post.placeId).first()
+                else :
+                    place = Accomodation.objects.get(id=post.placeId)
+                reviews.append(post)
+                places.append(place)
+                place_review = Post.objects.filter(placeId=place.id)
+                counts.append(len(place_review))
+        total_list=zip(reviews,places,counts)
     except:
+        #리뷰가 하나도 없어요!
         pass                
 
-    context = { "locationList" : locationList, "reviews_3" : reviews_3 }
+    context = { "locationList" : locationList,"total_list": total_list}
     return render(request,'home.html', context=context)
 
 # 메인페이지 리스팅

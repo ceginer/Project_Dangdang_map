@@ -141,6 +141,10 @@ a {
   padding: 5px;
 }
 
+.home-container .random-ranking-type {
+  color: gray;
+}
+
 .home-container .random-image {
   display: flex;
   justify-content: center;
@@ -159,10 +163,9 @@ a {
 .home-container .random-comment {
   height: 145px;
   width: 313px;
-  padding: 27px 0 0 81px;
+  padding: 25px 0 0 80px;
   font-size: 14px;
   line-height: 20px;
-  border: black solid 1px;
 }
 
 /* mypage.html */

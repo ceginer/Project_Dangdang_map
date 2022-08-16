@@ -21,20 +21,21 @@
   <div id="num">0</div>
   <div class="page_dot"><img src="/static/img/page_1.svg" alt=""></div>
   <div class="home_random_container">
-    {% for review in reviews_3 %}
-        {% if review.placeId %}
+    {% for review,place,count in total_list %}
+        {% if review %}
             <div class="random-review">
               <div class="random-info">
-                <div class="random-title">(가게 이름)</div>
-                <div class="random-ranking-type">{{review.ranking}}점 (23) {{postType}}</div>
-                <div class="random-location">{{place}}</div>
+                <div class="random-title">{{place.name}}</div>
+                <div class="random-ranking-type">{{review.ranking}}점 ({{count}}) {{place.type}}</div>
+                <div class="random-location">{{place.address|truncatechars:15}}</div>
               </div>
               <div class="random-image">이미지 자리</div>
-              <div class="random-comment">이곳은 혹시..갱얼쥐들의 패러다이스??? 너무좋아요!!</div>
+              <div class="random-comment">{{review.postGood|truncatechars:115}}</div>
             </div>
         {% else %}
             <div>대동멍지도의 첫번째 리뷰를 작성해주세요!</div>
         {% endif %}
+    {% endfor %}
   </div>
 </div>
 {% endblock %}
