@@ -68,9 +68,9 @@ def logout(request):
     return redirect('/')
 
 
-def mypage(request):
+# def mypage(request):
 
-    return render(request, 'mypage.html')
+#     return render(request, 'mypage.html')
 
 # 임시로 만들어 둔 지역 list입니다. 나중에 db로 대체하든, 얘기해봐요..
 locationDic = {'seoul':'서울','gyeongi':'경기','incheon':'인천','gangwon':'강원','chungbuk':'충북','chungnam':'충남','deajeon':'대전','sejong':'세종','jeonbuk':'전북','jeonnam':'전남','gwangju':'광주','gyeongbuk':'경북','gyeongnam':'경남','daegu':'대구','ulsan':'울산','busan':'부산','jeju':'제주' }
@@ -373,3 +373,28 @@ def reviewDetail(request, id):
 
     return render(request, 'reviewDetail.html', context=context)
 
+def mypage(request):
+    current_user = request.user # 현재 접속한 user를 가져온다.
+    me = User.objects.get(username=current_user) # User db에서 현재 접속한 user를 찾는다.
+
+    likePlaces = []
+    
+    try:
+        likes = Like.objects.filter(Q(user=me) & Q(like=True))
+
+        for like in likes:
+            if like.placeType == 'cafe':
+                place = Cafe.objects.get(id=like.placeId)
+            elif like.placeType == 'place':
+                place = Place.objects.get(id=like.placeId)
+            else:
+                place = Accomodation.objects.get(id=like.placeId)
+            likePlaces.append(place)
+    except:
+        likePlaces = []
+
+    posts = Post.objects.filter(user=me)
+
+    context = {'posts':posts, 'likePlaces':likePlaces}
+
+    return render(request, 'mypage.html', context=context)
