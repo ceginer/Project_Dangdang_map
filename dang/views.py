@@ -5,11 +5,12 @@ from multiprocessing import context
 from re import template
 from unicodedata import category
 from django.shortcuts import render, redirect,HttpResponse, get_object_or_404
-from django.db.models import Q
+from django.db.models import Q, Max
 import csv
 from .models import User, Post, Cafe, Place, Accomodation, Medical, Like
 from django.core.paginator import Paginator
 from .forms import PostForm
+import random
 
 
 from django.core import serializers
@@ -77,7 +78,18 @@ locationDic = {'seoul':'서울','gyeongi':'경기','incheon':'인천','gangwon':
 
 def home(request):
     locationList = locationDic.values()
-    context = { "locationList" : locationList }
+    reviews_3 =[]
+    try:
+        max_id = Post.objects.all().aggregate(max_id=Max("id"))['max_id']
+        while len(reviews_3) < 3:
+            pk = random.randint(1, max_id)
+            review = Post.objects.filter(pk=pk).first()
+            if review:
+                reviews_3
+    except:
+        pass                
+
+    context = { "locationList" : locationList, "reviews_3" : reviews_3 }
     return render(request,'home.html', context=context)
 
 # 메인페이지 리스팅
@@ -145,7 +157,6 @@ def listDetail(request, category, id):
         pass
     context = {'category': category ,'here': here, 'reviews': reviews}
     return render(request, 'listDetail.html', context=context)
-    Like.objects.filter(Q(user=me.id) & Q(placeType=category))
 
 def medicalList(request): # main에서 응급댕댕 선택시
     return render(request, 'medicalList.html')
