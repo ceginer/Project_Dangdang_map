@@ -20,7 +20,7 @@
         <button>Update</button>
       </div>
     </div>
-    <form method="POST">
+    <form action="/create/{{category}}/{{category_id}}" method="POST" enctype="multipart/form-data">
       <div class="post_container">
         {% csrf_token %}
         <div class="post_review">

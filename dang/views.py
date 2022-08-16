@@ -5,11 +5,12 @@ from multiprocessing import context
 from re import template
 from unicodedata import category
 from django.shortcuts import render, redirect,HttpResponse, get_object_or_404
-from django.db.models import Q
+from django.db.models import Q, Max
 import csv
 from .models import User, Post, Cafe, Place, Accomodation, Medical, Like
 from django.core.paginator import Paginator
 from .forms import PostForm
+import random
 
 
 from django.core import serializers
@@ -77,7 +78,51 @@ locationDic = {'seoul':'서울','gyeongi':'경기','incheon':'인천','gangwon':
 
 def home(request):
     locationList = locationDic.values()
-    context = { "locationList" : locationList }
+    reviews = []
+    places = []
+    pks = []
+    counts = []
+    try:
+        max_id = Post.objects.all().aggregate(max_id=Max("id"))['max_id']
+        posts = Post.objects.all().order_by('id')
+        if len(posts) >= 3:
+            while len(reviews) < 3:
+                # print("안녕")
+                pk = random.randint(1, max_id)
+                if pk not in pks:
+                    try:
+                        post = Post.objects.get(id=pk)
+                        if post.postType == 'cafe':
+                            place = Cafe.objects.get(id=post.placeId)
+                        elif post.postType == 'place':
+                            place = Place.objects.get(id=post.placeId)
+                        else :
+                            place = Accomodation.objects.get(id=post.placeId)
+                        reviews.append(post)
+                        places.append(place)
+                        pks.append(id)
+                        place_review = Post.objects.filter(placeId=place.id)
+                        counts.append(len(place_review))
+                    except:
+                        pass
+        else:
+            for post in posts:
+                if post.postType == 'cafe':
+                    place = Cafe.objects.get(id=post.placeId).first()
+                elif post.postType == 'place':
+                    place = Place.objects.get(id=post.placeId).first()
+                else :
+                    place = Accomodation.objects.get(id=post.placeId)
+                reviews.append(post)
+                places.append(place)
+                place_review = Post.objects.filter(placeId=place.id)
+                counts.append(len(place_review))
+        total_list=zip(reviews,places,counts)
+    except:
+        #리뷰가 하나도 없어요!
+        pass                
+
+    context = { "locationList" : locationList,"total_list": total_list}
     return render(request,'home.html', context=context)
 
 # 메인페이지 리스팅
@@ -145,7 +190,6 @@ def listDetail(request, category, id):
         pass
     context = {'category': category ,'here': here, 'reviews': reviews}
     return render(request, 'listDetail.html', context=context)
-    Like.objects.filter(Q(user=me.id) & Q(placeType=category))
 
 def medicalList(request): # main에서 응급댕댕 선택시
     return render(request, 'medicalList.html')

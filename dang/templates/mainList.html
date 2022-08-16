@@ -191,7 +191,7 @@
             <div class="like">
               <button
                 type="submit"
-                onclick="onClickLike('{{category}}',{{place.id}}, '{{place.favorite}}')"
+                onclick="onClickLike('{{category}}','{{place.id}}', '{{place.favorite}}')"
               >
                 {% csrf_token %} {% if place.favorite %}
                 <i class="fas fa-heart"></i>
