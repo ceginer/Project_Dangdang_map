@@ -1,22 +1,28 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{% static 'css/reviewDetail.css' %}" />
   <title>Document</title>
 </head>
+
 <body>
   {% extends 'base.html'%}
   {% block content %}
-  <div>리뷰디테일 페이지 입니다.</div>
+  <div class="review-detail">
+    <div>리뷰디테일 페이지 입니다.</div>
 
-  <div>{{placeName}}리뷰썻음</div>
+    <div>{{placeName}}리뷰썻음</div>
+  </div>
 
-
-  <div class ="back_to_list">
+  <div class="back_to_list">
     <a href="/detail/{{post.postType}}/{{post.placeId}}">목록으로</a>
   </div>
   {% endblock %}
 </body>
+
 </html>

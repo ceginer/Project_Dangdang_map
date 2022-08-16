@@ -330,7 +330,6 @@ def create(request,category,category_id):
         #로그인을 해주세요!
         return redirect(f"/detail/{category}/{category_id}")
 
-
 @csrf_exempt
 def like(request):
     req = json.loads(request.body)
@@ -372,4 +371,3 @@ def reviewDetail(request, id):
     context = {'review':review, 'place':place}
 
     return render(request, 'reviewDetail.html', context=context)
-
