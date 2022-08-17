@@ -21,7 +21,6 @@ class Cafe(models.Model):
     location = models.CharField(max_length=100)
     address= models.CharField(max_length=100)
     phone= models.CharField(max_length=100, null=True)
-    star = models.CharField(max_length=100, null=True)
     type= models.CharField(max_length=100, null=True)
     menuInfo = models.TextField(null=True)
     hourInfo = models.TextField(null=True)
@@ -31,6 +30,7 @@ class Cafe(models.Model):
     mapx = models.CharField(max_length=100, null=True)
     mapy = models.CharField(max_length=100, null=True)
     favorite = models.BooleanField(default=False) # 임시 필드?
+    star = models.FloatField(null=True, default=0)
 
 
 class Place(models.Model):
@@ -38,7 +38,6 @@ class Place(models.Model):
     location = models.CharField(max_length=100)
     address = models.CharField(max_length=255)
     phone = models.CharField(max_length=100, null=True)
-    star = models.CharField(max_length=100, null=True)
     link1 = models.TextField(null=True)
     link2 = models.TextField(null=True)
     type = models.CharField(max_length=100, null=True)
@@ -47,6 +46,8 @@ class Place(models.Model):
     mapx = models.CharField(max_length=100, null=True)
     mapy = models.CharField(max_length=100, null=True)
     favorite = models.BooleanField(default=False) # 임시 필드?
+    star = models.FloatField(null=True, default=0)
+
 
 
 class Accomodation(models.Model):
@@ -55,7 +56,6 @@ class Accomodation(models.Model):
     location = models.CharField(max_length=100)
     address = models.CharField(max_length=100)
     phone = models.CharField(max_length=100, null=True)
-    star = models.CharField(max_length=100, null=True)
     link1 = models.TextField(null=True)
     link2 = models.TextField(null=True)
     type = models.CharField(max_length=100, null=True)
@@ -64,6 +64,8 @@ class Accomodation(models.Model):
     mapx = models.CharField(max_length=100, null=True)
     mapy = models.CharField(max_length=100, null=True)
     favorite = models.BooleanField(default=False) # 임시 필드?
+    star = models.FloatField(null=True, default=0)
+
     
 
 class Medical(models.Model):

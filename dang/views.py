@@ -96,10 +96,28 @@ def home(request):
                     place = Place.objects.get(id=post.placeId)
                 else :
                     place = Accomodation.objects.get(id=post.placeId)
+
                 reviews.append(post)
                 places.append(place)
                 place_review = Post.objects.filter(placeId=place.id)
                 counts.append(len(place_review))
+
+                for i in places: # 별점 계산해서 넣어줌
+                    try:
+                        posts = Post.objects.filter(Q(postType=category)&Q(placeId=i.id))
+                        len = len(posts)
+                        total=0
+                        for p in posts:
+                            total += p.ranking
+                        try:
+                            i.star = total/len
+                            i.save()
+                        except:
+                            i.star=0
+                            i.save()
+                    except:
+                        i.star=0
+                        i.save()
         else:
             for place_id in place_ids:
                 posts = Post.objects.filter(placeId=place_id)
@@ -115,6 +133,24 @@ def home(request):
                 places.append(place)
                 place_review = Post.objects.filter(placeId=place.id)
                 counts.append(len(place_review))
+
+                for i in places: # 별점 계산해서 넣어줌
+                    try:
+                        posts = Post.objects.filter(Q(postType=category)&Q(placeId=i.id))
+                        len = len(posts)
+                        total=0
+                        for p in posts:
+                            total += p.ranking
+                        try:
+                            i.star = total/len
+                            i.save()
+                        except:
+                            i.star=0
+                            i.save()
+                    except:
+                        i.star=0
+                        i.save()
+
         total_list=zip(reviews,places,counts)
     except:
         total_list=zip(reviews,places,counts)
@@ -164,6 +200,24 @@ def toMainList(request, category, location, type):
             else:
                 i.favorite = False
                 i.save()
+
+        for i in filteredLocation: # 별점 계산해서 넣어줌
+            try:
+                posts = Post.objects.filter(Q(postType=category)&Q(placeId=i.id))
+                len = len(posts)
+                total=0
+                for p in posts:
+                    total += p.ranking
+                try:
+                    i.star = total/len
+                    i.save()
+                except:
+                    i.star=0
+                    i.save()
+            except:
+                i.star=0
+                i.save()
+                
         
         filteredLocation = filteredLocation.order_by('id') # 가까운 순으로 정렬하면 좋을듯
         paginator = Paginator(filteredLocation, 5)   
@@ -299,7 +353,7 @@ def csvToModel(request):
     accomos = []
 
     for row in reader_accomo:
-        accomos.append(Accomodation(name=row[0],location=row[1],address=row[2],phone=row[3],star=row[4],link1=row[5],link2=row[6],type=row[7],desc=row[8],img=row[9][0],mapx=row[10],mapy=row[11]))
+        accomos.append(Accomodation(name=row[0],location=row[1],address=row[2],phone=row[3],link1=row[5],link2=row[6],type=row[7],desc=row[8],img=row[9][0],mapx=row[10],mapy=row[11]))
     Accomodation.objects.bulk_create(accomos)
 
     for r in reader_cafe:
@@ -310,7 +364,7 @@ def csvToModel(request):
     Cafe.objects.bulk_create(cafes)
 
     for r in reader_place:
-        places.append(Place(name=r[0],location=r[1],address=r[2],phone=r[3],star=r[4],link1=r[5],link2=r[6],type=r[7],desc=r[8],img=r[9],mapx=r[10],mapy=r[11]))
+        places.append(Place(name=r[0],location=r[1],address=r[2],phone=r[3],link1=r[5],link2=r[6],type=r[7],desc=r[8],img=r[9],mapx=r[10],mapy=r[11]))
     Place.objects.bulk_create(places)
 
 
@@ -415,3 +469,4 @@ def reviewDetail(request, id):
     context = {'review':review, 'place':place}
 
     return render(request, 'reviewDetail.html', context=context)
+
