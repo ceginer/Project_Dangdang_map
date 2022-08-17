@@ -271,6 +271,9 @@ def delete(request, id):
         return redirect("/") # 삭제하고 나면 어디로 보낼까요?
 
 def update(request, id): 
+    post = Post.objects.get(id=id)
+    category = post.postType
+    placeId = post.placeId
     if request.method == "POST":
         postGood = request.POST["postGood"]
         postBad = request.POST["postBad"]
@@ -278,11 +281,8 @@ def update(request, id):
         ranking = request.POST["ranking"]
 
         Post.objects.filter(id=id).update(postGood=postGood,postBad=postBad,postImage=postImage,ranking=ranking)
-        return redirect(f"reviewDetail/{id}")
-    post = Post.objects.get(id=id)
-    category = post.postType
-    placeId = post.placeId
-
+        return redirect(f"/reviewDetail/{id}")
+    
     if category == 'cafe':
             place = Cafe.objects.get(id=placeId)
     elif category == 'accomo':
