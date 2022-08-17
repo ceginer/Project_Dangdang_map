@@ -346,7 +346,6 @@ def csvToModel(request):
 #     return render(request, 'reviewWrite.html', {'form':form , 'post':post})
 
 def create(request,category,category_id):
-    try:
         current_user = request.user # 현재 접속한 user를 가져온다.
         me = User.objects.get(username=current_user) # User db에서 현재 접속한 user를 찾는다.
 
@@ -367,12 +366,11 @@ def create(request,category,category_id):
             ranking = request.POST["ranking"]
             new_post=Post.objects.create(user=me,postType=category,postImage=postImage,postGood=postGood,postBad=postBad,ranking=ranking, placeId=category_id)
 
-            return render(request, 'reviewDetail.html', {'placeName':placeName,'post':new_post}) ## 여기 수정해야 함!
+            return redirect(f"/reviewDetail/{new_post.id}")
         else:
             return render(request, 'reviewWrite.html', {'placeName':placeName,'location':location, 'category':category, 'category_id':category_id})
-    except:
-        #로그인을 해주세요!
-        return redirect(f"/detail/{category}/{category_id}")
+
+        
 
 @csrf_exempt
 def like(request):
