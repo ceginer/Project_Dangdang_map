@@ -360,7 +360,7 @@ def csvToModel(request):
     medicals = []
 
     for row in reader_accomo:
-        accomos.append(Accomodation(name=row[0],location=row[1],address=row[2],phone=row[3],star=row[4],link1=row[5],link2=row[6],type=row[7],desc=row[8],img=row[9][0],mapx=row[10],mapy=row[11]))
+        accomos.append(Accomodation(name=row[0],location=row[1],address=row[2],phone=row[3],type=row[4],link1=row[5],desc=row[6],img=row[7],x=row[8],y=row[9]))
     Accomodation.objects.bulk_create(accomos)
 
     for r in reader_cafe:
