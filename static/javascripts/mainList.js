@@ -157,14 +157,6 @@ requestCate.onreadystatechange = () => {
     }
   }
 };
-// 새로 고침시 타입 체크박스 체크상태 변경
-const selectedType = document.querySelector(".selected-type").innerHTML;
-const changeType = document.getElementsByName("type");
-changeType.forEach((type) => {
-  if (type.value == selectedType) {
-    type.checked = true;
-  }
-});
 
 //찜하기 기능
 const requestLike = new XMLHttpRequest();

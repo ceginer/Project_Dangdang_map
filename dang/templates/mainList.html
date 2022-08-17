@@ -184,7 +184,8 @@
                 <span class="type">{{place.type}}</span>
               </div>
               <h3 class="phone">{{place.address}}</h3>
-              <div class="ranking-star">{{place.star}}</div>
+              <div class="star"></div>
+              <div class="ranking">{{place.star}}</div>
             </div>
           </div>
           <div class="favorite" id="favorite-{{place.id}}">
@@ -229,15 +230,34 @@
   </div>
 </div>
 
+<script>
+  // 새로 고침시 타입 체크박스 체크상태 변경
+  const selectedType = document.querySelector(".selected-type").innerHTML;
+  const changeType = document.getElementsByName("type");
+  changeType.forEach((type) => {
+    if (type.value == selectedType) {
+      type.checked = true;
+    }
+  });
+
+  // 새로 고침시 별점상태 변경
+  const stars = document.querySelectorAll(".star");
+  stars.forEach((star) => {
+    const ranking = document.querySelector(".ranking").innerHTML;
+    let starNum = Math.floor(parseInt(ranking));
+    for (var i = 0; i < starNum; i++) {
+          const add = document.createElement("div");
+          add.classList.add("yellow-star");
+          add.innerHTML = `<img src="/static/img/yellow_star.svg" alt="">`;
+          star.append(add);
+        }
+    for (var i = 0; i < 5 - starNum; i++) {
+          const add = document.createElement("div");
+          add.classList.add("gray-star");
+          add.innerHTML = `<img src="/static/img/gray_star.svg" alt="">`;
+          star.append(add);
+        }
+  });
+</script>
 {% endblock %}
 
-<script></script>
-<!-- <div class="page-shift-container">
-  <div class="mainList-shift-btn-left">
-    <button onclick="onClickMainList('left')">&lt;</button>
-  </div>
-  <div id="page-num">0</div>
-  <div class="mainList-shift-btn-right">
-    <button onclick="onClickMainList('right')">&gt;</button>
-  </div>
-</div> -->

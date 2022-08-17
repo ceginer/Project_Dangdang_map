@@ -263,6 +263,10 @@
   color: gray;
 }
 
+.mainList .accom-text-box .ranking {
+  display: none;
+}
+
 .mainList .list {
   display: flex;
   flex-direction: column;

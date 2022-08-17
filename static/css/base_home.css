@@ -149,7 +149,19 @@ a {
 }
 
 .home-container .random-ranking-type {
+  display: flex;
+  justify-content: start;
+  gap: 0.5rem;
   color: gray;
+}
+
+.home-container .random-ranking-type .star {
+  display: flex;
+  justify-content: start;
+}
+
+.home-container .random-ranking-type .ranking {
+  display: none;
 }
 
 .home-container .random-image {

@@ -8,8 +8,11 @@
       <h1>멍 리뷰</h1>
       <span>당신의 소중한 후기는 많은 댕댕이들에게 도움이 됩니다:)</span>
       <div class="review_update_btn">
-        <button>Modify</button>
-        <button>Update</button>
+        <form action="/delete/{{review.id}}" method="post">
+          {% csrf_token %}
+          <button>Delete</button>
+        </form>
+        <button><a href="/update/{{review.id}}">Update</a></button>
       </div>
     </div>
     <div class="review_mid">
