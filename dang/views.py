@@ -82,34 +82,34 @@ def home(request):
     reviews = []
     places = []
     counts = []
-    
-    def getPlace(place_ids):
-        for place_id in place_ids:
-            posts = Post.objects.filter(placeId=place_id)
+
+    def getPlace(place_types):
+        for type in place_types:
+            posts = Post.objects.filter(postType=type)
             random_id = random.choice(posts).id
+            print(random_id)
             post = Post.objects.get(id=random_id)
-            if post.postType == 'cafe':
+            if type == 'cafe':
                 place = Cafe.objects.get(id=post.placeId)
-            elif post.postType == 'place':
+            elif type == 'place':
                 place = Place.objects.get(id=post.placeId)
-            else :
+            else:
                 place = Accomodation.objects.get(id=post.placeId)
             reviews.append(post)
             places.append(place)
             place_review = Post.objects.filter(placeId=place.id)
             counts.append(len(place_review))
+    
     try:
-        place_ids = list(set(Post.objects.all().values_list('placeId', flat=True)))
-        if len(place_ids) > 3:
-            place_ids = random.sample(place_ids, 3)
-            getPlace(place_ids)
+        place_types = list(Post.objects.all().values_list('postType', flat=True))
+        if len(place_types) > 3:
+            place_types = random.sample(place_types, 3)
+            getPlace(place_types)
         else:
-            getPlace(place_ids)
-        total_list=zip(reviews,places,counts)
+            getPlace(place_types)
     except:
-        total_list=zip(reviews,places,counts)
-        #리뷰가 하나도 없어요!
-        pass                
+        pass
+    total_list=zip(reviews,places,counts)
 
     context = { "locationList" : locationList,"total_list": total_list}
     return render(request,'home.html', context=context)
@@ -422,6 +422,15 @@ def create(request,category,category_id):
         postImage = request.FILES['postImage']
         ranking = request.POST["ranking"]
         new_post=Post.objects.create(user=me,postType=category,postImage=postImage,postGood=postGood,postBad=postBad,ranking=ranking, placeId=category_id)
+
+        # 별점저장
+        posts = Post.objects.filter(Q(postType=category)&Q(placeId=category_id))
+        total = 0
+        len_posts= len(posts)
+        for p in posts:
+            total += p.ranking
+        place.star = total/len_posts
+        place.save()
 
         return redirect(f"/reviewDetail/{new_post.id}")
     else:
