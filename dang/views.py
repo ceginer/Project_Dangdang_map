@@ -83,39 +83,28 @@ def home(request):
     places = []
     counts = []
     
+    def getPlace(place_ids):
+        for place_id in place_ids:
+            posts = Post.objects.filter(placeId=place_id)
+            random_id = random.choice(posts).id
+            post = Post.objects.get(id=random_id)
+            if post.postType == 'cafe':
+                place = Cafe.objects.get(id=post.placeId)
+            elif post.postType == 'place':
+                place = Place.objects.get(id=post.placeId)
+            else :
+                place = Accomodation.objects.get(id=post.placeId)
+            reviews.append(post)
+            places.append(place)
+            place_review = Post.objects.filter(placeId=place.id)
+            counts.append(len(place_review))
     try:
         place_ids = list(set(Post.objects.all().values_list('placeId', flat=True)))
         if len(place_ids) > 3:
             place_ids = random.sample(place_ids, 3)
-            for place_id in place_ids:
-                posts = Post.objects.filter(placeId=place_id)
-                random_id = random.choice(posts).id
-                post = Post.objects.get(id=random_id)
-                if post.postType == 'cafe':
-                    place = Cafe.objects.get(id=post.placeId)
-                elif post.postType == 'place':
-                    place = Place.objects.get(id=post.placeId)
-                else :
-                    place = Accomodation.objects.get(id=post.placeId)
-                reviews.append(post)
-                places.append(place)
-                place_review = Post.objects.filter(placeId=place.id)
-                counts.append(len(place_review))
+            getPlace(place_ids)
         else:
-            for place_id in place_ids:
-                posts = Post.objects.filter(placeId=place_id)
-                random_id = random.choice(posts).id
-                post = Post.objects.get(id=random_id)
-                if post.postType == 'cafe':
-                    place = Cafe.objects.get(id=post.placeId)
-                elif post.postType == 'place':
-                    place = Place.objects.get(id=post.placeId)
-                else :
-                    place = Accomodation.objects.get(id=post.placeId)
-                reviews.append(post)
-                places.append(place)
-                place_review = Post.objects.filter(placeId=place.id)
-                counts.append(len(place_review))
+            getPlace(place_ids)
         total_list=zip(reviews,places,counts)
     except:
         total_list=zip(reviews,places,counts)
