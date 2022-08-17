@@ -192,3 +192,13 @@ requestLike.onreadystatechange = () => {
     }
   }
 };
+
+// function onclickLogin() {
+//   alert("로그인하세요!");
+//   console.log("로긍니");
+// }
+// let goLogin = document.querySelector(".goLogin");
+
+// goLogin.onclick = function () {
+//   alert("로그인하세요!");
+// };

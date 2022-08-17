@@ -1,4 +1,5 @@
 from asyncio.windows_events import NULL
+from dis import dis
 import email
 from http.client import HTTPResponse
 from multiprocessing import context
@@ -69,9 +70,9 @@ def logout(request):
     return redirect('/')
 
 
-def mypage(request):
+# def mypage(request):
 
-    return render(request, 'mypage.html')
+#     return render(request, 'mypage.html')
 
 # 임시로 만들어 둔 지역 list입니다. 나중에 db로 대체하든, 얘기해봐요..
 locationDic = {'seoul':'서울','gyeongi':'경기','incheon':'인천','gangwon':'강원','chungbuk':'충북','chungnam':'충남','deajeon':'대전','sejong':'세종','jeonbuk':'전북','jeonnam':'전남','gwangju':'광주','gyeongbuk':'경북','gyeongnam':'경남','daegu':'대구','ulsan':'울산','busan':'부산','jeju':'제주' }
@@ -194,6 +195,45 @@ def medicalList(request): # main에서 응급댕댕 선택시
     return render(request, 'medicalList.html')
 
 @csrf_exempt
+def medicals(request): # main에서 응급댕댕 선택시
+    req = json.loads(request.body)
+    loc = req['loc'] # 강원, 제주, 경기, 서울
+    query = req['query']
+
+    searching = loc+query
+    x,y = medicalSearch(searching) # 사용자가 검색한 값의 경도,위도
+
+    medicals = Medical.objects.filter(location=loc)
+
+    for med in medicals:
+        xx = med.x
+        yy = med.y
+        d = distance(x,y,xx,yy)
+        Medical.objects.filter(id=med.id).update(distance=d)
+
+    medicals = Medical.objects.filter(location=loc).order_by('distance')[:10]
+
+    list = serializers.serialize('json',medicals)
+
+    return JsonResponse({'list' : list, 'query':query, 'loc':loc, 'x':x,'y':y})
+
+
+def update(request, id): 
+    if request.method == "POST":
+        postGood = request.POST["postGood"]
+        postBad = request.POST["postBad"]
+        postImage = request.FILES['postImage']
+        ranking = request.POST["ranking"]
+
+        Post.objects.filter(id=id).update(postGood=postGood,postBad=postBad,postImage=postImage,ranking=ranking)
+        return redirect(f"reviewDetail/{id}")
+    post = Post.objects.get(id=id)
+    context = {"post":post}
+    return render(request, "reviewWrite.html",context=context)
+
+
+
+@csrf_exempt
 def cates(request):
     req = json.loads(request.body)
     cate = req['cate'] # 카페, 숙소, 장소
@@ -297,19 +337,27 @@ def update(request, id):
     return render(request, "reviewUpdate.html", context=context)
 
 ### db에 csv 파일 넣는 함수입니다.
-### migrations 날리고 dbsqlite 날리고 사용해야 합니다. 한번만 작동해주세요..!! 여러번 하면 여러번 들어가요
+# 한 번만 실행.....
 def csvToModel(request):
+    Accomodation.objects.all().delete()
+    Cafe.objects.all().delete()
+    Place.objects.all().delete()
+    Medical.objects.all().delete()
+
     c = open("./static/csv/cafe.csv",'r',encoding='CP949')
     a = open("./static/csv/accommo.csv",'r',encoding='CP949')
     p = open("./static/csv/place.csv",'r',encoding='CP949')
+    m = open("./static/csv/medical.csv",'r',encoding='CP949')
     
     reader_cafe = csv.reader(c)
     reader_accomo = csv.reader(a)
     reader_place = csv.reader(p)
+    reader_medical = csv.reader(m)
 
     cafes = []
     places = []
     accomos = []
+    medicals = []
 
     for row in reader_accomo:
         accomos.append(Accomodation(name=row[0],location=row[1],address=row[2],phone=row[3],star=row[4],link1=row[5],link2=row[6],type=row[7],desc=row[8],img=row[9][0],mapx=row[10],mapy=row[11]))
@@ -326,10 +374,17 @@ def csvToModel(request):
         places.append(Place(name=r[0],location=r[1],address=r[2],phone=r[3],star=r[4],link1=r[5],link2=r[6],type=r[7],desc=r[8],img=r[9],mapx=r[10],mapy=r[11]))
     Place.objects.bulk_create(places)
 
+    for r in reader_medical:
+        try:
+            medicals.append(Medical(name=r[0],location=r[1],phone=r[2],address=r[3],doro=r[4],hourInfo=r[5],x=r[6],y=r[7],distance=0, link=r[8]))
+        except:
+            medicals.append(Medical(name=r[0],location=r[1],phone=r[2],address=r[3],doro=r[4],hourInfo='',x=r[6],y=r[7],distance=0, link=r[8]))
+    Medical.objects.bulk_create(medicals)
 
     c.close()
     a.close()
     p.close()
+    m.close()
 
     return HttpResponse('create model~')
 
@@ -426,3 +481,45 @@ def reviewDetail(request, id):
     context = {'review':review, 'place':place}
 
     return render(request, 'reviewDetail.html', context=context)
+
+def mypage(request):
+    current_user = request.user # 현재 접속한 user를 가져온다.
+    me = User.objects.get(username=current_user) # User db에서 현재 접속한 user를 찾는다.
+
+    likePlaces = []
+    
+    try:
+        likes = Like.objects.filter(Q(user=me) & Q(like=True))
+
+        for like in likes:
+            if like.placeType == 'cafe':
+                place = Cafe.objects.get(id=like.placeId)
+            elif like.placeType == 'place':
+                place = Place.objects.get(id=like.placeId)
+            else:
+                place = Accomodation.objects.get(id=like.placeId)
+            likePlaces.append(place)
+    except:
+        likePlaces = []
+
+    posts = Post.objects.filter(user=me)
+
+    context = {'posts':posts, 'likePlaces':likePlaces}
+
+    return render(request, 'mypage.html', context=context)
+
+import requests
+def medicalSearch(searching):
+    url = 'https://dapi.kakao.com/v2/local/search/keyword.json?query={}'.format(searching)
+    headers = {
+    "Authorization": "KakaoAK fbbcd36dba0d5dd1d57a28b0a17b614b"
+    }
+    result = requests.get(url, headers = headers).json()['documents']
+    resultX = result[0]['x']
+    resultY = result[0]['y']
+    return resultX, resultY
+
+import math
+def distance(x1, y1, x2, y2):
+    result = abs(float(x1) - float(x2)) + abs(float(y1) - float(y2))
+    return result
