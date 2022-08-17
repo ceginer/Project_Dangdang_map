@@ -186,6 +186,13 @@ body{
     color: rgb(18, 18, 18);
 }
 
+/**한서는 보아라. 상세페이지 멍리뷰에 사진위에 리뷰 올리는 CSS**/
+.review {
+    position: absolute;
+    top: 2300px;
+    left: 200px;
+}
+
 .review_title h1{
     position: absolute;
     top: 10px;

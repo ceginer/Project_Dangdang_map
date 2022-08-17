@@ -97,7 +97,7 @@
     height: 241px;
     background: #FFFFFF;
     /* Black */
-
+    color: black;
     border: 2px solid #000000;
     border-radius: 8px;
 }
