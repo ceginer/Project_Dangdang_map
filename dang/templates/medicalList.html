@@ -26,16 +26,31 @@
     </div>
   </div>
   <div class="medical_list_container">
+    {% for place in places %}
     <div class="medical_item">
       <div class="medical_info">
-        <div class="medical_name">강원도 병원</div>
-        <div class="medical_address">강원도 강릉시</div>
-        <div class="medical_phone">010-1234-5678</div>
+        <div class="medical_name">{{place.name}}</div>
+        <div class="medical_address">{{place.address}}</div>
+        <div class="medical_phone">{{places.phone}}</div>
         <div class="info_bottom">
-          <button class="find_location">위치 찾기</button>
+          <a href="{{place.link}}"
+            ><button class="find_location">위치 찾기</button></a
+          >
         </div>
       </div>
     </div>
+    {% endfor %}
   </div>
 </div>
 {% endblock %}
+
+<!-- <div class="medical_item">
+  <div class="medical_info">
+    <div class="medical_name">${medical[i]["fields"]["name"]}</div>
+    <div class="medical_address">${medical[i]["fields"]["address"]}</div>
+    <div class="medical_phone">${medical[i]["fields"]["phone"]}</div>
+    <div class="info_bottom">
+      <a href="${medical[i]["fields"]["link"]}"><button class="find_location">위치 찾기</button></a>
+    </div>
+  </div>
+</div> -->
