@@ -461,10 +461,16 @@ def create(request,category,category_id):
     if request.method == "POST":
         postGood = request.POST["postGood"]
         postBad = request.POST["postBad"]
-        postImage = request.FILES['postImage']
-        ranking = request.POST["ranking"]
-        new_post=Post.objects.create(user=me,postType=category,postImage=postImage,postGood=postGood,postBad=postBad,ranking=ranking, placeId=category_id)
+        try:
+            postImage = request.FILES.get["postImage"]
+        except:
+            pass
 
+        ranking = request.POST["ranking"]
+        try:
+            new_post=Post.objects.create(user=me,postType=category,postImage=postImage,postGood=postGood,postBad=postBad,ranking=ranking, placeId=category_id)
+        except:
+            new_post=Post.objects.create(user=me,postType=category,postGood=postGood,postBad=postBad,ranking=ranking, placeId=category_id)
         return redirect(f"/reviewDetail/{new_post.id}")
     else:
         return render(request, 'reviewWrite.html', {'placeName':placeName,'location':location, 'category':category, 'category_id':category_id})
