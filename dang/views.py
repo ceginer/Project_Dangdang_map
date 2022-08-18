@@ -213,6 +213,7 @@ def medicals(request): # main에서 응급댕댕 선택시
     return JsonResponse({'list' : list, 'query':query, 'loc':loc, 'x':x,'y':y})
 
 
+
 def update(request, id): 
     if request.method == "POST":
         postGood = request.POST["postGood"]
@@ -330,8 +331,6 @@ def update(request, id):
 
 ### db에 csv 파일 넣는 함수입니다.
 # 한 번만 실행.....
-### db에 csv 파일 넣는 함수입니다.
-# 한 번만 실행.....
 def csvToModel(request):
     Accomodation.objects.all().delete()
     Cafe.objects.all().delete()
@@ -381,6 +380,41 @@ def csvToModel(request):
     m.close()
 
     return HttpResponse('create model~')
+
+def create(request,category,category_id):
+    current_user = request.user # 현재 접속한 user를 가져온다.
+    me = User.objects.get(username=current_user) # User db에서 현재 접속한 user를 찾는다.
+
+    if category == 'cafe':
+        place = Cafe.objects.get(id=category_id)
+    elif category == 'accomo':
+        place = Accomodation.objects.get(id=category_id)
+    else:
+        place = Place.objects.get(id=category_id)
+
+    placeName = place.name
+    location=place.location
+
+    if request.method == "POST":
+        postGood = request.POST["postGood"]
+        postBad = request.POST["postBad"]
+        postImage = request.FILES['postImage']
+        ranking = request.POST["ranking"]
+        new_post=Post.objects.create(user=me,postType=category,postImage=postImage,postGood=postGood,postBad=postBad,ranking=ranking, placeId=category_id)
+
+        # 별점저장
+        posts = Post.objects.filter(Q(postType=category)&Q(placeId=category_id))
+        total = 0
+        len_posts= len(posts)
+        for p in posts:
+            total += p.ranking
+        place.star = total/len_posts
+        place.save()
+
+        return redirect(f"/reviewDetail/{new_post.id}")
+    else:
+        return render(request, 'reviewWrite.html', {'placeName':placeName,'location':location, 'category':category, 'category_id':category_id})
+
         
 
 @csrf_exempt
