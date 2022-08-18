@@ -191,56 +191,6 @@ a {
   line-height: 20px;
 }
 
-/* mypage.html */
-.Like_ls{
-  position: relative;
-  text-align: center;
-  color: rgb(255, 255, 255);
-  padding-bottom: 30px;
-  background-color: #FFF0A1;
-}
-
-.Like_title{
-  position: absolute;
-  top: 43px;
-  left: 70px;
-  font-size: 1.2rem;
-  font-family: 'Dongle', sans-serif;
-  background-color: #BDDFFF;
-  padding-top: 3px;
-  padding-bottom: 3px;
-  padding-left: 50px;
-  padding-right: 50px;
-  border: 2px solid rgb(9, 9, 9);
-  margin: 3px;
-  border-radius: 5px;
-
-}
-
-.myReview_ls{
-  position: relative;
-  text-align: center;
-  color: rgb(255, 255, 255);
-  padding-bottom: 50px;
-  background-color: #FFF0A1;
-}
-
-.myReview_title{
-  position: absolute;
-  top: 43px;
-  left: 70px;
-  font-size: 1.2rem;
-  font-family: 'Dongle', sans-serif;
-  background-color: #BDDFFF;
-  border: 2px solid rgb(9, 9, 9);
-  margin: 3px;
-  border-radius: 5px;
-  padding-top: 3px;
-  padding-bottom: 3px;
-  padding-left: 50px;
-  padding-right: 50px;
-}
-
 /* Login.html */
 .log_in{
   position: relative;

@@ -173,7 +173,11 @@
         {% for place in posts%}
         <div class="list-box-right">
           <div class="img-and-info">
-            <div class="img-box"><img src="" alt="" /></div>
+            {% if place.img %}
+                <div class="img-box"><img src="{{ place.img }}" /></div>
+            {% else %}
+                <div class="img-box"><img src="\static\img\nophoto.png" /></div>
+            {% endif %}
             <div class="accom-text-box">
               <div class="name-and-type-row">
                 <h1>
