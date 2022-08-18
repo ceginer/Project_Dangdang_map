@@ -241,19 +241,6 @@ def medicals(request): # main에서 응급댕댕 선택시
     return JsonResponse({'list' : list, 'query':query, 'loc':loc, 'x':x,'y':y})
 
 
-def update(request, id): 
-    if request.method == "POST":
-        postGood = request.POST["postGood"]
-        postBad = request.POST["postBad"]
-        postImage = request.FILES['postImage']
-        ranking = request.POST["ranking"]
-
-        Post.objects.filter(id=id).update(postGood=postGood,postBad=postBad,postImage=postImage,ranking=ranking)
-        return redirect(f"reviewDetail/{id}")
-    post = Post.objects.get(id=id)
-    context = {"post":post}
-    return render(request, "reviewUpdate.html",context=context)
-
 
 
 @csrf_exempt
@@ -364,7 +351,7 @@ def update(request, category, id):
     
     else:
         
-        context = {"post":post, "placeName":placeName, "category":category}
+        context = {"post":post, "placeName":placeName, "category":category, 'location':location}
         return render(request, "reviewUpdate.html", context=context)
 
 ### db에 csv 파일 넣는 함수입니다.
@@ -515,7 +502,7 @@ def reviewDetail(request, id):
     else:
         place = Accomodation.objects.get(id=review.placeId)
     
-    context = {'review':review, 'place':place}
+    context = {'review':review, 'place':place, 'category':category}
 
     return render(request, 'reviewDetail.html', context=context)
 
