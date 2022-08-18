@@ -161,24 +161,6 @@ def toMainList(request, category, location, type):
                 i.favorite = False
                 i.save()
 
-        for i in filteredLocation: # 별점 계산해서 넣어줌
-            try:
-                posts = Post.objects.filter(Q(postType=category)&Q(placeId=i.id))
-                len = len(posts)
-                total=0
-                for p in posts:
-                    total += p.ranking
-                try:
-                    i.star = total/len
-                    i.save()
-                except:
-                    i.star=0
-                    i.save()
-            except:
-                i.star=0
-                i.save()
-                
-        
         filteredLocation = filteredLocation.order_by('id') # 가까운 순으로 정렬하면 좋을듯
         paginator = Paginator(filteredLocation, 5)   
         page = request.GET.get('page')
