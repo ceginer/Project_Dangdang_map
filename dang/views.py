@@ -220,7 +220,28 @@ def update(request, id):
         postImage = request.FILES['postImage']
         ranking = request.POST["ranking"]
 
+        post = Post.objects.get(id=id)
+        category = post.postType
+        place_id = post.placeId
+
+        if category == 'cafe':
+            place = Cafe.objects.get(id=place_id)
+        elif category == 'accomo':
+            place = Accomodation.objects.get(id=place_id)
+        else:
+            place = Place.objects.get(id=place_id)
+
         Post.objects.filter(id=id).update(postGood=postGood,postBad=postBad,postImage=postImage,ranking=ranking)
+
+        # 별점저장
+        posts = Post.objects.filter(Q(postType=category)&Q(placeId=place_id))
+        total = 0
+        len_posts= len(posts)
+        for p in posts:
+            total += p.ranking
+        place.star = total/len_posts
+        place.save()
+
         return redirect(f"reviewDetail/{id}")
     post = Post.objects.get(id=id)
     context = {"post":post}
