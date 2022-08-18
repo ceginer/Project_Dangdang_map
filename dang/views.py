@@ -288,7 +288,10 @@ def delete(request, id):
         len_posts= len(posts)
         for p in posts:
             total += p.ranking
-        place.star = total/len_posts
+        if len_posts == 0:
+            place.star = 0
+        else:
+            place.star = total/len_posts
         place.save()
         return redirect("/") # 삭제하고 나면 어디로 보낼까요?
     
