@@ -22,16 +22,38 @@ from email.policy import default
 from django.shortcuts import render, redirect
 from django.contrib.auth import get_user_model
 from django.contrib import auth
+from django.contrib.auth import authenticate, login
+
 # Create your views here.
 
+# def login (request):
+#     if request.method == "GET":
+#         return render(request, 'login.html')
+
+#     elif request.method == "POST":
+#         username = request.POST.get('username')
+#         password = request.POST.get('password')
+
+#         user = authenticate(request, username=username, password=password)
+
+#         if user is not None:
+#             login(request, user = user)
+#             return redirect('/')
+
+#         else:
+#             return render(request, 'login.html')
 
 def login(request):
 
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
-
-        user = auth.authenticate(request, username=username, password=password)
+        print("username : ", username)
+        print("password : ", password)
+        user = User.objects.create_user( username="whatever123", email="whatever@some.com", password="password")
+        user.save()
+        user = authenticate( username="whatever123",password="password")
+        
 
         if user is not None:
             print("인증성공")

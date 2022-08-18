@@ -18,28 +18,12 @@
     {% load socialaccount %}
     {% block content %}
     {% if user.is_authenticated %}
-    <div class="card text-center">
-        <div class="card-header">
-            댕댕이들의 여행 백과사전!
-        </div>
-        <div class="card-body">
-            <h5 class="card-title">대동멍지도</h5>
-            <p class="card-text">
-                <img src="\static\img\nophoto.png" alt=""><br>
-                {{ user.username }}님 환영합니다! <br>
-                댕댕이들과 행복한 여행을 즐기세요!
-            </p>
-            <a href="/" class="btn btn-primary">대동멍지도 시작하기</a>
-        </div>
-        <div class="card-footer text-muted">
-            2 days ago
-        </div>
-    </div>
+    <a href="/"></a>
     {% else %}
-    <!-- <div class ="login_illust">
-        <img src="\static\img\Login_ai.png" alt="">
-    </div> -->
     <div class = log_in>
+        <div class ="login_illust">
+            <img src="\static\img\Login_ai.png" alt="">
+        </div>
         <h1>Login</h1>
         <div class="login_form">
             <form method="POST">
