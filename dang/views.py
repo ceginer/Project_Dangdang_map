@@ -187,7 +187,9 @@ def listDetail(request, category, id):
     return render(request, 'listDetail.html', context=context)
 
 def medicalList(request): # main에서 응급댕댕 선택시
-    return render(request, 'medicalList.html')
+    places = Medical.objects.filter(location='강원')[:10]
+    context = { 'places':places }
+    return render(request, 'medicalList.html', context=context)
 
 @csrf_exempt
 def medicals(request): # main에서 응급댕댕 선택시
