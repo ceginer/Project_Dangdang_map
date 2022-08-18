@@ -242,8 +242,9 @@
 
   // 새로 고침시 별점상태 변경
   const stars = document.querySelectorAll(".star");
-  stars.forEach((star) => {
-    const ranking = document.querySelector(".ranking").innerHTML;
+  const rankings = document.querySelectorAll(".ranking");
+  stars.forEach((star, index) => {
+    let ranking = rankings[index].innerHTML;
     let starNum = Math.floor(parseInt(ranking));
     for (var i = 0; i < starNum; i++) {
           const add = document.createElement("div");

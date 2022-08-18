@@ -160,7 +160,7 @@ def toMainList(request, category, location, type):
             else:
                 i.favorite = False
                 i.save()
-
+        
         filteredLocation = filteredLocation.order_by('id') # 가까운 순으로 정렬하면 좋을듯
         paginator = Paginator(filteredLocation, 5)   
         page = request.GET.get('page')
