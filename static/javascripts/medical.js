@@ -19,11 +19,19 @@ requestMedical.onreadystatechange = () => {
     if (requestMedical.status <= 400) {
       const { list, query, loc, x, y } = JSON.parse(requestMedical.response);
       medical = JSON.parse(list);
-
-      // Test 코드
+      const ele = document.querySelector(".medical_list_container");
+      ele.innerHTML = ``;
       for (var i = 0; i < 10; i++) {
-        console.log(medical[i]["fields"]["name"]);
-        console.log(medical[i]["fields"]["phone"]);
+        ele.innerHTML += `<div class="medical_item">
+        <div class="medical_info">
+          <div class="medical_name">${medical[i]["fields"]["name"]}</div>
+          <div class="medical_address">${medical[i]["fields"]["address"]}</div>
+          <div class="medical_phone">${medical[i]["fields"]["phone"]}</div>
+          <div class="info_bottom">
+            <a href="${medical[i]["fields"]["link"]}"><button class="find_location">위치 찾기</button></a>
+          </div>
+        </div>
+      </div>`;
       }
     }
   }

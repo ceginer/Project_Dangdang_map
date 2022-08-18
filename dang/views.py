@@ -215,7 +215,9 @@ def listDetail(request, category, id):
     return render(request, 'listDetail.html', context=context)
 
 def medicalList(request): # main에서 응급댕댕 선택시
-    return render(request, 'medicalList.html')
+    places = Medical.objects.filter(location='강원')[:10]
+    context = { 'places':places }
+    return render(request, 'medicalList.html', context=context)
 
 @csrf_exempt
 def medicals(request): # main에서 응급댕댕 선택시
@@ -378,18 +380,18 @@ def csvToModel(request):
     medicals = []
 
     for row in reader_accomo:
-        accomos.append(Accomodation(name=row[0],location=row[1],address=row[2],phone=row[3],star=row[4],link1=row[5],link2=row[6],type=row[7],desc=row[8],img=row[9][0],mapx=row[10],mapy=row[11]))
+        accomos.append(Accomodation(name=row[0],location=row[1],address=row[2],phone=row[3],type=row[4],link=row[5],desc=row[6],img=row[7],x=row[8],y=row[9]))
     Accomodation.objects.bulk_create(accomos)
 
     for r in reader_cafe:
         try:
-            cafes.append(Cafe(name=r[0],location=r[1],address=r[2],phone=r[3],type=r[4],menuInfo=r[5],hourInfo=r[6],link1=r[7],desc=r[8],img=r[9],mapx=r[10],mapy=r[11]))
+            cafes.append(Cafe(name=r[0],location=r[1],address=r[2],phone=r[3],type=r[4],menuInfo=r[5],hourInfo=r[6],link=r[7],desc=r[8],img=r[9],x=r[10],y=r[11]))
         except:
-            cafes.append(Cafe(name=r[0],location=r[1],address=r[2],phone=r[3],type=r[4],menuInfo=r[5],hourInfo=r[6],link1=r[7],desc=r[8],img=r[9]))
+            cafes.append(Cafe(name=r[0],location=r[1],address=r[2],phone=r[3],type=r[4],menuInfo=r[5],hourInfo=r[6],link=r[7],desc=r[8],img=r[9]))
     Cafe.objects.bulk_create(cafes)
 
     for r in reader_place:
-        places.append(Place(name=r[0],location=r[1],address=r[2],phone=r[3],star=r[4],link1=r[5],link2=r[6],type=r[7],desc=r[8],img=r[9],mapx=r[10],mapy=r[11]))
+        places.append(Place(name=r[0],location=r[1],address=r[2],phone=r[3],type=r[4],link=r[6],desc=r[7],img=r[8],x=r[9],y=r[10]))
     Place.objects.bulk_create(places)
 
     for r in reader_medical:
