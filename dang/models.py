@@ -69,11 +69,17 @@ class Accomodation(models.Model):
     
 
 class Medical(models.Model):
-    medicalName = models.CharField(max_length=100)
-    medicalPhone = models.CharField(max_length=100)
-    medicalAddress = models.CharField(max_length=100)
-    medicalLocation = models.CharField(max_length=100)
-    # location = models.ForeignKey(Location, on_delete=models.CASCADE)
+    name = models.CharField(max_length=100)
+    location = models.CharField(max_length=100)
+    phone = models.CharField(max_length=100)
+    address = models.CharField(max_length=100, null=True)
+    doro = models.CharField(max_length=100, null=True)
+    hourInfo = models.CharField(max_length=255, null=True)
+    x = models.FloatField(null=True)
+    y = models.FloatField(null=True)
+    link = models.CharField(max_length=100, null=True)
+    distance = models.FloatField(null=True) # 임시 필드 for 정렬
+    
 
 class Post(models.Model):
     postType = models.CharField(max_length=100, null=True)

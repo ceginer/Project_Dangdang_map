@@ -279,6 +279,11 @@
   background-color: white;
 }
 
+.mainList .star {
+  display: flex;
+  justify-content: start;
+}
+
 .mainList .favorite .like {
   padding: 10px;
 }

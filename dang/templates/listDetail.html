@@ -63,28 +63,32 @@
           <div class="review_title">
             <h1>멍리뷰</h1>
             <div style="text-align: center;"><img src="\static\img\review_ls.svg" alt=""></div>
+            {% if user.is_authenticated %}
             <a href="/create/{{category}}/{{here.id}}">WriteReview!</a>
+            {% else %}
+            <a onclick="onclickLogin()">WriteReview!</a>
+            {% endif %}
           </div>
         </div>
         <div class="review_list">
           {% for review in reviews %}
-          <div class="review">
-            <div>
-              {% if review.postImage %}
-              <div>리뷰이미지 있음</div>
-              {% else %}
-              <img src="\static\img\nophoto.png" alt="">
-              {% endif %}
-            </div>
-            <a href="/reviewDetail/{{review.id}}"><button>리뷰 상세 보기</button></a>
-            <div>작성자: {{review.user.username}}</div>
-            <div>별점: {{review.ranking}}</div>
-            <div>좋은점: {{review.postGood}}</div>
-            <div>싫은점: {{review.postBad}}</div>
-            <div>유형: {{review.postType}}</div>
+            <div class="review">
+              <div>
+                {% if review.postImage %}
+                <div>리뷰이미지 있음</div>
+                {% else %}
+                <img src="\static\img\nophoto.png" alt="">
+                {% endif %}
+              </div>
+              <a href="/reviewDetail/{{review.id}}"><button>리뷰 상세 보기</button></a>
+              <div>작성자: {{review.user.username}}</div>
+              <div>별점: {{review.ranking}}</div>
+              <div>좋은점: {{review.postGood}}</div>
+              <div>싫은점: {{review.postBad}}</div>
+              <div>유형: {{review.postType}}</div>
 
-            <hr>
-          </div>
+              <hr>
+            </div>
           {% endfor %}
         </div>
 
