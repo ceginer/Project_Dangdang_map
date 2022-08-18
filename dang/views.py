@@ -3,6 +3,7 @@ from dis import dis
 import email
 from http.client import HTTPResponse
 from multiprocessing import context
+
 from re import template
 from unicodedata import category
 from django.shortcuts import render, redirect,HttpResponse, get_object_or_404
@@ -251,7 +252,7 @@ def update(request, id):
         return redirect(f"reviewDetail/{id}")
     post = Post.objects.get(id=id)
     context = {"post":post}
-    return render(request, "reviewWrite.html",context=context)
+    return render(request, "reviewUpdate.html",context=context)
 
 
 
@@ -332,19 +333,10 @@ def delete(request, id):
         Post.objects.filter(id=id).delete()
         return redirect("/") # 삭제하고 나면 어디로 보낼까요?
 
-def update(request, id): 
+def update(request, category, id): 
     post = Post.objects.get(id=id)
     category = post.postType
     placeId = post.placeId
-    if request.method == "POST":
-        postGood = request.POST["postGood"]
-        postBad = request.POST["postBad"]
-        postImage = request.FILES['postImage']
-        ranking = request.POST["ranking"]
-
-        Post.objects.filter(id=id).update(postGood=postGood,postBad=postBad,postImage=postImage,ranking=ranking)
-        return redirect(f"/reviewDetail/{id}")
-    
     if category == 'cafe':
             place = Cafe.objects.get(id=placeId)
     elif category == 'accomo':
@@ -354,9 +346,26 @@ def update(request, id):
 
     placeName = place.name
     location=place.location
+    if request.method == "POST":
+        postGood = request.POST["postGood"]
+        postBad = request.POST["postBad"]
+        try:
+            postImage = request.FILES.get["postImage"]
+        except:
+            pass
 
-    context = {"post":post, "placeName":placeName}
-    return render(request, "reviewUpdate.html", context=context)
+        ranking = request.POST["ranking"]
+
+        try:
+            Post.objects.filter(id=id).update(postGood=postGood,postBad=postBad,postImage=postImage,ranking=ranking)
+        except:
+            Post.objects.filter(id=id).update(postGood=postGood,postBad=postBad,ranking=ranking)
+        return redirect(f"/reviewDetail/{post.id}")
+    
+    else:
+        
+        context = {"post":post, "placeName":placeName, "category":category}
+        return render(request, "reviewUpdate.html", context=context)
 
 ### db에 csv 파일 넣는 함수입니다.
 # 한 번만 실행.....
