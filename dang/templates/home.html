@@ -28,7 +28,7 @@
                 <a href="/detail/{{review.postType}}/{{place.id}}"><div class="random-title">{{place.name}}</div></a>
                 <div class="random-ranking-type">
                   <div class="star"></div>
-                  <div class="ranking">{{review.ranking}}</div>
+                  <div class="ranking">{{place.star}}</div>
                   ({{count}})   {{place.type}}
                 </div>
                 <div class="random-location">{{place.address|truncatechars:15}}</div>
@@ -52,8 +52,9 @@
 <script>
   // 새로 고침시 별점상태 변경
   const stars = document.querySelectorAll(".star");
-  stars.forEach((star) => {
-    const ranking = document.querySelector(".ranking").innerHTML;
+  const rankings = document.querySelectorAll(".ranking");
+  stars.forEach((star, index) => {
+    let ranking = rankings[index].innerHTML;
     let starNum = Math.floor(parseInt(ranking));
     for (var i = 0; i < starNum; i++) {
           const add = document.createElement("div");

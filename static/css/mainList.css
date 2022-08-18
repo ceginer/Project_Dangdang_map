@@ -238,7 +238,12 @@
   width: 90px;
   height: 90px;
   margin: 5px 50px 5px 5px;
-  border: 1px solid #000000;
+}
+
+.mainList .img-box img {
+  width: 90px;
+  height: 90px;
+  object-fit: cover;
 }
 
 .mainList .accom-text-box {

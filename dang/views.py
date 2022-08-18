@@ -102,48 +102,43 @@ locationDic = {'seoul':'서울','gyeongi':'경기','incheon':'인천','gangwon':
 
 def home(request):
     locationList = locationDic.values()
+    place_set =[]
     reviews = []
     places = []
     counts = []
-    
-    try:
-        place_ids = list(set(Post.objects.all().values_list('placeId', flat=True)))
-        if len(place_ids) > 3:
-            place_ids = random.sample(place_ids, 3)
-            for place_id in place_ids:
-                posts = Post.objects.filter(placeId=place_id)
+    categoryList = ['cafe', 'place', 'accomo']
+
+    for category in categoryList:
+        try:
+            place_ides = list(set(Post.objects.filter(postType=category).values_list('placeId', flat=True)))
+            place_id = random.choice(place_ides)
+            place_set.append([category, place_id])
+        except: #해당 카테고리에 리뷰가 없을 경우
+            pass
+    for p in place_set:
+        try:
+            if p[0] == 'cafe':
+                posts = Post.objects.filter(Q(postType='cafe') & Q(placeId=p[1]))
                 random_id = random.choice(posts).id
                 post = Post.objects.get(id=random_id)
-                if post.postType == 'cafe':
-                    place = Cafe.objects.get(id=post.placeId)
-                elif post.postType == 'place':
-                    place = Place.objects.get(id=post.placeId)
-                else :
-                    place = Accomodation.objects.get(id=post.placeId)
-                reviews.append(post)
-                places.append(place)
-                place_review = Post.objects.filter(placeId=place.id)
-                counts.append(len(place_review))
-        else:
-            for place_id in place_ids:
-                posts = Post.objects.filter(placeId=place_id)
+                place = Cafe.objects.get(id=p[1])
+            elif p[0] == 'place':
+                posts = Post.objects.filter(Q(postType='place') & Q(placeId=p[1]))
                 random_id = random.choice(posts).id
                 post = Post.objects.get(id=random_id)
-                if post.postType == 'cafe':
-                    place = Cafe.objects.get(id=post.placeId)
-                elif post.postType == 'place':
-                    place = Place.objects.get(id=post.placeId)
-                else :
-                    place = Accomodation.objects.get(id=post.placeId)
-                reviews.append(post)
-                places.append(place)
-                place_review = Post.objects.filter(placeId=place.id)
-                counts.append(len(place_review))
-        total_list=zip(reviews,places,counts)
-    except:
-        total_list=zip(reviews,places,counts)
-        #리뷰가 하나도 없어요!
-        pass                
+                place = Place.objects.get(id=p[1])
+            elif p[0] == 'accomo':
+                posts = Post.objects.filter(Q(postType='accomo') & Q(placeId=p[1]))
+                random_id = random.choice(posts).id
+                post = Post.objects.get(id=random_id)
+                place = Accomodation.objects.get(id=p[1])
+            reviews.append(post)
+            places.append(place)
+            place_review = Post.objects.filter(placeId=place.id)
+            counts.append(len(place_review))
+        except: #해당 카테고리에 리뷰가 없을 경우
+            pass
+    total_list=zip(reviews,places,counts)
 
     context = { "locationList" : locationList,"total_list": total_list}
     return render(request,'home.html', context=context)
@@ -244,6 +239,32 @@ def medicals(request): # main에서 응급댕댕 선택시
 
 
 
+        post = Post.objects.get(id=id)
+        category = post.postType
+        place_id = post.placeId
+
+        if category == 'cafe':
+            place = Cafe.objects.get(id=place_id)
+        elif category == 'accomo':
+            place = Accomodation.objects.get(id=place_id)
+        else:
+            place = Place.objects.get(id=place_id)
+
+        Post.objects.filter(id=id).update(postGood=postGood,postBad=postBad,postImage=postImage,ranking=ranking)
+
+        # 별점저장
+        posts = Post.objects.filter(Q(postType=category)&Q(placeId=place_id))
+        total = 0
+        len_posts= len(posts)
+        for p in posts:
+            total += p.ranking
+        place.star = total/len_posts
+        place.save()
+
+        return redirect(f"reviewDetail/{id}")
+    post = Post.objects.get(id=id)
+    context = {"post":post}
+    return render(request, "reviewWrite.html",context=context)
 
 @csrf_exempt
 def cates(request):
@@ -257,81 +278,66 @@ def btn_main(request):
     direction = req['direction']
     return JsonResponse({'direction': direction})
 
-
-## list page에서 ajax 처리했을 때
-# 수정 필요: 용어? 통일
-def cafeToDictionary(list):
-    output = {}
-    output["name"] = list.name
-    output["location"] = list.location
-    output["address"] = list.address
-    output["phone"] = list.phone
-    output["type"] = list.type
-    output["star"] = list.star
-    output["menuInfo"] = list.menuInfo
-    output["hourInfo"] = list.hourInfo
-    output["link1"] = list.link1
-    output["desc"] = list.desc
-    # output["img"] = str(list.img)
-    output["mapx"] = list.mapx
-    output["mapy"] = list.mapy
-    return output
-
-def placeToDictionary(list):
-    output = {}
-    output["name"] = list.name
-    output["location"] = list.location
-    output["address"] = list.address
-    output["phone"] = list.phone
-    output["star"] = list.star
-    output["link1"] = list.link1
-    output["link2"] = list.link2
-    output["type"] = list.type
-    output["desc"] = list.desc
-    # output["img"] = str(list.img)
-    output["mapx"] = list.mapx
-    output["mapy"] = list.mapy
-    return output
-
-
-## list page에서 ajax 처리했을 때
-# 수정 필요: 용어? 통일
-# @csrf_exempt
-# def listGo(request):
-#     req = json.loads(request.body)
-#     location = req['location'] # 강원,경기,제주 등등 17개 도
-#     category = req['category'] # cafe, accommodation, place
-#     type = req['detail'] # (애견동반, 애견전용) or (공원, 명소) 등등
-#     data = {'location':location, 'category':category, 'type':type}
-#     return JsonResponse(data)
-    
-# 아래는 test용 JsonResponse 입니다. 수정필요
-# def cafeDetail(request, id):
-#     cafe = Cafe.objects.get(id=id)
-#     reviews = cafe.cafe_post.all() # 역참조한건데 제대로 되나 test 해봐야 함
-#     category = 'cafe'
-#     context = { "cafe":cafe, "reviews":reviews, "id":id, "category":category }
-#     return render(request, 'cafeDetail.html', context=context)
-    
-
-
 ## 멍초이스 (post) 부분
 
 def delete(request, id):
     if request.method == "POST":
-        Post.objects.filter(id=id).delete()
-        return redirect("/") # 삭제하고 나면 어디로 보낼까요?
+        post = Post.objects.get(id=id)
 
-def update(request, category, id): 
+        category = post.postType
+        place_id = post.placeId
+
+        if category == 'cafe':
+            place = Cafe.objects.get(id=place_id)
+        elif category == 'accomo':
+            place = Accomodation.objects.get(id=place_id)
+        else:
+            place = Place.objects.get(id=place_id)
+        
+        post.delete()
+
+        # 별점저장
+        posts = Post.objects.filter(Q(postType=category)&Q(placeId=place_id))
+        total = 0
+        len_posts= len(posts)
+        for p in posts:
+            total += p.ranking
+        place.star = total/len_posts
+        place.save()
+        return redirect("/") # 삭제하고 나면 어디로 보낼까요?
+    
+    
+
+def update(request, id): 
     post = Post.objects.get(id=id)
     category = post.postType
     placeId = post.placeId
+    
     if category == 'cafe':
-            place = Cafe.objects.get(id=placeId)
+        place = Cafe.objects.get(id=placeId)
     elif category == 'accomo':
         place = Accomodation.objects.get(id=placeId)
     else:
         place = Place.objects.get(id=placeId)
+
+    if request.method == "POST":
+        postGood = request.POST["postGood"]
+        postBad = request.POST["postBad"]
+        postImage = request.FILES['postImage']
+        ranking = request.POST["ranking"]
+
+        Post.objects.filter(id=id).update(postGood=postGood,postBad=postBad,postImage=postImage,ranking=ranking)
+
+
+        # 별점저장
+        posts = Post.objects.filter(Q(postType=category)&Q(placeId=placeId))
+        total = 0
+        len_posts= len(posts)
+        for p in posts:
+            total += p.ranking
+        place.star = total/len_posts
+        place.save()
+        return redirect(f"/reviewDetail/{id}")
 
     placeName = place.name
     location=place.location
@@ -408,31 +414,6 @@ def csvToModel(request):
 
     return HttpResponse('create model~')
 
-    ##### 멍초이스 작성
-
-# def create(request, category, categry_id):
-#     current_user = request.user # 현재 접속한 user를 가져온다.
-#     me = User.objects.get(username=current_user) # User db에서 현재 접속한 user를 찾는다.
-    
-#     if category == "cafe":
-#         post = Cafe.objects.get(id=categry_id)
-#     if category == "accommo":
-#         post = Accomodation.objects.get(id=categry_id)
-#     if category == "place":
-#         post = Place.objects.get(id=categry_id)
-
-#     if request.method == "POST":
-#         form = PostForm(request.POST)
-#         if form.is_valid():
-#             post=form.save()
-#             post.update(user=me.id, postType=category,placeId=categry_id)
-#             post.save()
-
-#             return redirect('/${category}/${categry_id}')
-#     else:
-#         form=PostForm()
-#     return render(request, 'reviewWrite.html', {'form':form , 'post':post})
-
 def create(request,category,category_id):
     current_user = request.user # 현재 접속한 user를 가져온다.
     me = User.objects.get(username=current_user) # User db에서 현재 접속한 user를 찾는다.
@@ -456,10 +437,17 @@ def create(request,category,category_id):
             pass
 
         ranking = request.POST["ranking"]
-        try:
-            new_post=Post.objects.create(user=me,postType=category,postImage=postImage,postGood=postGood,postBad=postBad,ranking=ranking, placeId=category_id)
-        except:
-            new_post=Post.objects.create(user=me,postType=category,postGood=postGood,postBad=postBad,ranking=ranking, placeId=category_id)
+        new_post=Post.objects.create(user=me,postType=category,postImage=postImage,postGood=postGood,postBad=postBad,ranking=ranking, placeId=category_id)
+
+        # 별점저장
+        posts = Post.objects.filter(Q(postType=category)&Q(placeId=category_id))
+        total = 0
+        len_posts= len(posts)
+        for p in posts:
+            total += p.ranking
+        place.star = total/len_posts
+        place.save()
+
         return redirect(f"/reviewDetail/{new_post.id}")
     else:
         return render(request, 'reviewWrite.html', {'placeName':placeName,'location':location, 'category':category, 'category_id':category_id})

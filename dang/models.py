@@ -48,6 +48,7 @@ class Place(models.Model):
     star = models.FloatField(null=True, default=0)
 
 
+
 class Accomodation(models.Model):
     name = models.CharField(max_length=100)
     location = models.CharField(max_length=100)
