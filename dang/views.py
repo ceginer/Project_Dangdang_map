@@ -3,7 +3,6 @@ from dis import dis
 import email
 from http.client import HTTPResponse
 from multiprocessing import context
-
 from re import template
 from unicodedata import category
 from django.shortcuts import render, redirect,HttpResponse, get_object_or_404
@@ -23,38 +22,16 @@ from email.policy import default
 from django.shortcuts import render, redirect
 from django.contrib.auth import get_user_model
 from django.contrib import auth
-from django.contrib.auth import authenticate, login
-
 # Create your views here.
 
-# def login (request):
-#     if request.method == "GET":
-#         return render(request, 'login.html')
-
-#     elif request.method == "POST":
-#         username = request.POST.get('username')
-#         password = request.POST.get('password')
-
-#         user = authenticate(request, username=username, password=password)
-
-#         if user is not None:
-#             login(request, user = user)
-#             return redirect('/')
-
-#         else:
-#             return render(request, 'login.html')
 
 def login(request):
 
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
-        print("username : ", username)
-        print("password : ", password)
-        user = User.objects.create_user( username="whatever123", email="whatever@some.com", password="password")
-        user.save()
-        user = authenticate( username="whatever123",password="password")
-        
+
+        user = auth.authenticate(request, username=username, password=password)
 
         if user is not None:
             print("인증성공")
@@ -210,9 +187,7 @@ def listDetail(request, category, id):
     return render(request, 'listDetail.html', context=context)
 
 def medicalList(request): # main에서 응급댕댕 선택시
-    places = Medical.objects.filter(location='강원')[:10]
-    context = { 'places':places }
-    return render(request, 'medicalList.html', context=context)
+    return render(request, 'medicalList.html')
 
 @csrf_exempt
 def medicals(request): # main에서 응급댕댕 선택시
@@ -238,6 +213,12 @@ def medicals(request): # main에서 응급댕댕 선택시
     return JsonResponse({'list' : list, 'query':query, 'loc':loc, 'x':x,'y':y})
 
 
+def update(request, id): 
+    if request.method == "POST":
+        postGood = request.POST["postGood"]
+        postBad = request.POST["postBad"]
+        postImage = request.FILES['postImage']
+        ranking = request.POST["ranking"]
 
         post = Post.objects.get(id=id)
         category = post.postType
@@ -265,6 +246,8 @@ def medicals(request): # main에서 응급댕댕 선택시
     post = Post.objects.get(id=id)
     context = {"post":post}
     return render(request, "reviewWrite.html",context=context)
+
+
 
 @csrf_exempt
 def cates(request):
@@ -341,27 +324,12 @@ def update(request, id):
 
     placeName = place.name
     location=place.location
-    if request.method == "POST":
-        postGood = request.POST["postGood"]
-        postBad = request.POST["postBad"]
-        try:
-            postImage = request.FILES.get["postImage"]
-        except:
-            pass
 
-        ranking = request.POST["ranking"]
+    context = {"post":post, "placeName":placeName}
+    return render(request, "reviewUpdate.html", context=context)
 
-        try:
-            Post.objects.filter(id=id).update(postGood=postGood,postBad=postBad,postImage=postImage,ranking=ranking)
-        except:
-            Post.objects.filter(id=id).update(postGood=postGood,postBad=postBad,ranking=ranking)
-        return redirect(f"/reviewDetail/{post.id}")
-    
-    else:
-        
-        context = {"post":post, "placeName":placeName, "category":category, 'location':location}
-        return render(request, "reviewUpdate.html", context=context)
-
+### db에 csv 파일 넣는 함수입니다.
+# 한 번만 실행.....
 ### db에 csv 파일 넣는 함수입니다.
 # 한 번만 실행.....
 def csvToModel(request):
@@ -413,45 +381,6 @@ def csvToModel(request):
     m.close()
 
     return HttpResponse('create model~')
-
-def create(request,category,category_id):
-    current_user = request.user # 현재 접속한 user를 가져온다.
-    me = User.objects.get(username=current_user) # User db에서 현재 접속한 user를 찾는다.
-
-    if category == 'cafe':
-        place = Cafe.objects.get(id=category_id)
-    elif category == 'accomo':
-        place = Accomodation.objects.get(id=category_id)
-    else:
-        place = Place.objects.get(id=category_id)
-
-    placeName = place.name
-    location=place.location
-
-    if request.method == "POST":
-        postGood = request.POST["postGood"]
-        postBad = request.POST["postBad"]
-        try:
-            postImage = request.FILES.get["postImage"]
-        except:
-            pass
-
-        ranking = request.POST["ranking"]
-        new_post=Post.objects.create(user=me,postType=category,postImage=postImage,postGood=postGood,postBad=postBad,ranking=ranking, placeId=category_id)
-
-        # 별점저장
-        posts = Post.objects.filter(Q(postType=category)&Q(placeId=category_id))
-        total = 0
-        len_posts= len(posts)
-        for p in posts:
-            total += p.ranking
-        place.star = total/len_posts
-        place.save()
-
-        return redirect(f"/reviewDetail/{new_post.id}")
-    else:
-        return render(request, 'reviewWrite.html', {'placeName':placeName,'location':location, 'category':category, 'category_id':category_id})
-
         
 
 @csrf_exempt
@@ -492,7 +421,7 @@ def reviewDetail(request, id):
     else:
         place = Accomodation.objects.get(id=review.placeId)
     
-    context = {'review':review, 'place':place, 'category':category}
+    context = {'review':review, 'place':place}
 
     return render(request, 'reviewDetail.html', context=context)
 
