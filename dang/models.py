@@ -1,5 +1,6 @@
 from email.policy import default
 from operator import mod
+from re import X
 from tabnanny import verbose
 from distutils.command.upload import upload
 from django.db import models
@@ -24,27 +25,25 @@ class Cafe(models.Model):
     type= models.CharField(max_length=100, null=True)
     menuInfo = models.TextField(null=True)
     hourInfo = models.TextField(null=True)
-    link1 = models.TextField(null=True)
+    link = models.TextField(null=True)
     desc = models.TextField(null=True)
     img= models.ImageField(upload_to='', null=True)
-    mapx = models.CharField(max_length=100, null=True)
-    mapy = models.CharField(max_length=100, null=True)
+    x = models.CharField(max_length=100, null=True)
+    y = models.CharField(max_length=100, null=True)
     favorite = models.BooleanField(default=False) # 임시 필드?
     star = models.FloatField(null=True, default=0)
-
 
 class Place(models.Model):
     name = models.CharField(max_length=100)
     location = models.CharField(max_length=100)
     address = models.CharField(max_length=255)
     phone = models.CharField(max_length=100, null=True)
-    link1 = models.TextField(null=True)
-    link2 = models.TextField(null=True)
     type = models.CharField(max_length=100, null=True)
+    link = models.TextField(null=True)
     desc = models.TextField(null=True)
     img = models.ImageField(upload_to='', null=True)
-    mapx = models.CharField(max_length=100, null=True)
-    mapy = models.CharField(max_length=100, null=True)
+    x = models.CharField(max_length=100, null=True)
+    y = models.CharField(max_length=100, null=True)
     favorite = models.BooleanField(default=False) # 임시 필드?
     star = models.FloatField(null=True, default=0)
 
@@ -52,20 +51,17 @@ class Place(models.Model):
 
 class Accomodation(models.Model):
     name = models.CharField(max_length=100)
-    # location = models.ForeignKey(Location, on_delete=models.CASCADE)
     location = models.CharField(max_length=100)
     address = models.CharField(max_length=100)
     phone = models.CharField(max_length=100, null=True)
-    link1 = models.TextField(null=True)
-    link2 = models.TextField(null=True)
     type = models.CharField(max_length=100, null=True)
+    link = models.TextField(null=True)
     desc = models.CharField(max_length=255, null=True)
     img = models.ImageField(upload_to='', null=True)
-    mapx = models.CharField(max_length=100, null=True)
-    mapy = models.CharField(max_length=100, null=True)
+    x = models.CharField(max_length=100, null=True)
+    y = models.CharField(max_length=100, null=True)
     favorite = models.BooleanField(default=False) # 임시 필드?
     star = models.FloatField(null=True, default=0)
-
     
 
 class Medical(models.Model):

@@ -19,16 +19,24 @@
                 <button>Delete</button>
             </div>
         </div>
-        <form action="/create/{{category}}/{{category_id}}" method="POST" enctype="multipart/form-data">
+        <form action="/update/{{post.id}}" method="POST" enctype="multipart/form-data">
             <div class="post_container">
                 {% csrf_token %}
                 <div class="post_review">
                     <p>
                         다녀온 곳: {{placeName}}
                     </p>
-                    <input type="file" name="postImage" />
+                    {% if post.postImage %}
+                    <p>
+                    <div class="review_photo">
+                        <img src="{{ post.postImage.url }}" style="width: 338px; height: 365px; border-radius: 33px;" />
+                    </div>
+                    </p>
+                    {% endif %}
                     <br>
-                    별점 선택: <input name="ranking" type="integer">
+                    별점 선택: <textarea name="ranking" type="integer">
+                        {{post.ranking}}
+                    </textarea>
                     <br>
                     <div class="post-good">
                         이런 점이 좋았어요 :
@@ -47,7 +55,7 @@
                     </div>
 
                 </div>
-                <button class="create_btn" type="submit">Create</button>
+                <button class="create_btn" type="submit">Update</button>
             </div>
         </form>
     </div>

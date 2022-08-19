@@ -277,6 +277,17 @@ input[type=submit] {
   font-size: 1.5rem;
 }
 
+.login_illust{
+  position: absolute;
+  top: 50px;
+  left: 130px;
+  border: 3px solid #fbffe9;
+  padding-top: 150px;
+  background-color: #fbffe9;
+  box-sizing: border-box;
+  border-radius: 50px;
+}
+
 /* join.html */
 body {
   background-color: #FFF0A1;

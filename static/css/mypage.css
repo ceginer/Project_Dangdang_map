@@ -17,7 +17,7 @@
   background-color: white;
   border: black solid;
   border-radius: 20px;
-  box-shadow: 7px 7px 8px #acacac;
+  box-shadow: 7px 7px 6px #b9af7a;
 }
 
 .my-container .title-container {
@@ -32,7 +32,7 @@
   font-size: xx-large;
   font-family: 'Dongle', sans-serif;
   background-color: #BDDFFF;
-  padding: 3px 50px;
+  padding: 7px 30px;
   border: 2px solid rgb(9, 9, 9);
   border-radius: 5px;
   margin: 3px;
@@ -41,8 +41,8 @@
 .my-container .like-list {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  padding: 20px 35px 20px 30px;
-  gap: 1rem;
+  padding: 20px 43px;
+  gap: 1.5rem;
 }
 
 /* background-image: url(/static/img/my_like.svg); */
@@ -52,13 +52,31 @@
 .my-container .my-like {
   flex: 1 1 50%;
   background-color: white;
-  border: black solid;
+  border: black solid 2px;
   border-radius: 20px;
-  box-shadow: 7px 7px 8px #acacac;
-  height: 155px;
+  box-shadow: 4px 4px 8px #acacac;
+  height: 135px;
   padding: 15px 15px 15px 15px;
 }
 
+.my-container .my-name {
+  border: #b9b9b9 1.5px solid;
+  border-radius: 8px;
+  width: fit-content;
+  text-align: center;
+  word-spacing: -2px;
+  box-shadow: #949494 0px 2px 6px -1px;
+  font-size: 17px;
+  font-weight: bold;
+  color: black;
+  padding: 3px;
+}
+
+.my-container .my-name:hover {
+  cursor: pointer;
+  background-color: rgba(255, 240, 161, 1);
+  font-weight: bold;
+}
 /* background-image: url(/static/img/myReview_sq.svg);
 background-size: contain;
 background-repeat: no-repeat; */
@@ -69,7 +87,7 @@ background-repeat: no-repeat; */
   width: 1300px;
   border: black solid;
   border-radius: 20px;
-  box-shadow: 7px 7px 8px #acacac;
+  box-shadow: 7px 7px 6px #b9af7a;
 }
 
 .my-container .review-list {
@@ -85,9 +103,62 @@ background-position: center;
 background-repeat: no-repeat; */
 .my-container .my-review {
   background-color: white;
-  border: black solid;
+  border: black solid 2px;
   border-radius: 20px;
-  box-shadow: 7px 7px 8px #acacac;
+  box-shadow: 4px 4px 8px #acacac;
   height: 85px;
   padding: 10px 10px 10px 10px;
+}
+
+.my-container .img-and-info{
+  display: flex;
+  justify-content: left;
+}
+
+.my-container .img-box {
+  width: 90px;
+  height: 90px;
+  margin: 5px 50px 5px 5px;
+}
+
+.my-container .img-box img {
+  width: 90px;
+  height: 90px;
+  object-fit: cover;
+}
+
+.my-container .accom-text-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.my-container .accom-text-box .name-and-type-row {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  margin: 10px 0 10px 0;
+}
+
+.my-container .accom-text-box h1 .name {
+  font-size: large;
+  font-weight: bold;
+}
+
+.my-container .accom-text-box .type {
+  color: gray;
+}
+
+.my-container .accom-text-box .ranking {
+  display: none;
+}
+
+.my-container .star {
+  display: flex;
+  justify-content: start;
+}
+
+.my-container .favorite .like {
+  padding: 10px;
 }
