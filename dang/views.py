@@ -481,6 +481,7 @@ def mypage(request):
             else:
                 place = Accomodation.objects.get(id=like.placeId)
             likePlaces.append(place)
+
     except:
         likePlaces = []
 
