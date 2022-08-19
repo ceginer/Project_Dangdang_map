@@ -364,7 +364,7 @@ def csvToModel(request):
     medicals = []
 
     for row in reader_accomo:
-        accomos.append(Accomodation(name=row[0],location=row[1],address=row[2],phone=row[3],type=row[4],link=row[5],desc=row[6],img=row[7],x=row[8],y=row[9]))
+        accomos.append(Accomodation(name=row[0],location=row[1],address=row[2],phone=row[3],type=row[4],link=row[5],desc=row[6],img=row[7],x=row[8],y=row[9],reserveLink=row[10]))
     Accomodation.objects.bulk_create(accomos)
 
     for r in reader_cafe:
@@ -475,6 +475,8 @@ def mypage(request):
     me = User.objects.get(username=current_user) # User db에서 현재 접속한 user를 찾는다.
 
     likePlaces = []
+    category = []
+    postPlaces = []
     
     try:
         likes = Like.objects.filter(Q(user=me) & Q(like=True))
@@ -482,17 +484,31 @@ def mypage(request):
         for like in likes:
             if like.placeType == 'cafe':
                 place = Cafe.objects.get(id=like.placeId)
+                category.append('cafe')
             elif like.placeType == 'place':
                 place = Place.objects.get(id=like.placeId)
+                category.append('place')
             else:
                 place = Accomodation.objects.get(id=like.placeId)
+                category.append('accomo')
             likePlaces.append(place)
+        total_like=zip(category,likePlaces)
+
     except:
         likePlaces = []
 
     posts = Post.objects.filter(user=me)
-
-    context = {'posts':posts, 'likePlaces':likePlaces}
+    for post in posts:
+        if post.postType == 'cafe':
+            place = Cafe.objects.get(id=post.placeId)
+        elif post.postType == 'place':
+            place = Place.objects.get(id=post.placeId)
+        else:
+            place = Accomodation.objects.get(id=post.placeId)
+        postPlaces.append(place)
+    total_post=zip(posts,postPlaces)
+        
+    context = {'total_post':total_post, 'total_like':total_like}
 
     return render(request, 'mypage.html', context=context)
 
