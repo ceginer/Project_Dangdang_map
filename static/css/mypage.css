@@ -8,8 +8,6 @@
   gap: 2rem;
 }
 
-/* background-image: url(/static/img/Like_sq.svg); */
-/* background-size: cover; */
 .my-container .Like_ls {
   display: flex;
   flex-direction: column;
@@ -45,12 +43,7 @@
   gap: 1.5rem;
 }
 
-/* background-image: url(/static/img/my_like.svg); */
-/* background-size: auto; */
-/* background-position: center; */
-/* background-repeat: no-repeat; */
 .my-container .my-like {
-  flex: 1 1 50%;
   background-color: white;
   border: black solid 2px;
   border-radius: 20px;
@@ -59,7 +52,7 @@
   padding: 15px 15px 15px 15px;
 }
 
-.my-container .my-name {
+.my-container .name-and-type-row .my-name {
   border: #b9b9b9 1.5px solid;
   border-radius: 8px;
   width: fit-content;
@@ -69,7 +62,21 @@
   font-size: 17px;
   font-weight: bold;
   color: black;
-  padding: 3px;
+  padding: 5px;
+}
+
+.my-container .review-container .my-name {
+  border: #b9b9b9 1.5px solid;
+  border-radius: 8px;
+  width: fit-content;
+  text-align: center;
+  word-spacing: -2px;
+  box-shadow: #949494 0px 2px 6px -1px;
+  font-size: 17px;
+  font-weight: bold;
+  color: black;
+  padding: 5px;
+  margin: 0 0 3px 30px;
 }
 
 .my-container .my-name:hover {
@@ -77,9 +84,7 @@
   background-color: rgba(255, 240, 161, 1);
   font-weight: bold;
 }
-/* background-image: url(/static/img/myReview_sq.svg);
-background-size: contain;
-background-repeat: no-repeat; */
+
 .my-container .myReview_ls {
   display: flex;
   flex-direction: column;
@@ -93,24 +98,28 @@ background-repeat: no-repeat; */
 .my-container .review-list {
   display: flex;
   flex-direction: column;
-  padding: 20px;
+  padding: 40px;
   gap: 1.5rem;
 }
 
-/* background-image: url(/static/img/my-review.svg);
-background-size: contain;
-background-position: center;
-background-repeat: no-repeat; */
 .my-container .my-review {
+  display: flex;
+  justify-content: left;
   background-color: white;
   border: black solid 2px;
   border-radius: 20px;
   box-shadow: 4px 4px 8px #acacac;
-  height: 85px;
-  padding: 10px 10px 10px 10px;
+  /* height: 85px; */
+  padding: 15px;
+  gap: 1.5rem;
 }
 
 .my-container .img-and-info{
+  display: flex;
+  justify-content: space-between;
+}
+
+.my-container .info-left {
   display: flex;
   justify-content: left;
 }
@@ -150,7 +159,7 @@ background-repeat: no-repeat; */
   color: gray;
 }
 
-.my-container .accom-text-box .ranking {
+.my-container .ranking {
   display: none;
 }
 
@@ -161,4 +170,45 @@ background-repeat: no-repeat; */
 
 .my-container .favorite .like {
   padding: 10px;
+}
+
+
+.my-container .img-and-star {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.my-container .review-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.my-container .review-img img {
+  width: 90px;
+  height: 90px;
+}
+
+.my-container .good-bad-star {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.my-container .comment {
+  display: flex;
+  justify-content: left;
+  width: auto;
+  height: 48px;
+  border: black solid 2px;
+  border-style: dashed;
+  padding: 5px;
+  gap: 1rem;
+}
+
+.my-container .content {
+  width: 969px;
+  padding: 5px;
 }

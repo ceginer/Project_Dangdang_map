@@ -11,26 +11,38 @@
           </div>
       {% endfor %} -->
 
-      {% for place in likePlaces%}
+      {% for category,place in total_like %}
       <div class="my-like">
         <div class="img-and-info">
-          {% if place.img %}
+          <div class="info-left">
+            {% if place.img %}
               <div class="img-box"><img src="{{ place.img }}" /></div>
-          {% else %}
+            {% else %}
               <div class="img-box"><img src="\static\img\nophoto.png" /></div>
-          {% endif %}
-          <div class="accom-text-box">
-            <div class="name-and-type-row">
-              <h1>
-                <a href="/detail/{{category}}/{{place.id}}" class="my-name"
-                  >{{place.name}}</a
-                >
-              </h1>
-              <span class="type">{{place.type}}</span>
+            {% endif %}
+            <div class="accom-text-box">
+              <div class="name-and-type-row">
+                <h1>
+                  <a href="/detail/{{category}}/{{place.id}}" class="my-name"
+                    >{{place.name}}</a
+                  >
+                </h1>
+                <span class="type">{{place.type}}</span>
+              </div>
+              <h3 class="phone">{{place.address}}</h3>
+              <div class="star"></div>
+              <div class="ranking">{{place.star}}</div>
             </div>
-            <h3 class="phone">{{place.address}}</h3>
-            <div class="star"></div>
-            <div class="ranking">{{place.star}}</div>
+          </div>
+          <div class="favorite" id="favorite-{{place.id}}">
+            <div class="like">
+              <button
+                type="submit"
+                onclick="onClickLike('{{category}}','{{place.id}}', '{{place.favorite}}')"
+              >
+                <i class="fas fa-heart"></i>
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -42,11 +54,26 @@
       <div class="title">내가 쓴 리뷰</div>
     </div>
     <div class="review-list">
-      {% for post in posts %}
+      {% for post,place in total_post %}
+      <div class="review-container">
+        <div class="my-name"><a href="/reviewDetail/{{post.id}}">{{place.name}}</a></div>
         <div class="my-review">
-          <div class="my-name"></div>
-          <div class="post_good">{{post.postGood}}</div>
+          <div class="img-and-star">
+            {% if place.img %}
+              <div class="review-img"><img src="{{ post.postImage.url }}" /></div>
+            {% else %}
+              <div class="review-img"><img src="\static\img\nophoto.png" /></div>
+            {% endif %}
+            <div class="star"></div>
+            <div class="ranking">{{place.star}}</div>
+          </div>
+          <div class="good-bad-star">
+            <div class="comment"><img src="\static\img\good.svg" /><div class="content">{{post.postGood|truncatechars:70}}</div> </div>
+            <div class="comment"><img src="\static\img\bad.svg" /><div class="content">{{post.postBad|truncatechars:70}}</div></div>
+          </div>
         </div>
+      </div>
+      
       {% endfor %}
     </div>
   </div>
