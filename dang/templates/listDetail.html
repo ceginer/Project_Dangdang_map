@@ -2,15 +2,46 @@
 
 <!-- 사진보기-->
 <div class="detail-container">
-  <div class="photo-container">
     <div class="place-photo">
       <h1>사진보기</h1>
-      <div style="text-align: center;"><img src="\static\img\detail_photo.svg" alt=""></div>
-      {% if here.photo %}
-      <div class="real_photo"><img src="{{here.photo}}" alt=""></div>
-      {% else %}
-      <div class="no_photo"><img src="\static\img\nophoto.png" alt=""></div>
-      {% endif %}
+      <div class="photo-container" style="text-align: center;">
+        <!-- <img src="\static\img\detail_photo.svg" alt=""> -->
+        <button class="prev photo_btn">previous</button>
+        <div class="window">
+          <ul class="container">
+            {% if photos %} {%for photo in photos%}
+            <li class="real_photo"><img src="{{photo}}" alt=""></li>
+            {% endfor %}
+            {% else %}
+            <div class="no_photo"><img src="\static\img\nophoto.png" alt=""></div>
+            {% endif %}
+          </ul>
+        </div>
+        <button class="next photo_btn">next</button>
+      </div>
+      
+      <script>
+        const container = document.querySelector(".container");
+        const prevBtn = document.querySelector(".prev");
+        const nextBtn = document.querySelector(".next"); 
+        
+        (function addEvent(){
+          prevBtn.addEventListener('click', translateContainer.bind(this, 1));
+          nextBtn.addEventListener('click', translateContainer.bind(this, -1));
+        })();
+        
+        function translateContainer(direction){
+          const selectedBtn = (direction === 1) ? 'prev' : 'next';
+          container.style.transitionDuration = '500ms';
+          container.style.transform = `translateX(${direction * (100 / 8)}%)`;
+          container.ontransitionend = () => reorganizeEl(selectedBtn);
+        }
+        
+        function reorganizeEl(selectedBtn) {
+          container.removeAttribute('style');
+          (selectedBtn === 'prev') ? container.insertBefore(container.lastElementChild, container.firstElementChild): container.appendChild(container.firstElementChild);
+        }
+        </script>
     </div>
 
     <!-- 상세정보 부분 CSS 대폭 수정해야할듯-->
