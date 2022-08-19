@@ -184,16 +184,8 @@ requestLike.onreadystatechange = () => {
     const i = element.querySelector(".like button i");
     const btn = element.querySelector(".like button").innerHTML;
     if (isLogin) {
-      i.addEventListener("click", () => {
-        console.log("nonono");
-        if (i.classList.contains("liked")) {
-          console.log("contain");
-          i.classList.remove("liked");
-        } else {
-          i.classList.add("liked");
-          console.log("not");
-        }
-      });
+      i.classList.toggle("liked");
+      i.classList.toggle("noliked");
     } else {
       alert("로그인 하세요!");
     }

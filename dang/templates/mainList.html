@@ -201,12 +201,12 @@
               >
                 {% csrf_token %} {% if place.favorite %}
                 <i
-                  class="fa-solid fa-paw heart-like-button"
+                  class="fa-solid fa-paw heart-like-button liked"
                   style="font-size: 20px"
                 ></i>
                 {%else%}
                 <i
-                  class="fa-solid fa-paw heart-like-button liked"
+                  class="fa-solid fa-paw heart-like-button noliked"
                   style="font-size: 20px"
                 ></i>
                 {%endif%}
