@@ -24,7 +24,8 @@
               <h1>{{here.name}}</h1>
               <div class="place-star">{{here.star}}</div>
               <!--대충리뷰자리 잡아놓기용-->
-              <div class="review_star"><img src="\static\img\review_star.svg" alt="">
+              <div class="review_star">
+                <img src="\static\img\review_star.svg" alt="">
                 <div class="place-detail-info">
                   <div class="info-logo-box"></div>
                   <div class="info-text-box">
@@ -71,24 +72,28 @@
           </div>
         </div>
         <div class="review_list">
+          <div class ="review_back"><img src="\static\img\review_back.svg" alt=""></div>
+          <div class ="review_back2"><img src="\static\img\review_back.svg" alt=""></div>
+          <div class ="watch_review"><img src="\static\img\watch_review.svg" alt=""></div>
           {% for review in reviews %}
             <div class="review">
               <div>
                 {% if review.postImage %}
-                <div>리뷰이미지 있음</div>
+                <div class="detail_review_photo">
+                  <img src="{{ review.postImage.url }}" style="width: 250px; height: 250px; border-radius: 33px;" />
+                </div>
                 {% else %}
                 <img src="\static\img\nophoto.png" alt="">
                 {% endif %}
               </div>
-              <a href="/reviewDetail/{{review.id}}"><button>리뷰 상세 보기</button></a>
-              <div>작성자: {{review.user.username}}</div>
-              <div>별점: {{review.ranking}}</div>
-              <div>좋은점: {{review.postGood}}</div>
-              <div>싫은점: {{review.postBad}}</div>
-              <div>유형: {{review.postType}}</div>
-
-              <hr>
+                <div class ="review_plus"><a href="/reviewDetail/{{review.id}}">리뷰상세 보기</a></div>
+                <div class="review_name">{{here.name}}</div>
+                <div class = "detailRV_user">작성자: {{review.user.username}}</div>
+                <div class = "detailRV_star">별점: {{review.ranking}}</div>
+                <div class = "detailRV_good">좋은점: {{review.postGood}}</div>
+              <!-- <hr> -->
             </div>
+            
           {% endfor %}
         </div>
 

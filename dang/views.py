@@ -2,6 +2,7 @@ from asyncio.windows_events import NULL
 from dis import dis
 import email
 from http.client import HTTPResponse
+from imaplib import _Authenticator
 from multiprocessing import context
 from re import template
 from unicodedata import category
@@ -22,6 +23,7 @@ from email.policy import default
 from django.shortcuts import render, redirect
 from django.contrib.auth import get_user_model
 from django.contrib import auth
+from django.contrib.auth import authenticate
 # Create your views here.
 
 
@@ -30,8 +32,12 @@ def login(request):
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
-
-        user = auth.authenticate(request, username=username, password=password)
+        print("username : ", username)
+        print("password : ", password)
+        user = User.objects.create_user( username="whatever3", email="whatever@some.com", password="password")
+        user.save()
+        user = authenticate( username="whatever3",password="password")
+        
 
         if user is not None:
             print("인증성공")
