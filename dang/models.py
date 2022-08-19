@@ -56,10 +56,11 @@ class Accomodation(models.Model):
     phone = models.CharField(max_length=100, null=True)
     type = models.CharField(max_length=100, null=True)
     link = models.TextField(null=True)
-    desc = models.CharField(max_length=255, null=True)
+    desc = models.TextField(null=True)
     img = models.ImageField(upload_to='', null=True)
     x = models.CharField(max_length=100, null=True)
     y = models.CharField(max_length=100, null=True)
+    reserveLink = models.TextField(null=True)
     favorite = models.BooleanField(default=False) # 임시 필드?
     star = models.FloatField(null=True, default=0)
     
@@ -70,7 +71,7 @@ class Medical(models.Model):
     phone = models.CharField(max_length=100)
     address = models.CharField(max_length=100, null=True)
     doro = models.CharField(max_length=100, null=True)
-    hourInfo = models.CharField(max_length=255, null=True)
+    hourInfo = models.TextField(null=True)
     x = models.FloatField(null=True)
     y = models.FloatField(null=True)
     link = models.CharField(max_length=100, null=True)
