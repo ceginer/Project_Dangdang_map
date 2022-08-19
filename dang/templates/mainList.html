@@ -210,24 +210,35 @@
         {% endfor %}
       </div>
       <div class="pagination-bar">
+        <div class="post-num">{{posts.number}}</div>
         {% if posts.has_previous %}
-        <!-- <a href="?page=1">[맨 앞으로]</a> -->
+        <!-- <a class="man" href="?page=1">
+          <img src="/static/img/first.svg" alt="" />
+        </a> -->
         <a href="?page={{ posts.previous_page_number }}">
           <img src="/static/img/main_left.svg" alt="" />
         </a>
         {% else %}
         <div><img src="/static/img/main_left.svg" alt="" /></div>
         {% endif %}
-        <span class="square">
-          <div>{{posts.number}}</div>
-        </span>
+        <div class="num-5">
+          {% for i in posts.paginator.page_range %}
+          <a class="active" href="?page={{ i }}">
+            <span class="square">
+              {{ i }}
+            </span>
+          </a>
+          {% endfor %}
+        </div>
         {% if posts.has_next %}
         <a href="?page={{ posts.next_page_number }}">
           <img src="/static/img/main_right.svg" alt="" />
         </a>
+        <!-- <a class="man" href="?page={{ posts.paginator.num_pages }}">
+          <img src="/static/img/last.svg" alt="" />
+        </a> -->
         {% else %}
         <div><img src="/static/img/main_right.svg" alt="" /></div>
-        <!-- <a href="?page={{ posts.paginator.num_pages }}">[맨 뒤로]</a> -->
         {% endif %}
       </div>
     </div>
@@ -243,6 +254,19 @@
       type.checked = true;
     }
   });
+
+  // 새로 고침시 페이지 버튼색 변경
+  const element = document.querySelector(".post-num");
+  let postNum = Number(element.innerHTML);
+  const pages = document.querySelectorAll(".square");
+  pages.forEach((page) => {
+    if (Number(page.innerHTML) == postNum) {
+      page.style.backgroundColor = 'rgba(255, 240, 161, 1)';
+    }
+  });
+
+
+
 
   // 새로 고침시 별점상태 변경
   const stars = document.querySelectorAll(".star");
