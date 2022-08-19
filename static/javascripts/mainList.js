@@ -180,18 +180,37 @@ requestLike.onreadystatechange = () => {
   if (requestLike.readyState === XMLHttpRequest.DONE) {
     //서버가 응답할 준비를 마침
     const { place_id, isLogin } = JSON.parse(requestLike.response);
-    console.log(place_id);
     const element = document.querySelector(`#favorite-${place_id}`);
     const i = element.querySelector(".like button i");
     const btn = element.querySelector(".like button").innerHTML;
     if (isLogin) {
-      i.classList.toggle("far");
-      i.classList.toggle("fas");
+      i.addEventListener("click", () => {
+        console.log("nonono");
+        if (i.classList.contains("liked")) {
+          console.log("contain");
+          i.classList.remove("liked");
+        } else {
+          i.classList.add("liked");
+          console.log("not");
+        }
+      });
     } else {
       alert("로그인 하세요!");
     }
+    console.log(place_id);
   }
 };
+
+// 버튼 눌렀을 때 애니메이션
+
+// const button = document.querySelector(".heart-like-button");
+// button.addEventListener("click", () => {
+//   if (button.classList.contains("liked")) {
+//     button.classList.remove("liked");
+//   } else {
+//     button.classList.add("liked");
+//   }
+// });
 
 // function onclickLogin() {
 //   alert("로그인하세요!");

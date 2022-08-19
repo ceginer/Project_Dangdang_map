@@ -174,9 +174,9 @@
         <div class="list-box-right">
           <div class="img-and-info">
             {% if place.img %}
-                <div class="img-box"><img src="{{ place.img }}" /></div>
+            <div class="img-box"><img src="{{ place.img }}" /></div>
             {% else %}
-                <div class="img-box"><img src="\static\img\nophoto.png" /></div>
+            <div class="img-box"><img src="\static\img\nophoto.png" /></div>
             {% endif %}
             <div class="accom-text-box">
               <div class="name-and-type-row">
@@ -195,13 +195,20 @@
           <div class="favorite" id="favorite-{{place.id}}">
             <div class="like">
               <button
+                style="border: 0; background: white"
                 type="submit"
                 onclick="onClickLike('{{category}}','{{place.id}}', '{{place.favorite}}')"
               >
                 {% csrf_token %} {% if place.favorite %}
-                <i class="fas fa-heart"></i>
+                <i
+                  class="fa-solid fa-paw heart-like-button"
+                  style="font-size: 20px"
+                ></i>
                 {%else%}
-                <i class="far fa-heart"></i>
+                <i
+                  class="fa-solid fa-paw heart-like-button liked"
+                  style="font-size: 20px"
+                ></i>
                 {%endif%}
               </button>
             </div>
@@ -251,18 +258,17 @@
     let ranking = rankings[index].innerHTML;
     let starNum = Math.floor(parseInt(ranking));
     for (var i = 0; i < starNum; i++) {
-          const add = document.createElement("div");
-          add.classList.add("yellow-star");
-          add.innerHTML = `<img src="/static/img/yellow_star.svg" alt="">`;
-          star.append(add);
-        }
+      const add = document.createElement("div");
+      add.classList.add("yellow-star");
+      add.innerHTML = `<img src="/static/img/yellow_star.svg" alt="">`;
+      star.append(add);
+    }
     for (var i = 0; i < 5 - starNum; i++) {
-          const add = document.createElement("div");
-          add.classList.add("gray-star");
-          add.innerHTML = `<img src="/static/img/gray_star.svg" alt="">`;
-          star.append(add);
-        }
+      const add = document.createElement("div");
+      add.classList.add("gray-star");
+      add.innerHTML = `<img src="/static/img/gray_star.svg" alt="">`;
+      star.append(add);
+    }
   });
 </script>
 {% endblock %}
-
