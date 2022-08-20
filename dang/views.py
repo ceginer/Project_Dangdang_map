@@ -649,3 +649,25 @@ import math
 def distance(x1, y1, x2, y2):
     result = abs(float(x1) - float(x2)) + abs(float(y1) - float(y2))
     return result
+
+def reviewToModel(request):
+    cafes = Cafe.objects.all()
+    accommos = Accomodation.objects.all()
+    places = Place.objects.all()
+
+    r = open("./static/csv/review.csv",'r',encoding='CP949')
+    reader_review = csv.reader(r)
+
+    reviews = []
+
+    for row in reader_review:
+        if row[3] == 'cafe':
+            info = Cafe.objects.filter(Q(name=row[0])&Q(location=row[1]))
+            reviews.append(Post(postType='cafe',postImage=info.img,postGood=row[3],postBad='',ranking=row[4],placeId=info.id,user=''))
+        elif row[3]  == 'place':
+            info = Place.objects.filter(Q(name=row[0])&Q(location=row[1]))
+    ## 더 채우시오
+    Post.objects.bulk_create(reviews)
+
+    r.close()
+    return HttpResponse('create review~')
