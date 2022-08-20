@@ -308,7 +308,7 @@ def listDetail(request, category, id):
         i=1
         for photo in dict2['images']:
             photo_list.append(photo['url'])
-            if i>10:
+            if i>9 :
                 break
             i+=1
 

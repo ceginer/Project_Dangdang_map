@@ -6,7 +6,9 @@
       <h1>사진보기</h1>
       <div class="photo-container" style="text-align: center;">
         <!-- <img src="\static\img\detail_photo.svg" alt=""> -->
-        <button class="prev photo_btn">previous</button>
+        {% if photos|length > 3 %}
+        <button class="prev photo_btn"><i class="fa-solid fa-circle-chevron-left i"></i></button>
+        {% endif %}
         <div class="window">
           <ul class="container">
             {% if photos %} {%for photo in photos%}
@@ -17,7 +19,9 @@
             {% endif %}
           </ul>
         </div>
-        <button class="next photo_btn">next</button>
+        {% if photos|length > 3 %}
+        <button class="next photo_btn"><i class="fa-solid fa-circle-chevron-right i"></i></button>
+        {% endif %}
       </div>
       
       <script>
@@ -33,7 +37,7 @@
         function translateContainer(direction){
           const selectedBtn = (direction === 1) ? 'prev' : 'next';
           container.style.transitionDuration = '500ms';
-          container.style.transform = `translateX(${direction * (100 / 8)}%)`;
+          container.style.transform = `translateX(${direction * (25)}%)`;
           container.ontransitionend = () => reorganizeEl(selectedBtn);
         }
         
