@@ -22,6 +22,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Dongle:wght@400;700&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Gamja+Flower&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
   <script src="https://kit.fontawesome.com/06176f9978.js" crossorigin="anonymous"></script>
   <title>대동멍지도</title>
 </head>
@@ -54,6 +55,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Dongle:wght@400;700&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Gamja+Flower&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cute+Font&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Gamja+Flower&family=Gowun+Dodum&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poor+Story&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&display=swap" rel="stylesheet">
   <script src="https://kit.fontawesome.com/06176f9978.js" crossorigin="anonymous"></script>
   <title>대동멍지도</title>
 </head>
@@ -63,10 +68,18 @@
     <div class="navbar-container">
       <div class="category-container">
         <a href="/"><img src="\static\img\dmj_logo.svg" alt="" /></a>
-        <a href="/list/cafe/서울/애견동반">멍카페</a>
-        <a href="/list/accomo/서울/호텔">멍숙소</a>
-        <a href="/list/place/서울/명소">멍놀자</a>
-        <a href="/medical/list">응급댕댕</a>
+        <div class="dang_cafe">
+          <a href="/list/cafe/서울/애견동반">멍카페</a>
+        </div>
+        <div class="dang_accommo">
+          <a href="/list/accomo/서울/호텔">멍숙소</a>
+        </div>
+        <div class="dang_place">
+          <a href="/list/place/서울/명소">멍놀자</a>
+        </div>
+        <div class="dang_medical">
+          <a href="/medical/list">응급댕댕</a>
+        </div>
       </div>
       <div class="login-container">
         {% if user.is_authenticated %}

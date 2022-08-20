@@ -75,13 +75,19 @@
 }
 
 .mainList .location-text-col-box .selected-location {
-  font-size: 1.5rem;
+  font-size: 2rem;
   font-weight: 700;
   color: #000000;
+  text-decoration: rgb(255, 220, 115) wavy underline;
+  font-family: 'Gowun Dodum', sans-serif;
 }
 
 .mainList .location-text-col-box .fighting {
   line-height: normal;
+  font-size: 1.1rem;
+  font-family: 'Poor Story', cursive;
+  color : rgb(66, 66, 66);
+  text-decoration : underline;
 }
 
 .mainList .left-cate {
@@ -95,6 +101,8 @@
   background-size: cover;
   background-position: center;
   margin: 10px 0 0 5px;
+  font-family: 'Gaegu', cursive;
+  font-weight: bold;
 }
 
 .mainList input[type="radio"] {
@@ -111,6 +119,7 @@
   padding: 5px;
   width: 80px;
   text-align: center;
+  font-family: 'Gaegu', cursive;
 }
 
 .mainList input[type="radio"]:checked + .small-category,
@@ -141,6 +150,7 @@
   border-radius: 30px;
   margin: 10px 0 20px 0;
   background-color: white;
+  font-family: 'Gaegu', cursive;
 }
 
 .mainList .area-label {
@@ -180,6 +190,7 @@
   padding: 20px 40px;
   margin: 5px 10px;
   gap: 4rem;
+  font-family: 'Gaegu', cursive;
 }
 
 .mainList .option-col span {
@@ -217,6 +228,8 @@
   background: #fbfbfb;
   border-radius: 7px;
   cursor: pointer;
+  font-family: 'Cute Font', cursive;
+  font-weight: bold;
 }
 
 .mainList .search-btn:hover {
