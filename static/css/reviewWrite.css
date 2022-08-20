@@ -157,3 +157,15 @@ input #file-upload-button {
     line-height: 30px;
 
 }
+
+.r[type=integer] {
+    width: 152px;
+    height: 32px;
+    background: #FFFFFF;
+    /* Black */
+
+    border: 2px solid #000000;
+    box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 4px;
+    margin-bottom: 20px;
+}
