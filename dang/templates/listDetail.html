@@ -50,41 +50,33 @@
   
   <!-- 상세정보 부분 CSS 대폭 수정해야할듯-->
   <div class=img_box>
-    <div style="text-align: center;"><img src="\static\img\detail_title.svg" alt="">
-      <div style="text-align: center;"><img src="\static\img\detail_titleback.svg" alt="">
-        <div class="mini1"><img src="\static\img\detail_mini1.svg" alt=""></div>
-        <div class="mini2"><img src="\static\img\detail_mini2.svg" alt=""></div>
-        <h1>{{here.name}}</h1>
-        <!--대충리뷰자리 잡아놓기용-->
-        <div class="review_star">
-          <div class="place-detail-info">
-            <div class="info-logo-box"></div>
-            <div class="info-text-box">
-              <div class="star-box">
-                <div class="star"></div>
-                <div class="review-count"></div>
-                <div class="ranking">{{here.star}}</div>
-              </div>
-              <div class="info-text1"><i class="fa-solid fa-location-dot"></i>{{here.address}}</div>
-              <div class="info-text2"><i class="fa-solid fa-phone"></i>{{here.phone}}</div>
-              <div class="info-text3"><a href="{{here.link1}}"><i class="fa-solid fa-hand-point-right"></i>[홈페이지
-                  바로가기]</a></div>
-              <div class="info-text4"><a href="{{here.link2}}"><i class="fa-solid fa-map-location-dot"></i>[네이버
-                  지도로 보기]</a></div>
-            </div>
-            {% if here.desc %}
-            <div class="info-text-desc">{{here.desc}}</div>
-            {% else %}
-            <div class="no_detail">조금만 기다려주세요 아직 상세정보가 준비되지않았어요...<i
-                style="font-size:100px; color:rgb(255, 231, 112);" class="fa-solid fa-face-sad-tear"></i></div>
-  
-            {% endif %}
-            {% if category == 'accomo' %} 
-              <a href="{{here.reserveLink}}">숙소예약링크버튼</a>
-            {% endif %}
-          </div>
+    <h1>{{here.name}}</h1>
+    <!--대충리뷰자리 잡아놓기용-->
+    <div class="place-detail-info">
+      <div class="info-logo-box"></div>
+      <div class="info-text-box">
+        <div class="star-box">
+          <div class="star"></div>
+          <div class="review-count"></div>
+          <div class="ranking">{{here.star}}</div>
         </div>
+        <div class="info-text1"><i class="fa-solid fa-location-dot"></i>{{here.address}}</div>
+        <div class="info-text2"><i class="fa-solid fa-phone"></i>{{here.phone}}</div>
+        <div class="info-text3"><a href="{{here.link1}}"><i class="fa-solid fa-hand-point-right"></i>[홈페이지
+            바로가기]</a></div>
+        <div class="info-text4"><a href="{{here.link2}}"><i class="fa-solid fa-map-location-dot"></i>[네이버
+            지도로 보기]</a></div>
       </div>
+      {% if here.desc %}
+      <div class="info-text-desc">{{here.desc}}</div>
+      {% else %}
+      <div class="no_detail">조금만 기다려주세요 아직 상세정보가 준비되지않았어요...<i
+          style="font-size:100px; color:rgb(255, 231, 112);" class="fa-solid fa-face-sad-tear"></i></div>
+
+      {% endif %}
+      {% if category == 'accomo' %} 
+        <a href="{{here.reserveLink}}">숙소예약링크버튼</a>
+      {% endif %}
     </div>
   </div>
   
