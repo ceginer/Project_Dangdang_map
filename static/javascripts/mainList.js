@@ -119,15 +119,11 @@ requestCate.onreadystatechange = () => {
           <span></span>호텔
         </label>
         <label class="type-menu">
-          <input type="radio" name="type" value="모텔" />
-          <span></span>모텔
+          <input type="radio" name="type" value="애견호텔" />
+          <span></span>애견호텔
         </label>
         </div>
         <div class="option-col">
-        <label class="type-menu">
-          <input type="radio" name="type" value="리조트" />
-          <span></span>리조트
-        </label>
         <label class="type-menu">
           <input type="radio" name="type" value="펜션" checked/>
           <span></span>펜션
@@ -135,20 +131,6 @@ requestCate.onreadystatechange = () => {
       </div>`;
       } else if (cate == "장소") {
         detailBox.innerHTML = `<div class="option-col">
-        <label class="type-menu">
-          <input type="radio" name="type" value="공원"/>
-          <span></span>공원
-        </label>
-        <label class="type-menu">
-          <input type="radio" name="type" value="수영장" />
-          <span></span>수영장
-        </label>  
-      </div>
-      <div class="option-col">
-      <label class="type-menu">
-        <input type="radio" name="type" value="해변" />
-        <span></span>해변
-      </label>
       <label class="type-menu">
       <input type="radio" name="type" value="명소" checked/>
       <span></span>명소

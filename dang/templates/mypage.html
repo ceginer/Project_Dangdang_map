@@ -29,7 +29,7 @@
                 </h1>
                 <span class="type">{{place.type}}</span>
               </div>
-              <h3 class="phone">{{place.address}}</h3>
+              <h3 class="phone">{{place.address|truncatechars:26}}</h3>
               <div class="star"></div>
               <div class="ranking">{{place.star}}</div>
             </div>
@@ -37,10 +37,14 @@
           <div class="favorite" id="favorite-{{place.id}}">
             <div class="like">
               <button
+                style="border: 0; background: white"
                 type="submit"
                 onclick="onClickLike('{{category}}','{{place.id}}', '{{place.favorite}}')"
               >
-                <i class="fas fa-heart"></i>
+                <i
+                class="fa-solid fa-paw heart-like-button liked"
+                style="font-size: 20px"
+                ></i>
               </button>
             </div>
           </div>
@@ -101,19 +105,3 @@
   });
 </script>
 {% endblock %}
-
-
-<!-- 이렇게 쓰심 될 것 같아요!
-<div>
-    {% for like in likePlaces %}
-    <div>{{like.name}}</div> like에는 내가 찜한 장소객체가 담겨 있어요! Cafe, Place, Accommodation이 섞여 있어요
-    {% endfor %}
-</div>
-
-
-
-<div>
-    {% for post in posts %}
-    <div>{{post.postGood}}</div> 내가 쓴 리뷰들
-    {% endfor %}
-  </div> -->
