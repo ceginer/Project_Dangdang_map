@@ -61,26 +61,15 @@ body {
 }
 
 .place-photo {
+    display: flex;
+    justify-content: center;
     position: relative;
+    height: 400px;
     text-align: center;
     background-color: #fffef8;
     color: rgb(18, 18, 18);
     padding: 50px;
-    margin: 50px 0 0 0;
-}
-
-/* .real_photo {
-    position: absolute;
-    top: 30px;
-    left: 120px;
-} */
-
-.no_photo {
-    position: absolute;
-    top: 100px;
-    left: 600px;
-    border: 1px solid rgba(255, 240, 161, 1);
-    border-radius: 10px;
+    margin: 50px 0 50px 0;
 }
 
 .place-photo h1 {
@@ -117,7 +106,7 @@ body {
 .list-detail-container .img_box h1 {
     font-size: 3.5rem;
     color: rgb(18, 18, 18);
-    height: 60px;
+    height: 70px;
     text-align: center;
     background-color: rgba(255, 240, 161, 1);
     border: 3px solid rgb(9, 9, 9);
@@ -195,23 +184,27 @@ body {
 }
 
 .list-detail-container .info-text-desc {
+    display: flex;
+    justify-content: center;
     font-family: 'Dongle', sans-serif;
     font-size: 1.5rem;
     background-image: url(/static/img/detail_mini1.svg);
     background-repeat: no-repeat;
     width: 470px;
-    height: 300px;
+    height: 250px;
     padding: 15px;
 }
 
 .list-detail-container .no_detail {
-    position: absolute;
-    float: left;
-    width:80%;
+    width: 80%;
     top: 480px;
     left: 15px;
     font-family: 'Dongle', sans-serif;
     font-size: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
 }
 
 .list-detail-container .detail_map {
@@ -432,7 +425,6 @@ body {
 
 
 .list-detail-container .back_to_list {
-    position: relative; 
     width: 180px;
     text-align: center;
     background-color: rgba(255, 240, 161, 1);
@@ -442,4 +434,11 @@ body {
     font-family: 'Dongle', sans-serif;
     font-size: 2.5rem;
     padding: 5px;
+}
+
+.list-detail-container .reserve {
+    background-image: url(/static/img/reservation.svg);
+    background-repeat: no-repeat;
+    height: 110px;
+    width: 200px;
 }
