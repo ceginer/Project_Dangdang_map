@@ -22,27 +22,20 @@
     {% else %}
     <div class = log_in>
         <div class ="login_illust">
-            <img src="\static\img\Login_ai.png" alt="">
+            <img class ="login_img" src="\static\img\Login_illust.png" alt="">
         </div>
-        <h1>Login</h1>
+        <span class ="Login_hl">Social Login</span>
         <div class="login_form">
             <form method="POST">
                 {% csrf_token %}
-                id: <br>
-                <input name="username" type="text">
-                <br>
-                password: <br>
-                <input name="password" type="password">
-                <br><br>
-                <input type = "submit" class= btn value = "Submit">
-                <div class ="google_login"><a href = "{% provider_login_url 'google'%}">Google Login</a></div>
-                <div class ="naver_login"><a href = "{% provider_login_url 'naver'%}">Naver Login</a></div>
-                <div class ="kakao_login"><a href = "{% provider_login_url 'kakao' method='oauth2'%}">Kakao Login</a></div>
-                <div class="with_join"><p>아직 회원이 아니신가요?</p></div>
-                <div class ="login_join"><a href="/join/">
-                    Join
-                    <!-- <img src="\static\img\Join.svg" alt=""> -->
-                </a></div>
+                <div class ="login_guide">
+                    <h1>
+                        기존 계정 로그인과 신규 계정 가입을 원하시는 분 모두 해당되는 소셜 로그인을 눌러주세요!
+                    </h1>
+                </div>
+                <div class ="google_login_png"><a href = "{% provider_login_url 'google'%}"><img class ="google_login" src="\static\img\google_login.png" alt=""></a></div>
+                <div class ="naver_login_png"><a href = "{% provider_login_url 'naver'%}"><img class ="naver_login" src="\static\img\naver_login.png" alt=""></a></div>
+                <div class ="kakao_login_png"><a href = "{% provider_login_url 'kakao' method='oauth2'%}"><img class ="kakao_login" src="\static\img\kakao_login.png" alt=""></a></div>
             </form>
         </div>
         <div style="text-align: center;"><img src="\static\img\login_sq.svg" alt=""></div>
