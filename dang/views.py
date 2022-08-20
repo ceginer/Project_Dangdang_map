@@ -221,43 +221,6 @@ def medicals(request): # main에서 응급댕댕 선택시
     return JsonResponse({'list' : list, 'query':query, 'loc':loc, 'x':x,'y':y})
 
 
-
-def update(request, id): 
-    if request.method == "POST":
-        postGood = request.POST["postGood"]
-        postBad = request.POST["postBad"]
-        postImage = request.FILES['postImage']
-        ranking = request.POST["ranking"]
-
-        post = Post.objects.get(id=id)
-        category = post.postType
-        place_id = post.placeId
-
-        if category == 'cafe':
-            place = Cafe.objects.get(id=place_id)
-        elif category == 'accomo':
-            place = Accomodation.objects.get(id=place_id)
-        else:
-            place = Place.objects.get(id=place_id)
-
-        Post.objects.filter(id=id).update(postGood=postGood,postBad=postBad,postImage=postImage,ranking=ranking)
-
-        # 별점저장
-        posts = Post.objects.filter(Q(postType=category)&Q(placeId=place_id))
-        total = 0
-        len_posts= len(posts)
-        for p in posts:
-            total += p.ranking
-        place.star = total/len_posts
-        place.save()
-
-        return redirect(f"reviewDetail/{id}")
-    post = Post.objects.get(id=id)
-    context = {"post":post}
-    return render(request, "reviewWrite.html",context=context)
-
-
-
 @csrf_exempt
 def cates(request):
     req = json.loads(request.body)
@@ -315,30 +278,45 @@ def update(request, id):
     else:
         place = Place.objects.get(id=placeId)
 
-    if request.method == "POST":
-        postGood = request.POST["postGood"]
-        postBad = request.POST["postBad"]
-        postImage = request.FILES['postImage']
-        ranking = request.POST["ranking"]
-
-        Post.objects.filter(id=id).update(postGood=postGood,postBad=postBad,postImage=postImage,ranking=ranking)
-
-
-        # 별점저장
-        posts = Post.objects.filter(Q(postType=category)&Q(placeId=placeId))
-        total = 0
-        len_posts= len(posts)
-        for p in posts:
-            total += p.ranking
-        place.star = total/len_posts
-        place.save()
-        return redirect(f"/reviewDetail/{id}")
-
     placeName = place.name
     location=place.location
+    if request.method == "POST":
+                postGood = request.POST["postGood"]
+                postBad = request.POST["postBad"]
+                try:
+                    postImage = request.FILES.get["postImage"]
+                except:
+                    pass
 
-    context = {"post":post, "placeName":placeName, "category":category, "location":location}
-    return render(request, "reviewUpdate.html", context=context)
+                ranking = request.POST["ranking"]
+
+                try:
+                    Post.objects.filter(id=id).update(postGood=postGood,postBad=postBad,postImage=postImage,ranking=ranking)
+                    posts = Post.objects.filter(Q(postType=category)&Q(placeId=placeId))
+                    total = 0
+                    len_posts= len(posts)
+                    for p in posts:
+                        total += p.ranking
+                    place.star = total/len_posts
+                    place.save()
+                except:
+                    Post.objects.filter(id=id).update(postGood=postGood,postBad=postBad,ranking=ranking)
+                    posts = Post.objects.filter(Q(postType=category)&Q(placeId=placeId))
+                    total = 0
+                    len_posts= len(posts)
+                    for p in posts:
+                        total += p.ranking
+                    place.star = total/len_posts
+                    place.save()
+                return redirect(f"/reviewDetail/{post.id}")
+
+            
+    else:
+                
+                context = {"post":post, "placeName":placeName, "category":category, 'location':location}
+                return render(request, "reviewUpdate.html", context=context)
+
+
 
 ### db에 csv 파일 넣는 함수입니다.
 # 한 번만 실행.....
@@ -409,18 +387,30 @@ def create(request,category,category_id):
     if request.method == "POST":
         postGood = request.POST["postGood"]
         postBad = request.POST["postBad"]
-        postImage = request.FILES['postImage']
-        ranking = request.POST["ranking"]
-        new_post=Post.objects.create(user=me,postType=category,postImage=postImage,postGood=postGood,postBad=postBad,ranking=ranking, placeId=category_id)
+        try:
+            postImage = request.FILES.get["postImage"]
+        except:
+            pass
 
-        # 별점저장
-        posts = Post.objects.filter(Q(postType=category)&Q(placeId=category_id))
-        total = 0
-        len_posts= len(posts)
-        for p in posts:
-            total += p.ranking
-        place.star = total/len_posts
-        place.save()
+        ranking = request.POST["ranking"]
+        try:
+            new_post=Post.objects.create(user=me,postType=category,postImage=postImage,postGood=postGood,postBad=postBad,ranking=ranking, placeId=category_id)
+            posts = Post.objects.filter(Q(postType=category)&Q(placeId=category_id))
+            total = 0
+            len_posts= len(posts)
+            for p in posts:
+                total += p.ranking
+            place.star = total/len_posts
+            place.save()
+        except:
+            new_post=Post.objects.create(user=me,postType=category,postGood=postGood,postBad=postBad,ranking=ranking, placeId=category_id)
+            posts = Post.objects.filter(Q(postType=category)&Q(placeId=category_id))
+            total = 0
+            len_posts= len(posts)
+            for p in posts:
+                total += p.ranking
+            place.star = total/len_posts
+            place.save()
 
         return redirect(f"/reviewDetail/{new_post.id}")
     else:

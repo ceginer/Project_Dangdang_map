@@ -1,4 +1,5 @@
 {% extends "base.html" %} {% block content %}
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,15 +8,16 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>create review</title>
+  <link rel="stylesheet" href="{% static 'css/reviewWrite.css' %}" />
 </head>
 
 <body>
   <div class="review_container">
     <div class="review_top">
-      <div class="logo_img"><img src="" /></div>
-      <h1>멍 리뷰</h1>
-      <span>당신의 소중한 후기는 많은 댕댕이들에게 도움이 됩니다:)</span>
-      <div class="review_update_btn">
+      <div class="logo_img"><img src="/static/img/Group.png" /></div>
+      <div class="review_top_span">
+        <h1>멍 리뷰</h1>
+        <span>당신의 소중한 후기는 많은 댕댕이들에게 도움이 됩니다:)</span>
       </div>
     </div>
     <form action="/create/{{category}}/{{category_id}}" method="POST" enctype="multipart/form-data">
@@ -23,26 +25,26 @@
         {% csrf_token %}
         <div class="post_review">
           <p>
-            다녀온 곳: {{placeName}}
+            <span class="review_span">다녀온 곳 </span> {{placeName}}
           </p>
           <input type="file" name="postImage" />
           <br>
-          별점 선택: <input name="ranking" type="integer">
+          <span class="review_span">별점 선택 </span><input name="ranking" type="integer" placeholder="1~5까지 입력">
           <br>
           <div class="post-good">
-            이런 점이 좋았어요 :
+            <div class="review_span">이런 점이 좋았어요!</div>
             <br>
-            <textarea class="postGood" name="postGood" type="text"></textarea>
+            <textarea class="postGood" name="postGood" type="text" placeholder="입력하세요"></textarea>
           </div>
           <br>
           <div class="post-bad">
-            이런 점이 아쉬워요 :
+            <div class="review_span">이런 점이 아쉬워요! </div>
             <br>
-            <textarea name="postBad" type="text"></textarea>
+            <textarea class="postBad" name="postBad" type="text" placeholder="입력하세요"></textarea>
           </div>
 
         </div>
-        <button class="create_btn" type="submit">Create</button>
+        <button class="create_btn" type="submit">CREATE</button>
       </div>
     </form>
   </div>

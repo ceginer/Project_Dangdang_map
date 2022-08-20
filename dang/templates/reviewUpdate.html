@@ -12,9 +12,11 @@
 <body>
     <div class="review_container">
         <div class="review_top">
-            <div class="logo_img"><img src="" /></div>
-            <h1>멍 리뷰</h1>
-            <span>당신의 소중한 후기는 많은 댕댕이들에게 도움이 됩니다:)</span>
+            <div class="logo_img"><img src="/static/img/Group.png" /></div>
+            <div class="review_top_span">
+                <h1>멍 리뷰</h1>
+                <span>당신의 소중한 후기는 많은 댕댕이들에게 도움이 됩니다:)</span>
+            </div>
             <div class="review_update_btn">
                 <button>Delete</button>
             </div>
@@ -23,39 +25,38 @@
             <div class="post_container">
                 {% csrf_token %}
                 <div class="post_review">
-                    <p>
-                        다녀온 곳: {{placeName}}
-                    </p>
+
                     {% if post.postImage %}
                     <p>
                     <div class="review_photo">
-                        <img src="{{ post.postImage.url }}" style="width: 338px; height: 365px; border-radius: 33px;" />
+                        <img src="{{ post.postImage.url }}" style="width: 277px; height: 275px; border-radius: 33px;" />
                     </div>
                     </p>
                     {% endif %}
                     <br>
-                    별점 선택: <textarea name="ranking" type="integer">
+                    <div class="review_span">별점 선택</div> <textarea class="ranking_text" name="ranking" type="integer"
+                        placeholder="1~5까지 입력">
                         {{post.ranking}}
                     </textarea>
                     <br>
                     <div class="post-good">
-                        이런 점이 좋았어요 :
+                        <div class="review_span">이런 점이 좋았어요! </div>
                         <br>
-                        <textarea name="postGood" type="text">
+                        <textarea class="postGood" name="postGood" type="text">
                             {{post.postGood}}
                         </textarea>
                     </div>
                     <br>
                     <div class="post-bad">
-                        이런 점이 아쉬워요 :
+                        <div class="review_span">이런 점이 아쉬워요!</div>
                         <br>
-                        <textarea name="postBad" type="text">
+                        <textarea class="postBad" name="postBad" type="text">
                             {{post.postBad}}
                         </textarea>
                     </div>
 
                 </div>
-                <button class="create_btn" type="submit">Update</button>
+                <button class="create_btn" type="submit">UPDATE</button>
             </div>
         </form>
     </div>
