@@ -101,12 +101,10 @@
         </div>
         <div class="random-location">{{place.address|truncatechars:15}}</div>
       </div>
+      <div class="img-bool">{{review.postImage}}</div>
+      <div class="original-url">{{place.img}}</div>
       <div class="random-image">
-        {% if review.postImage %}
         <img src="{{ review.postImage.url }}" />
-        {% else %}
-        <img src="/static/img/no_image.png" />
-        {% endif %}
       </div>
       <div class="random-comment">{{review.postGood|truncatechars:115}}</div>
     </div>
@@ -137,5 +135,18 @@
       star.append(add);
     }
   });
+</script>
+
+<script>
+  const imgBools = document.querySelectorAll(".img-bool");
+  const reviewImgs = document.querySelectorAll(".random-image");
+  const urls = document.querySelectorAll(".original-url");
+  imgBools.forEach((img, index) => {
+    let reviewImg = reviewImgs[index];
+    let url = urls[index].innerHTML;
+    if (img.innerHTML == "NULL") {
+      reviewImg.innerHTML = `<img src="${url}" alt="">`;
+      
+  }});
 </script>
 {% endblock %}

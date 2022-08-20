@@ -63,11 +63,8 @@
         <div class="my-name"><a href="/reviewDetail/{{post.id}}">{{place.name}}</a></div>
         <div class="my-review">
           <div class="img-and-star">
-            {% if place.img %}
-              <div class="review-img"><img src="{{ post.postImage.url }}" /></div>
-            {% else %}
-              <div class="review-img"><img src="\static\img\nophoto.png" /></div>
-            {% endif %}
+            <div class="img-bool">{{post.postImage}}</div>
+            <div class="review-img"><img src="{{ post.postImage.url }}" /></div>
             <div class="star"></div>
             <div class="ranking">{{place.star}}</div>
           </div>
@@ -103,5 +100,15 @@
           star.append(add);
         }
   });
+</script>
+
+<script>
+  const imgBools = document.querySelectorAll(".img-bool");
+  const reviewImgs = document.querySelectorAll(".review-img");
+  imgBools.forEach((img, index) => {
+    let reviewImg = reviewImgs[index];
+    if (img.innerHTML == "NULL") {
+      reviewImg.innerHTML = `<img src="/static/img/nophoto.png" />`;
+  }});
 </script>
 {% endblock %}

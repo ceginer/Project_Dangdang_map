@@ -521,6 +521,7 @@ def create(request,category,category_id):
         postBad = request.POST["postBad"]
         try:
             postImage = request.FILES.get["postImage"]
+            print(postImage)
         except:
             pass
 

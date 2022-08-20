@@ -180,6 +180,10 @@
   gap: 0.5rem;
 }
 
+.my-container .img-bool {
+  display: none;
+}
+
 .my-container .review-container {
   display: flex;
   flex-direction: column;
