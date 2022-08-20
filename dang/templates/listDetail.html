@@ -2,52 +2,51 @@
 
 <!-- 사진보기-->
 <div class="list-detail-container">
-<div class="detail-container">
-    <div class="place-photo">
-      <h1>사진보기</h1>
-      <div class="photo-container" style="text-align: center;">
-        <!-- <img src="\static\img\detail_photo.svg" alt=""> -->
-        {% if photos|length > 3 %}
-        <button class="prev photo_btn"><i class="fa-solid fa-circle-chevron-left i"></i></button>
-        {% endif %}
-        <div class="window">
-          <ul class="container">
-            {% if photos %} {%for photo in photos%}
-            <li class="real_photo"><img src="{{photo}}" alt=""></li>
-            {% endfor %}
-            {% else %}
-            <div class="no_photo"><img src="\static\img\nophoto.png" alt=""></div>
-            {% endif %}
-          </ul>
-        </div>
-        {% if photos|length > 3 %}
-        <button class="next photo_btn"><i class="fa-solid fa-circle-chevron-right i"></i></button>
-        {% endif %}
+  <div class="place-photo">
+    <h1>사진보기</h1>
+    <div class="photo-container" style="text-align: center;">
+      <!-- <img src="\static\img\detail_photo.svg" alt=""> -->
+      {% if photos|length > 3 %}
+      <button class="prev photo_btn"><i class="fa-solid fa-circle-chevron-left i"></i></button>
+      {% endif %}
+      <div class="window">
+        <ul class="container">
+          {% if photos %} {%for photo in photos%}
+          <li class="real_photo"><img src="{{photo}}" alt=""></li>
+          {% endfor %}
+          {% else %}
+          <div class="no_photo"><img src="\static\img\nophoto.png" alt=""></div>
+          {% endif %}
+        </ul>
       </div>
-      
-      <script>
-        const container = document.querySelector(".container");
-        const prevBtn = document.querySelector(".prev");
-        const nextBtn = document.querySelector(".next"); 
-        
-        (function addEvent(){
-          prevBtn.addEventListener('click', translateContainer.bind(this, 1));
-          nextBtn.addEventListener('click', translateContainer.bind(this, -1));
-        })();
-        
-        function translateContainer(direction){
-          const selectedBtn = (direction === 1) ? 'prev' : 'next';
-          container.style.transitionDuration = '500ms';
-          container.style.transform = `translateX(${direction * (25)}%)`;
-          container.ontransitionend = () => reorganizeEl(selectedBtn);
-        }
-        
-        function reorganizeEl(selectedBtn) {
-          container.removeAttribute('style');
-          (selectedBtn === 'prev') ? container.insertBefore(container.lastElementChild, container.firstElementChild): container.appendChild(container.firstElementChild);
-        }
-        </script>
+      {% if photos|length > 3 %}
+      <button class="next photo_btn"><i class="fa-solid fa-circle-chevron-right i"></i></button>
+      {% endif %}
     </div>
+    
+    <script>
+      const container = document.querySelector(".container");
+      const prevBtn = document.querySelector(".prev");
+      const nextBtn = document.querySelector(".next"); 
+      
+      (function addEvent(){
+        prevBtn.addEventListener('click', translateContainer.bind(this, 1));
+        nextBtn.addEventListener('click', translateContainer.bind(this, -1));
+      })();
+      
+      function translateContainer(direction){
+        const selectedBtn = (direction === 1) ? 'prev' : 'next';
+        container.style.transitionDuration = '500ms';
+        container.style.transform = `translateX(${direction * (25)}%)`;
+        container.ontransitionend = () => reorganizeEl(selectedBtn);
+      }
+      
+      function reorganizeEl(selectedBtn) {
+        container.removeAttribute('style');
+        (selectedBtn === 'prev') ? container.insertBefore(container.lastElementChild, container.firstElementChild): container.appendChild(container.firstElementChild);
+      }
+      </script>
+  </div>
   
   <!-- 상세정보 부분 CSS 대폭 수정해야할듯-->
   <div class=img_box>
@@ -83,7 +82,6 @@
             {% if category == 'accomo' %} 
               <a href="{{here.reserveLink}}">숙소예약링크버튼</a>
             {% endif %}
-  
           </div>
         </div>
       </div>
