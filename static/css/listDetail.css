@@ -186,6 +186,14 @@ body{
     padding: 10px;
 }
 
+.list-detail-container .map-container {
+    background-image: url(/static/img/detail_map.svg);
+    background-repeat: no-repeat;
+    width: 1348px;
+    height: 491px;
+    padding: 30px;
+}
+
 .list-detail-container .review_title {
     position: relative;
     text-align: center;
