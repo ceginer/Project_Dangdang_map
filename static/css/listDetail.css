@@ -68,20 +68,14 @@ body{
 
 .list-detail-container .mini1 {
     position: absolute;
-    top: 580px;
+    top: 550px;
     left: 150px;
 }
 
 .list-detail-container .mini2 {
     position: absolute;
-    top: 250px;
+    top: 170px;
     left: 150px;
-}
-
-.list-detail-container .place-star {
-    position: relative;
-    top: 180px;
-    left: 700px;
 }
 
 .list-detail-container .review_star {
@@ -91,7 +85,14 @@ body{
 }
 
 .list-detail-container .info-text-box {
-    position: absolute;
+    position: relative;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 1rem;
+    top: 30px;
+    right: 90px;
     width: 90%;
     margin: 10px auto;
 }
@@ -106,49 +107,34 @@ body{
 }
 
 .list-detail-container .info-text1 {
-    position: absolute;
-    float: left;
     width:100%;
-    top: 70px;
-    left: 10px;
     font-family: 'Dongle', sans-serif;
     font-size: 2rem;   
 }
 
 .list-detail-container .info-text2 {
-    position: absolute;
-    float: left;
     width:100%;
-    top: 120px;
     font-family: 'Dongle', sans-serif;
-    font-size: 2rem;   
+    font-size: 2rem;     
 }
 
 .list-detail-container .info-text3 {
-    position: absolute;
-    float: left;
     width:100%;
-    top: 170px;
-    left: 0px;
     font-family: 'Dongle', sans-serif;
     font-size: 2rem;   
 }
 
 .list-detail-container .info-text4 {
-    position: absolute;
-    float: left;
     width:100%;
-    top: 220px;
     font-family: 'Dongle', sans-serif;
-    font-size: 2rem;   
+    font-size: 2rem;    
 }
 
 .list-detail-container .info-text-desc {
-    position: absolute;
-    float: left;
-    width:80%;
-    top: 480px;
-    left: 15px;
+    position: relative;
+    top: 150px;
+    right: 25px;
+    width: 75%;
     font-family: 'Dongle', sans-serif;
     font-size: 1.5rem;
 }
@@ -238,13 +224,6 @@ body{
     padding: 30px;
 }
 
-.list-detail-container .detail_review_photo {
-    /* position: relative;
-    top: 28px;
-    left: 30px; */
-}
-/**리뷰 상세보기 세부조정**/
-
 .list-detail-container .review-info {
     display: flex;
     flex-direction: column;
@@ -253,6 +232,48 @@ body{
     left: 80px;
     top: 40px;
     gap: 1em;
+}
+
+.list-detail-container .info-text-box .star-box {
+    display: flex;
+    justify-content: center;
+    background: white;
+    border: #d5d5d5 solid 2px;
+    border-radius: 20px;
+    width: fit-content;
+    padding: 4px;
+}
+
+.list-detail-container .info-text-box .star-box .star {
+    display: flex;
+}
+
+.list-detail-container .detailRV_star .star {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    position: relative;
+    left: 10px;
+    bottom: 9px;
+    background: white;
+    border: white;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+.list-detail-container .detailRV_star.star-box {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    top: 1px;
+    background: white;
+    border: #d5d5d5 solid 2px;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+.list-detail-container .ranking {
+    display: none;
 }
 
 .list-detail-container .good-and-plus {
@@ -278,6 +299,7 @@ body{
 }
 
 .list-detail-container .detailRV_star { 
+    display: flex;
     text-align: left;
     font-family: 'Gamja Flower', cursive;
     font-size: 1.2rem;

@@ -21,11 +21,14 @@
         <h1>{{here.name}}</h1>
         <!--대충리뷰자리 잡아놓기용-->
         <div class="review_star">
-          <img src="\static\img\review_star.svg" alt="">
           <div class="place-detail-info">
             <div class="info-logo-box"></div>
             <div class="info-text-box">
-              <div class="place-star">{{here.star}}</div>
+              <div class="star-box">
+                <div class="star"></div>
+                <div class="review-count"></div>
+                <div class="ranking">{{here.star}}</div>
+              </div>
               <div class="info-text1"><i class="fa-solid fa-location-dot"></i>{{here.address}}</div>
               <div class="info-text2"><i class="fa-solid fa-phone"></i>{{here.phone}}</div>
               <div class="info-text3"><a href="{{here.link1}}"><i class="fa-solid fa-hand-point-right"></i>[홈페이지
@@ -89,7 +92,8 @@
           <div class="review-info">
             <div class="review_name">{{here.name}}</div>
             <div class = "detailRV_user">작성자: {{review.user.username}}</div>
-            <div class = "detailRV_star">별점: {{review.ranking}}</div>
+            <div class = "detailRV_star">별점: <div class="star"></div></div>
+            <div class="ranking">{{review.ranking}}</div>
           </div>
           <div class="good-and-plus">
             <div class = "detailRV_good">좋은점: {{review.postGood|truncatechars:85}}</div>
@@ -112,4 +116,28 @@ src="//dapi.kakao.com/v2/maps/sdk.js?appkey=bf0f64ba4cc212c4f652d6b221b72a53&lib
 type="text/javascript"
 src="{% static 'javascripts/map.js' %}"
 ></script>
+
+<script>
+  // 새로 고침시 별점상태 변경
+  const stars = document.querySelectorAll(".star");
+  const rankings = document.querySelectorAll(".ranking");
+  const reviewCount = Number(rankings.length) -1;
+  document.querySelector(".review-count").innerHTML = `(${reviewCount}) {{here.type}}`;
+  stars.forEach((star, index) => {
+    let ranking = rankings[index].innerHTML;
+    let starNum = Math.floor(parseInt(ranking));
+    for (var i = 0; i < starNum; i++) {
+          const add = document.createElement("div");
+          add.classList.add("yellow-star");
+          add.innerHTML = `<img src="/static/img/yellow_star.svg" alt="">`;
+          star.append(add);
+        }
+    for (var i = 0; i < 5 - starNum; i++) {
+          const add = document.createElement("div");
+          add.classList.add("gray-star");
+          add.innerHTML = `<img src="/static/img/gray_star.svg" alt="">`;
+          star.append(add);
+        }
+  });
+</script>
 {% endblock %}
