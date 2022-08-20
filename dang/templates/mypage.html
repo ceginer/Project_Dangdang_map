@@ -29,7 +29,7 @@
                 </h1>
                 <span class="type">{{place.type}}</span>
               </div>
-              <h3 class="phone">{{place.address}}</h3>
+              <h3 class="phone">{{place.address|truncatechars:26}}</h3>
               <div class="star"></div>
               <div class="ranking">{{place.star}}</div>
             </div>
