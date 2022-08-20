@@ -337,7 +337,7 @@ def update(request, id):
     placeName = place.name
     location=place.location
 
-    context = {"post":post, "placeName":placeName}
+    context = {"post":post, "placeName":placeName, "category":category, "location":location}
     return render(request, "reviewUpdate.html", context=context)
 
 ### db에 csv 파일 넣는 함수입니다.
@@ -466,7 +466,7 @@ def reviewDetail(request, id):
     else:
         place = Accomodation.objects.get(id=review.placeId)
     
-    context = {'review':review, 'place':place}
+    context = {'review':review, 'place':place, 'category':category,}
 
     return render(request, 'reviewDetail.html', context=context)
 
