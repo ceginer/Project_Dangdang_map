@@ -381,7 +381,7 @@ body {
     font-family: 'Gamja Flower', cursive;
     font-weight: bold;
     font-size: 2rem;
-    width: 200px;
+    width: 100%;
 }
 
 .list-detail-container .detailRV_user {
