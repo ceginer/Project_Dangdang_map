@@ -19,7 +19,6 @@
 }
 
 .review_top h1 {
-    font-family: 'Inter';
     font-style: normal;
     font-weight: 700;
     font-size: 40px;
@@ -30,7 +29,6 @@
 }
 
 .review_top span {
-    font-family: 'Inter';
     font-style: normal;
     font-weight: 300;
     font-size: 15px;
@@ -153,7 +151,6 @@ input #file-upload-button {
 }
 
 .review_span {
-    font-family: 'Inter';
     font-style: normal;
     font-weight: 600;
     font-size: 20px;

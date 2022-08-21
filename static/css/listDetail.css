@@ -204,11 +204,12 @@ body {
     justify-content: center;
     font-family: 'Dongle', sans-serif;
     font-size: 1.5rem;
-    background-image: url(/static/img/detail_mini1.svg);
+    background: white;
     background-repeat: no-repeat;
-    width: 470px;
-    height: 250px;
+    width: 460px;
     padding: 15px;
+    border: black solid 2px;
+    border-radius: 30px;
 }
 
 .accommo_link{
@@ -381,7 +382,7 @@ body {
     font-family: 'Gamja Flower', cursive;
     font-weight: bold;
     font-size: 2rem;
-    width: 200px;
+    width: 100%;
 }
 
 .list-detail-container .detailRV_user {

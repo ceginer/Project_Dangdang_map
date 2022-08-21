@@ -1,5 +1,6 @@
 .review-detail {
     background-color: #FFF0A1;
+    font-family: 'Gamja Flower', cursive;
 
 }
 
@@ -27,18 +28,16 @@
 }
 
 .review_top h1 {
-    font-family: 'Inter';
+    font-family: 'Sunflower', sans-serif;
     font-style: normal;
     font-weight: 700;
     font-size: 40px;
     line-height: 48px;
     margin-bottom: 20px;
     color: #000000;
-    font-family: 'Sunflower', sans-serif;
 }
 
 .review_top_span {
-    font-family: 'Inter';
     font-style: normal;
     font-weight: 300;
     font-size: 15px;
@@ -61,7 +60,7 @@
     background: #FFFFFF;
     border: 2px solid #BDDFFF;
     border-radius: 8px;
-    font-family: 'Patrick Hand';
+    font-family: 'Dongle', sans-serif;
     font-style: normal;
     font-weight: 400;
     font-size: 18px;
@@ -83,7 +82,7 @@
     background: #FFFFFF;
     border: 2px solid #BDDFFF;
     border-radius: 8px;
-    font-family: 'Patrick Hand';
+    font-family: 'Dongle', sans-serif;
     font-style: normal;
     font-weight: 400;
     font-size: 18px;
@@ -109,6 +108,10 @@
     display: flex;
     flex-direction: column;
     margin: 0 auto;
+}
+
+.post-good{
+    font-family: 'Dongle', sans-serif;
 }
 
 .postGood,
@@ -165,7 +168,6 @@ input #file-upload-button {
 }
 
 .review_span {
-    font-family: 'Inter';
     font-style: normal;
     font-weight: 600;
     font-size: 20px;
@@ -179,7 +181,7 @@ input #file-upload-button {
     margin: 0 auto;
     display: flex;
     flex-direction: column;
-
+    font-family: 'Dongle', sans-serif;
 }
 
 .review-detail .back_to_list {
@@ -204,13 +206,14 @@ input #file-upload-button {
     text-align: center;
     background: #ffffff;
     /* Black */
-    width: 50px;
+    width: 48px;
     height: 30px;
     border: 2px solid #333333;
     border-radius: 8px;
     padding: 3px;
     padding-left: 18px;
     margin-left: 20px;
+    font-size: 1.5rem;
 }
 
 .ranking_detail {
