@@ -111,10 +111,14 @@
     {% endif %}
     {% for review in reviews %}
       <div class="review">
+        {% if review.postImage %}
         <div class="img-bool">{{review.postImage}}</div>
         <div class="detail_review_photo">
           <img src="{{ review.postImage.url }}" style="width: 250px; height: 250px; border-radius: 33px;" />
         </div>
+        {% else %}
+        <img src="\static\img\nophoto.png" style="width: 250px; height: 250px; border-radius: 33px;" alt="">
+        {% endif %}
         <div class="review-right-info">
           <div class="review-info">
             <div class="review_name">{{here.name}}</div>
