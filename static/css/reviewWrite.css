@@ -162,14 +162,22 @@ input #file-upload-button {
 
 }
 
-.r[type=integer] {
-    width: 152px;
-    height: 32px;
-    background: #FFFFFF;
-    /* Black */
+.r[type=select] {
+    display: flex;
+    flex-direction: row;
 
-    border: 2px solid #000000;
-    box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 4px;
-    margin-bottom: 20px;
+    /* White */
+    text-align: center;
+    background: #ffffff;
+    /* Black */
+    width: 80px;
+    height: 43.96px;
+    border: 2px solid #333333;
+    border-radius: 8px;
+    margin-right: 8px;
+}
+
+.ranking_box {
+    display: flex;
+    flex-direction: row;
 }
