@@ -81,7 +81,7 @@
         </div>
       </div>
       {% endif %}
-      {% if category == 'accomo' and here.reservationLink %} 
+      {% if here.reserveLink %} 
         <a class="reserve" href="{{here.reserveLink}}"></a>
       {% endif %}
     </div>
@@ -130,7 +130,7 @@
             <div class="ranking">{{review.ranking}}</div>
           </div>
           <div class="good-and-plus">
-            <div class = "detailRV_good">좋은점: {{review.postGood|truncatechars:85}}</div>
+            <div class = "detailRV_good">좋은점: {{review.postGood|truncatechars:45}}</div>
             <div class ="review_plus"><a href="/reviewDetail/{{review.id}}">리뷰상세 보기</a></div>
           </div>
         </div>
