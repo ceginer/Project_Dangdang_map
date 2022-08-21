@@ -28,7 +28,7 @@ requestMedical.onreadystatechange = () => {
           <div class="medical_address">${medical[i]["fields"]["address"]}</div>
           <div class="medical_phone">${medical[i]["fields"]["phone"]}</div>
           <div class="info_bottom">
-            <a href="${medical[i]["fields"]["link"]}"><button class="find_location">위치 찾기</button></a>
+            <a href="${medical[i]["fields"]["link"]}"><button class="find_location">위치찾기</button></a>
           </div>
         </div>
       </div>`;

@@ -6,9 +6,9 @@
 
 .login_illust{
     position: absolute;
-    top: 25px;
-    left: 110px;
-    width: 1280px;
+    top: 30px;
+    left: 210px;
+    width: 1100px;
     height: 427px; 
     border : 4px solid rgb(9, 9, 9);
     border-radius: 85px;
@@ -72,7 +72,7 @@
     color: #ffffff;
 }
 
-.kakao_login{
+/* .kakao_login{
     position: absolute;
     top: 30px;
     left: 600px;
@@ -85,7 +85,7 @@
 .kakao_login:hover{
     background-color: #FFE562;
     color: #ffffff;
-}
+} */
 
 .fa-solid fa-bell{
     position: absolute;
@@ -103,3 +103,5 @@
     width: 500px; 
     background: linear-gradient(to top, #c85656 20%, transparent 50%);   
 }
+
+

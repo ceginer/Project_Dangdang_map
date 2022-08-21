@@ -410,43 +410,30 @@ def update(request, id):
     else:
         place = Place.objects.get(id=placeId)
 
+    if request.method == "POST":
+        postGood = request.POST["postGood"]
+        postBad = request.POST["postBad"]
+        postImage = request.FILES['postImage']
+        ranking = request.POST["ranking"]
+
+        Post.objects.filter(id=id).update(postGood=postGood,postBad=postBad,postImage=postImage,ranking=ranking)
+
+
+        # 별점저장
+        posts = Post.objects.filter(Q(postType=category)&Q(placeId=placeId))
+        total = 0
+        len_posts= len(posts)
+        for p in posts:
+            total += p.ranking
+        place.star = total/len_posts
+        place.save()
+        return redirect(f"/reviewDetail/{id}")
+
     placeName = place.name
     location=place.location
-    if request.method == "POST":
-                postGood = request.POST["postGood"]
-                postBad = request.POST["postBad"]
-                try:
-                    postImage = request.FILES.get["postImage"]
-                except:
-                    pass
 
-                ranking = request.POST["ranking"]
-
-                try:
-                    Post.objects.filter(id=id).update(postGood=postGood,postBad=postBad,postImage=postImage,ranking=ranking)
-                    posts = Post.objects.filter(Q(postType=category)&Q(placeId=placeId))
-                    total = 0
-                    len_posts= len(posts)
-                    for p in posts:
-                        total += p.ranking
-                    place.star = total/len_posts
-                    place.save()
-                except:
-                    Post.objects.filter(id=id).update(postGood=postGood,postBad=postBad,ranking=ranking)
-                    posts = Post.objects.filter(Q(postType=category)&Q(placeId=placeId))
-                    total = 0
-                    len_posts= len(posts)
-                    for p in posts:
-                        total += p.ranking
-                    place.star = total/len_posts
-                    place.save()
-                return redirect(f"/reviewDetail/{post.id}")
-
-            
-    else:
-                
-                context = {"post":post, "placeName":placeName, "category":category, 'location':location}
-                return render(request, "reviewUpdate.html", context=context)
+    context = {"post":post, "placeName":placeName}
+    return render(request, "reviewUpdate.html", context=context)
 
 
 
@@ -640,3 +627,25 @@ import math
 def distance(x1, y1, x2, y2):
     result = abs(float(x1) - float(x2)) + abs(float(y1) - float(y2))
     return result
+
+def reviewToModel(request):
+    cafes = Cafe.objects.all()
+    accommos = Accomodation.objects.all()
+    places = Place.objects.all()
+
+    r = open("./static/csv/review.csv",'r',encoding='CP949')
+    reader_review = csv.reader(r)
+
+    reviews = []
+
+    for row in reader_review:
+        if row[3] == 'cafe':
+            info = Cafe.objects.filter(Q(name=row[0])&Q(location=row[1]))
+            reviews.append(Post(postType='cafe',postImage=info.img,postGood=row[3],postBad='',ranking=row[4],placeId=info.id,user=''))
+        elif row[3]  == 'place':
+            info = Place.objects.filter(Q(name=row[0])&Q(location=row[1]))
+    ## 더 채우시오
+    Post.objects.bulk_create(reviews)
+
+    r.close()
+    return HttpResponse('create review~')

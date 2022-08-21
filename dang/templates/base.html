@@ -19,6 +19,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Dongle:wght@400;700&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Gamja+Flower&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
   <script src="https://kit.fontawesome.com/06176f9978.js" crossorigin="anonymous"></script>
   <title>대동멍지도</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -32,28 +33,69 @@
       height: 300px;
     }
   </style>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=100" />
+  <link rel="stylesheet" href="{% static 'css/reset.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/base_home.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/mainList.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/medical.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/reviewWrite.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/reviewDetail.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/reviewUpdate.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/mypage.css' %}">
+  <script src="https://kit.fontawesome.com/a8a24f1fa9.js" crossorigin="anonymous"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Dongle:wght@400;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Gamja+Flower&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cute+Font&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Gamja+Flower&family=Gowun+Dodum&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poor+Story&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Hi+Melody&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Sunflower:wght@500;700&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/06176f9978.js" crossorigin="anonymous"></script>
+  <title>대동멍지도</title>
 </head>
 <body>
   <header>
     <div class="navbar-container">
       <div class="category-container">
         <a href="/"><img src="\static\img\dmj_logo.svg" alt="" /></a>
-        <a href="/list/cafe/서울/애견동반">멍카페</a>
-        <a href="/list/accomo/서울/호텔">멍숙소</a>
-        <a href="/list/place/서울/명소">멍놀자</a>
-        <a href="/medical/list"><img src="\static\img\Medical.svg" alt="" /></a>
+        <div class="dang_cafe">
+          <a href="/list/cafe/서울/애견동반">멍카페</a>
+        </div>
+        <div class="dang_accommo">
+          <a href="/list/accomo/서울/호텔">멍숙소</a>
+        </div>
+        <div class="dang_place">
+          <a href="/list/place/서울/명소">멍놀자</a>
+        </div>
+        <div class="dang_medical">
+          <a href="/medical/list">응급댕댕</a>
+        </div>
       </div>
       <div class="login-container">
         {% if user.is_authenticated %}
-        <a href="/logout">로그아웃</a>
+        <div class="nav_logout_icon">
+          <a href="/logout">
+            <img class="logout_icon" src="\static\img\Logout_icon.png" alt="" />
+          </a>
         {% else %}
-        <a href="/join/"><img src="\static\img\Join.svg" alt="" /></a>
-        <a href="/login/"><img src="\static\img\SignIn.svg" alt="" /></a>
+        <div class="nav_login_icon">
+          <a href="/login/">
+            <img class="login_icon" src="\static\img\login_icon.png" alt="" />
+          </a>
+        </div>
         {% endif %} {% if user.is_authenticated %}
-        <a href="/mypage/"><img src="\static\img\MyPage.svg" alt="" /></a>
+        <a href="/mypage/"><img src="\static\img\mypage.png" alt="" /></a>
         {% else %}
         <a onclick="onclickLogin()">
-          <img src="\static\img\MyPage.svg" alt="" />
+          <div class="mypage_css">
+            <img class="mypage" src="\static\img\mypage.png" alt="" />
+          </div>
         </a>
         {% endif %}
       </div>
