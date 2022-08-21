@@ -184,7 +184,7 @@ input #file-upload-button {
     font-family: 'Dongle', sans-serif;
 }
 
-.review-detail .back_to_list {
+.back_to_list {
     position: absolute;
     left: 550px;
     background-color: rgba(255, 240, 161, 1);
