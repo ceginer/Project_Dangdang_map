@@ -92,7 +92,7 @@
     <div class="random-review">
       <div class="random-info">
         <a href="/detail/{{review.postType}}/{{place.id}}">
-          <div class="random-title">{{place.name}}</div>
+          <div class="random-title">{{place.name|truncatechars:16}}</div>
         </a>
         <div class="random-ranking-type">
           <div class="star"></div>
