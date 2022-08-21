@@ -195,3 +195,28 @@ input #file-upload-button {
     font-family: 'Dongle', sans-serif;
     font-size: 2.5rem;
 }
+
+.postRanking {
+    display: flex;
+    flex-direction: row;
+
+    /* White */
+    text-align: center;
+    background: #ffffff;
+    /* Black */
+    width: 50px;
+    height: 30px;
+    border: 2px solid #333333;
+    border-radius: 8px;
+    padding: 3px;
+    padding-left: 18px;
+    margin-left: 20px;
+}
+
+.ranking_detail {
+    display: flex;
+    flex-direction: row;
+    margin-left: 374px;
+    margin-bottom: 50px;
+    margin-top: 50px;
+}
