@@ -509,7 +509,7 @@ def create(request,category,category_id):
         try:
             postImage = request.FILES['postImage']
         except:
-            postImage=NULL
+            postImage='NULL'
         ranking = request.POST["ranking"]
         new_post=Post.objects.create(user=me,postType=category,postImage=postImage,postGood=postGood,postBad=postBad,ranking=ranking, placeId=category_id)
 
