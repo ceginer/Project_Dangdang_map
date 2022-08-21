@@ -8,9 +8,9 @@
 }
 
 a {
-  color: black;
-  text-decoration: none;
-  cursor: pointer;
+  color: black !important;
+  text-decoration: none !important;
+  cursor: pointer !important;
 }
 
 .navbar-container {
@@ -267,6 +267,14 @@ a {
   width: 325.5px;
   height: 190px;
   margin: 10px 0 0 5.5px;
+}
+
+.home-container .img-bool {
+  display: none;
+}
+
+.home-container .original-url {
+  display: none;
 }
 
 .home-container .random-image img {

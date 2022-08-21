@@ -92,7 +92,7 @@
     <div class="random-review">
       <div class="random-info">
         <a href="/detail/{{review.postType}}/{{place.id}}">
-          <div class="random-title">{{place.name}}</div>
+          <div class="random-title">{{place.name|truncatechars:16}}</div>
         </a>
         <div class="random-ranking-type">
           <div class="star"></div>
@@ -101,14 +101,12 @@
         </div>
         <div class="random-location">{{place.address|truncatechars:15}}</div>
       </div>
+      <div class="img-bool">{{review.postImage}}</div>
+      <div class="original-url">{{place.img}}</div>
+      
       <div class="random-image">
-        {% if review.postImage %}
-        <img src="{{ review.postImage.url }}" />
-        {% else %}
-        <img src="/static/img/no_image.png" />
-        {% endif %}
       </div>
-      <div class="random-comment">{{review.postGood|truncatechars:115}}</div>
+      <div class="random-comment">{{review.postGood|truncatechars:100}}</div>
     </div>
     {% else %}
     <div>대동멍지도의 첫번째 리뷰를 작성해주세요!</div>
@@ -136,6 +134,32 @@
       add.innerHTML = `<img src="/static/img/gray_star.svg" alt="">`;
       star.append(add);
     }
+  });
+</script>
+
+<!-- 랜덤에 사진업로드 안했을때 메인 사진으로-->
+<script>
+  const imgBools = document.querySelectorAll(".img-bool");
+  const reviewImgs = document.querySelectorAll(".random-image");
+  const urls = document.querySelectorAll(".original-url");
+  imgBools.forEach((img, index) => {
+    let reviewImg = reviewImgs[index];
+    let url = urls[index].innerHTML;
+    if (!url){
+      url = "/static/img/nophoto.png";
+    }
+    if (img.innerHTML == "NULL") {
+      reviewImg.innerHTML = `<img src=${url} alt="">`;
+      
+  } else if(!img.innerHTML){
+    reviewImg.innerHTML = `<img src=${url} alt="">`;
+  } else if(img.innerHTML.includes('http')){
+    imggg = img.innerHTML
+    reviewImg.innerHTML = `<img src="${imggg}" alt="">`;
+  }
+  else{
+    reviewImg.innerHTML = `<img src="${img.innerHTML.url}" alt="">`;
+  }
   });
 </script>
 {% endblock %}
