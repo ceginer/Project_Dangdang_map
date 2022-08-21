@@ -231,6 +231,9 @@ a {
   font-weight: bold;
   color: black;
   padding: 5px;
+  font-family: 'Sunflower', sans-serif;
+  font-weight: bold;
+
 }
 
 .home-container .random-title:hover {
@@ -245,6 +248,7 @@ a {
   justify-content: start;
   gap: 0.5rem;
   color: gray;
+  font-family: 'Poor Story', cursive;
 }
 
 .home-container .random-ranking-type .star {
@@ -273,6 +277,7 @@ a {
 
 .home-container .random-location {
   padding: 0 0 0 20px;
+  font-family: 'Gowun Dodum', sans-serif;
 }
 
 .home-container .random-comment {
@@ -281,6 +286,7 @@ a {
   padding: 25px 0 0 80px;
   font-size: 14px;
   line-height: 20px;
+  font-family: 'Gowun Dodum', sans-serif;
 }
 
 /*footer*/

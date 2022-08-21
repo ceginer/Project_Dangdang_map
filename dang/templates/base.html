@@ -89,6 +89,7 @@
           <a href="/logout">
             <img class="logout_icon" src="\static\img\Logout_icon.png" alt="" />
           </a>
+        </div>
         {% else %}
         <div class="nav_login_icon">
           <a href="/login/">
@@ -96,7 +97,11 @@
           </a>
         </div>
         {% endif %} {% if user.is_authenticated %}
-        <a href="/mypage/"><img src="\static\img\mypage.png" alt="" /></a>
+        <div class="mypage_css">
+          <a href="/mypage/">
+            <img class="mypage" src="\static\img\mypage.png" alt="" />
+          </a>
+        </div>
         {% else %}
         <a onclick="onclickLogin()">
           <div class="mypage_css">
