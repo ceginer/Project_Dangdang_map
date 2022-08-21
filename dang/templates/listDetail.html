@@ -116,6 +116,7 @@
     {% for review in reviews %}
       <div class="review">
         {% if review.postImage %}
+        <div class="img-bool">{{review.postImage}}</div>
         <div class="detail_review_photo">
           <img src="{{ review.postImage.url }}" style="width: 250px; height: 250px; border-radius: 33px;" />
         </div>
@@ -173,5 +174,15 @@ src="{% static 'javascripts/map.js' %}"
           star.append(add);
         }
   });
+</script>
+
+<script>
+  const imgBools = document.querySelectorAll(".img-bool");
+  const reviewImgs = document.querySelectorAll(".detail_review_photo");
+  imgBools.forEach((img, index) => {
+    let reviewImg = reviewImgs[index];
+    if (img.innerHTML == "NULL") {
+      reviewImg.innerHTML = `<img src="/static/img/nophoto.png" style="width: 250px; height: 250px; border-radius: 33px;" />`;
+  }});
 </script>
 {% endblock %}

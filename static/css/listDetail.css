@@ -442,3 +442,7 @@ body {
     height: 110px;
     width: 200px;
 }
+
+.review .img-bool {
+    display: none;
+}

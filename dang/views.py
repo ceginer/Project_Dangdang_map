@@ -520,30 +520,20 @@ def create(request,category,category_id):
         postGood = request.POST["postGood"]
         postBad = request.POST["postBad"]
         try:
-            postImage = request.FILES.get["postImage"]
-            print(postImage)
+            postImage = request.FILES['postImage']
         except:
-            pass
-
+            postImage=NULL
         ranking = request.POST["ranking"]
-        try:
-            new_post=Post.objects.create(user=me,postType=category,postImage=postImage,postGood=postGood,postBad=postBad,ranking=ranking, placeId=category_id)
-            posts = Post.objects.filter(Q(postType=category)&Q(placeId=category_id))
-            total = 0
-            len_posts= len(posts)
-            for p in posts:
-                total += p.ranking
-            place.star = total/len_posts
-            place.save()
-        except:
-            new_post=Post.objects.create(user=me,postType=category,postGood=postGood,postBad=postBad,ranking=ranking, placeId=category_id)
-            posts = Post.objects.filter(Q(postType=category)&Q(placeId=category_id))
-            total = 0
-            len_posts= len(posts)
-            for p in posts:
-                total += p.ranking
-            place.star = total/len_posts
-            place.save()
+        new_post=Post.objects.create(user=me,postType=category,postImage=postImage,postGood=postGood,postBad=postBad,ranking=ranking, placeId=category_id)
+
+        # 별점저장
+        posts = Post.objects.filter(Q(postType=category)&Q(placeId=category_id))
+        total = 0
+        len_posts= len(posts)
+        for p in posts:
+            total += p.ranking
+        place.star = total/len_posts
+        place.save()
 
         return redirect(f"/reviewDetail/{new_post.id}")
     else:
