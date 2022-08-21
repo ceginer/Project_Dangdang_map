@@ -399,9 +399,9 @@ def delete(request, id):
     
 
 def update(request, id): 
-    post = Post.objects.get(id=id)
-    category = post.postType
-    placeId = post.placeId
+    review = Post.objects.get(id=id)
+    category = review.postType
+    placeId = review.placeId
     
     if category == 'cafe':
         place = Cafe.objects.get(id=placeId)
@@ -413,7 +413,10 @@ def update(request, id):
     if request.method == "POST":
         postGood = request.POST["postGood"]
         postBad = request.POST["postBad"]
-        postImage = request.FILES['postImage']
+        try:
+            postImage = request.FILES['postImage']
+        except:
+            postImage=NULL
         ranking = request.POST["ranking"]
 
         Post.objects.filter(id=id).update(postGood=postGood,postBad=postBad,postImage=postImage,ranking=ranking)
@@ -427,12 +430,12 @@ def update(request, id):
             total += p.ranking
         place.star = total/len_posts
         place.save()
-        return redirect(f"/reviewDetail/{id}")
+        return redirect(f"/reviewDetail/{review.id}")
 
     placeName = place.name
-    location=place.location
+    location = place.location
 
-    context = {"post":post, "placeName":placeName}
+    context = {"review":review, "placeName":placeName}
     return render(request, "reviewUpdate.html", context=context)
 
 
