@@ -418,7 +418,7 @@ def update(request, id):
                 try:
                     postImage = request.FILES.get["postImage"]
                 except:
-                    pass
+                    postImage = None
 
                 ranking = request.POST["ranking"]
 
@@ -522,7 +522,7 @@ def create(request,category,category_id):
         try:
             postImage = request.FILES.get["postImage"]
         except:
-            pass
+            postImage = None
 
         ranking = request.POST["ranking"]
         try:

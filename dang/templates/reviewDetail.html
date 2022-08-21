@@ -18,7 +18,9 @@
       </div>
     </div>
     <div class="review_mid">
-      {% if review.postImage %}
+
+
+      {% if photos %}
       <p>
       <div class="review_photo">
         <img src="{{ review.postImage.url }}" style="width: 277px; height: 275px; border-radius: 33px;" />
@@ -27,9 +29,8 @@
       <div class="review_photo">
         <img src="/static/img/nophoto.png" style="width: 277px; height: 275px; border-radius: 33px;" />
       </div>
-      {% endif %}
       </p>
-
+      {% endif %}
 
     </div>
     <div class="review_bottom">
