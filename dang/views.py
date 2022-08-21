@@ -117,7 +117,9 @@ def home(request):
                 place = Accomodation.objects.get(id=p[1])
             reviews.append(post)
             places.append(place)
-            place_review = Post.objects.filter(placeId=place.id)
+            cat = p[0]
+            place_review = Post.objects.filter(Q(postType=cat)&Q(placeId=place.id))
+            print(place_review)
             counts.append(len(place_review))
         except: #해당 카테고리에 리뷰가 없을 경우
             pass
