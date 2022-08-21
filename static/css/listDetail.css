@@ -216,11 +216,10 @@ body {
     width: 198px;
     height: 109px; 
     overflow: hidden;
-    transform: translate(10%, -45%);
+    transform: translate(10%, 5%);
 }
 
 .reservation{
-    top: -30px;
     width: 100%;
     height: 100%;
     object-fit: cover;
