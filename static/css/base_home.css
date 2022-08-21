@@ -269,6 +269,14 @@ a {
   margin: 10px 0 0 5.5px;
 }
 
+.home-container .img-bool {
+  display: none;
+}
+
+.home-container .original-url {
+  display: none;
+}
+
 .home-container .random-image img {
   object-fit: cover;
   width: 325.5px;
