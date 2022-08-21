@@ -22,6 +22,7 @@
 
       {% if review.postImage %}
       <p>
+      <div class="img-bool" style="display: none;">{{review.postImage}}</div>
       <div class="review_photo">
         <img src="{{ review.postImage.url }}" style="width: 277px; height: 275px; border-radius: 33px;" />
       </div>
@@ -66,4 +67,15 @@
   </div>
 
 </body>
+
+<script>
+  const imgBools = document.querySelectorAll(".img-bool");
+  const reviewImgs = document.querySelectorAll(".review_photo");
+  imgBools.forEach((img, index) => {
+    let reviewImg = reviewImgs[index];
+    if (img.innerHTML.includes('http')){
+    reviewImg.innerHTML = `<img src="${img.innerHTML}" style="width: 277px; height: 275px; border-radius: 33px;" />`;
+  }
+  });
+</script>
 {% endblock %}

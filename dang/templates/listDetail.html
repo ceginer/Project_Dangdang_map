@@ -183,6 +183,9 @@ src="{% static 'javascripts/map.js' %}"
     let reviewImg = reviewImgs[index];
     if (img.innerHTML == "NULL") {
       reviewImg.innerHTML = `<img src="/static/img/nophoto.png" style="width: 250px; height: 250px; border-radius: 33px;" />`;
-  }});
+  } else if (img.innerHTML.includes('http')){
+    reviewImg.innerHTML = `<img src="${img.innerHTML}" style="width: 250px; height: 250px; border-radius: 33px;" />`;
+  }
+  });
 </script>
 {% endblock %}
