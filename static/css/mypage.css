@@ -93,6 +93,7 @@
   border: black solid;
   border-radius: 20px;
   box-shadow: 7px 7px 6px #b9af7a;
+  margin: 0 0 100px 0;
 }
 
 .my-container .review-list {
