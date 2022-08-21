@@ -20,14 +20,14 @@
     <div class="review_mid">
 
 
-      {% if photos %}
+      {% if review.postImage %}
       <p>
       <div class="review_photo">
         <img src="{{ review.postImage.url }}" style="width: 277px; height: 275px; border-radius: 33px;" />
       </div>
       {% else %}
       <div class="review_photo">
-        <img src="/static/img/nophoto.png" style="width: 277px; height: 275px; border-radius: 33px;" />
+        <img src="\static\img\nophoto.png" style="width: 277px; height: 275px; border-radius: 33px;" />
       </div>
       </p>
       {% endif %}
