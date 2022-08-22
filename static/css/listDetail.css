@@ -15,11 +15,13 @@ body{
 
 .photo-container {
     display: flex;
+    width: 1000px;
     justify-content: space-evenly;
     align-items: center;
 }
+
 .photo-container .window {
-    width: 146vh;
+    width: 830px;
     overflow: hidden;
 }
 
@@ -34,8 +36,8 @@ body{
 }
 
 .window .real_photo img {
-    width: 35vh;
-    height: 36vh;
+    width: 200px;
+    height: 200px;
     background-size: cover;
     border-radius: 15px;
 }
