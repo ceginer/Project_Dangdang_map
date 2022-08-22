@@ -1,100 +1,238 @@
-{% extends 'base.html'%}{% block content %}
+{% extends 'base.html'%}{% block content %} {% load static %}
 
 <!-- 사진보기-->
-<div class="detail-container">
-  <div class="photo-container">
-    <div class="place-photo">
-      <h1>사진보기</h1>
-      <div style="text-align: center;"><img src="\static\img\detail_photo.svg" alt=""></div>
-      {% if here.photo %}
-      <div class="real_photo"><img src="{{here.photo}}" alt=""></div>
-      {% else %}
-      <div class="no_photo"><img src="\static\img\nophoto.png" alt=""></div>
+<div class="list-detail-container">
+  <div class="place-photo">
+    <h1>사진보기</h1>
+    <div class="photo-container" style="text-align: center">
+      <!-- <img src="\static\img\detail_photo.svg" alt=""> -->
+      {% if photos|length > 3 %}
+      <button class="prev photo_btn">
+        <i class="fa-solid fa-circle-chevron-left i"></i>
+      </button>
+      {% endif %}
+      <div class="window">
+        <ul class="container">
+          {% if photos %} {%for photo in photos%}
+          <li class="real_photo"><img src="{{photo}}" alt="" /></li>
+          {% endfor %} {% else %}
+          <div class="no_photo">
+            <img src="\static\img\nophoto.png" alt="" />
+          </div>
+          {% endif %}
+        </ul>
+      </div>
+      {% if photos|length > 3 %}
+      <button class="next photo_btn">
+        <i class="fa-solid fa-circle-chevron-right i"></i>
+      </button>
       {% endif %}
     </div>
 
-    <!-- 상세정보 부분 CSS 대폭 수정해야할듯-->
-    <div class="detail-info">
-      <div class="detail_title">
-        <div class=img_box>
-          <div style="text-align: center;"><img src="\static\img\detail_title.svg" alt="">
-            <div style="text-align: center;"><img src="\static\img\detail_titleback.svg" alt="">
-              <div class="mini1"><img src="\static\img\detail_mini1.svg" alt=""></div>
-              <div class="mini2"><img src="\static\img\detail_mini2.svg" alt=""></div>
-              <h1>{{here.name}}</h1>
-              <div class="place-star">{{here.star}}</div>
-              <!--대충리뷰자리 잡아놓기용-->
-              <div class="review_star"><img src="\static\img\review_star.svg" alt="">
-                <div class="place-detail-info">
-                  <div class="info-logo-box"></div>
-                  <div class="info-text-box">
-                    <div class="info_text_line"></div>
-                    <div class="info-text1"><i class="fa-solid fa-location-dot"></i>{{here.address}}</div>
-                    <div class="info-text2"><i class="fa-solid fa-phone"></i>{{here.phone}}</div>
-                    <div class="info-text3"><a href="{{here.link1}}"><i class="fa-solid fa-hand-point-right"></i>[홈페이지
-                        바로가기]</a></div>
-                    <div class="info-text4"><a href="{{here.link2}}"><i class="fa-solid fa-map-location-dot"></i>[네이버
-                        지도로 보기]</a></div>
-                  </div>
-                  {% if here.desc %}
-                  <div class="info-text-desc">{{here.desc}}</div>
-                  {% else %}
-                  <div class="no_detail">조금만 기다려주세요 아직 상세정보가 준비되지않았어요...<i
-                      style="font-size:100px; color:rgb(255, 231, 112);" class="fa-solid fa-face-sad-tear"></i></div>
+    <script>
+      const container = document.querySelector(".container");
+      const prevBtn = document.querySelector(".prev");
+      const nextBtn = document.querySelector(".next");
 
-                  {% endif %}
+      (function addEvent() {
+        prevBtn.addEventListener("click", translateContainer.bind(this, 1));
+        nextBtn.addEventListener("click", translateContainer.bind(this, -1));
+      })();
 
-                </div>
-              </div>
-            </div>
+      function translateContainer(direction) {
+        const selectedBtn = direction === 1 ? "prev" : "next";
+        container.style.transitionDuration = "500ms";
+        container.style.transform = `translateX(${direction * 25}%)`;
+        container.ontransitionend = () => reorganizeEl(selectedBtn);
+      }
+
+      function reorganizeEl(selectedBtn) {
+        container.removeAttribute("style");
+        selectedBtn === "prev"
+          ? container.insertBefore(
+              container.lastElementChild,
+              container.firstElementChild
+            )
+          : container.appendChild(container.firstElementChild);
+      }
+    </script>
+  </div>
+
+  <!-- 상세정보 부분 CSS 대폭 수정해야할듯-->
+  <div class="img_box">
+    <h1>{{here.name}}</h1>
+    <!--대충리뷰자리 잡아놓기용-->
+    <div class="place-detail-info">
+      <div class="info-logo-box"></div>
+      <div class="info-text-box">
+        <div class="star-box">
+          <div class="star"></div>
+          <div class="review-count"></div>
+          <div class="ranking">{{here.star}}</div>
+        </div>
+        <div class="info-text1">
+          <img src="\static\img\loca_icon.svg" alt="" />{{here.address}}
+        </div>
+        <div class="info-text2">
+          <img src="\static\img\phone_icon.svg" alt="" />{{here.phone}}
+        </div>
+        {% if here.link%}
+        <div class="info-text3">
+          <a href="{{here.link}}"
+            ><img src="\static\img\loca_link_icon.svg" alt="" />[홈페이지
+            바로가기]</a
+          >
+        </div>
+        {% else %}
+        <div class="info-text3">
+          <div>
+            <img src="\static\img\loca_link_icon.svg" alt="" />[홈페이지 없음]
           </div>
         </div>
+        {% endif %}
 
-        <!-- 지도보기 -->
-        <div class="detail_map">
-          <div class="map_title">
-            <h1>지도</h1>
-            <div style="text-align: center;"><img src="\static\img\detail_map.svg" alt=""></div>
+        <div class="info-text4">
+          <a
+            href="https://map.naver.com/v5/search/{{here.location}} {{here.name}}"
+            ><img src="\static\img\link_icon.svg" alt="" />[네이버 지도로
+            보기]</a
+          >
+        </div>
+      </div>
+      {% if here.desc %}
+      <div class="info-text-desc">{{here.desc}}</div>
+      {% else %}
+      <div class="info-text-desc">
+        <div class="no_detail">
+          조금만 기다려주세요 아직 상세정보가 준비되지않았어요...<i
+            style="font-size: 100px; color: rgb(255, 231, 112)"
+            class="fa-solid fa-face-sad-tear"
+          ></i>
+        </div>
+      </div>
+      {% endif %} {% if here.reserveLink %}
+      <div class="accommo_link">
+        <a href="{{here.reserveLink}}"
+          ><img class="reservation" src="\static\img\reservation.png" alt=""
+        /></a>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- 지도보기 -->
+  <div class="detail_map">
+    <div class="map_title">
+      <h1>지도</h1>
+    </div>
+    <div class="map-container">
+      <div>
+        <script>
+          var name = "{{here.name}}";
+          var here_address = "{{here.address}}";
+          var x = "{{here.y}}";
+          var y = "{{here.x}}";
+        </script>
+        <div id="map" style="width: 100%; height: 350px"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 멍리뷰-->
+  <h1 class="dang-review-title">멍리뷰</h1>
+  <div class="review_list">
+    {% if user.is_authenticated %}
+    <a class="write-review" href="/create/{{category}}/{{here.id}}"
+      >WriteReview!</a
+    >
+    {% else %}
+    <a class="write-review" onclick="onclickLogin()">WriteReview!</a>
+    {% endif %} {% for review in reviews %}
+    <div class="review">
+      {% if review.postImage %}
+      <div class="img-bool">{{review.postImage}}</div>
+      <div class="detail_review_photo">
+        <img
+          src="{{ review.postImage.url }}"
+          style="width: 250px; height: 250px; border-radius: 33px"
+        />
+      </div>
+      {% else %}
+      <img
+        src="\static\img\nophoto.png"
+        style="width: 250px; height: 250px; border-radius: 33px"
+        alt=""
+      />
+      {% endif %}
+      <div class="review-right-info">
+        <div class="review-info">
+          <div class="review_name">{{here.name}}</div>
+          <div class="detailRV_user">작성자: {{review.user.username}}</div>
+          <div class="detailRV_star">
+            별점:
+            <div class="star"></div>
+          </div>
+          <div class="ranking">{{review.ranking}}</div>
+        </div>
+        <div class="good-and-plus">
+          <div class="detailRV_good">
+            좋은점: {{review.postGood|truncatechars:45}}
+          </div>
+          <div class="review_plus">
+            <a href="/reviewDetail/{{review.id}}">리뷰상세 보기</a>
           </div>
         </div>
+      </div>
+    </div>
+    {% endfor %}
+    <div class="back_to_list">
+      <a href="/list/{{category}}/{{here.location}}/{{here.type}}">목록으로</a>
+    </div>
+  </div>
+</div>
 
-        <!-- 멍리뷰-->
-        <div class="review_ls">
-          <div class="review_title">
-            <h1>멍리뷰</h1>
-            <div style="text-align: center;"><img src="\static\img\review_ls.svg" alt=""></div>
-            {% if user.is_authenticated %}
-            <a href="/create/{{category}}/{{here.id}}">WriteReview!</a>
-            {% else %}
-            <a onclick="onclickLogin()">WriteReview!</a>
-            {% endif %}
-          </div>
-        </div>
-        <div class="review_list">
-          {% for review in reviews %}
-            <div class="review">
-              <div>
-                {% if review.postImage %}
-                <div>리뷰이미지 있음</div>
-                {% else %}
-                <img src="\static\img\nophoto.png" alt="">
-                {% endif %}
-              </div>
-              <a href="/reviewDetail/{{review.id}}"><button>리뷰 상세 보기</button></a>
-              <div>작성자: {{review.user.username}}</div>
-              <div>별점: {{review.ranking}}</div>
-              <div>좋은점: {{review.postGood}}</div>
-              <div>싫은점: {{review.postBad}}</div>
-              <div>유형: {{review.postType}}</div>
+<script
+  type="text/javascript"
+  src="//dapi.kakao.com/v2/maps/sdk.js?appkey=bf0f64ba4cc212c4f652d6b221b72a53&libraries=services"
+></script>
+<script type="text/javascript" src="{% static 'javascripts/map.js' %}"></script>
 
-              <hr>
-            </div>
-          {% endfor %}
-        </div>
+<script>
+  // 새로 고침시 별점상태 변경
+  const stars = document.querySelectorAll(".star");
+  const rankings = document.querySelectorAll(".ranking");
+  const reviewCount = Number(rankings.length) - 1;
+  document.querySelector(
+    ".review-count"
+  ).innerHTML = `(${reviewCount}) {{here.type}}`;
+  stars.forEach((star, index) => {
+    let ranking = rankings[index].innerHTML;
+    let starNum = Math.floor(parseInt(ranking));
+    for (var i = 0; i < starNum; i++) {
+      const add = document.createElement("div");
+      add.classList.add("yellow-star");
+      add.innerHTML = `<img src="/static/img/yellow_star.svg" alt="">`;
+      star.append(add);
+    }
+    for (var i = 0; i < 5 - starNum; i++) {
+      const add = document.createElement("div");
+      add.classList.add("gray-star");
+      add.innerHTML = `<img src="/static/img/gray_star.svg" alt="">`;
+      star.append(add);
+    }
+  });
+</script>
 
-        <!-- 목록보기-->
-        <div class="back_to_list">
-          <a href="/list/{{category}}/{{here.location}}/{{here.type}}">목록으로</a>
-        </div>
-        </body>
-        {% endblock %}
+<script>
+  const imgBools = document.querySelectorAll(".img-bool");
+  const reviewImgs = document.querySelectorAll(".detail_review_photo");
+  imgBools.forEach((img, index) => {
+    let reviewImg = reviewImgs[index];
+    if (img.innerHTML == "NULL") {
+      reviewImg.innerHTML = `<img src="/static/img/nophoto.png" style="width: 250px; height: 250px; border-radius: 33px;" />`;
+    } else if (img.innerHTML.includes("http")) {
+      reviewImg.innerHTML = `<img src="${img.innerHTML}" style="width: 250px; height: 250px; border-radius: 33px;" />`;
+    }
+  });
+</script>
+{% endblock %}

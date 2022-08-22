@@ -12,50 +12,67 @@
 <body>
     <div class="review_container">
         <div class="review_top">
-            <div class="logo_img"><img src="" /></div>
-            <h1>멍 리뷰</h1>
-            <span>당신의 소중한 후기는 많은 댕댕이들에게 도움이 됩니다:)</span>
+            <div class="logo_img"><img src="/static/img/Group.png" /></div>
+            <div class="review_top_span">
+                <h1>멍 리뷰</h1>
+                <span>당신의 소중한 후기는 많은 댕댕이들에게 도움이 됩니다:)</span>
+            </div>
             <div class="review_update_btn">
-                <button>Delete</button>
+                <form action="/delete/{{review.id}}" method="post">
+                    {% csrf_token %}
+                    <button>Delete</button>
+                </form>
             </div>
         </div>
-        <form action="/update/{{post.id}}" method="POST" enctype="multipart/form-data">
+        <form action="/update/{{review.id}}" method="POST" enctype="multipart/form-data">
             <div class="post_container">
                 {% csrf_token %}
                 <div class="post_review">
-                    <p>
-                        다녀온 곳: {{placeName}}
-                    </p>
-                    {% if post.postImage %}
+
+                    {% if review.postImage %}
                     <p>
                     <div class="review_photo">
-                        <img src="{{ post.postImage.url }}" style="width: 338px; height: 365px; border-radius: 33px;" />
+                        <img src="{{ review.postImage.url }}"
+                            style="width: 277px; height: 275px; border-radius: 33px;" />
+                    </div>
+                    <input type="file" name="postImage" />
+                    {% else %}
+                    <div class="review_photo">
+                        <img src="\static\img\nophoto.png" style="width: 277px; height: 275px; border-radius: 33px;" />
                     </div>
                     </p>
                     {% endif %}
+
                     <br>
-                    별점 선택: <textarea name="ranking" type="integer">
-                        {{post.ranking}}
-                    </textarea>
+
+                    <div class="review_span">별점 선택</div>
+                    <select class="r" name="ranking" type="select">
+                        <option value="5">5</option>
+                        <option value="4">4</option>
+                        <option value="3">3</option>
+                        <option value="2">2</option>
+                        <option value="1">1</option>
+                    </select>
+
                     <br>
                     <div class="post-good">
-                        이런 점이 좋았어요 :
+                        <div class="review_span">이런 점이 좋았어요! </div>
                         <br>
-                        <textarea name="postGood" type="text">
-                            {{post.postGood}}
+                        <textarea class="postGood" name="postGood" type="text">
+                            {{review.postGood}}
                         </textarea>
                     </div>
                     <br>
                     <div class="post-bad">
-                        이런 점이 아쉬워요 :
+                        <div class="review_span">이런 점이 아쉬워요!</div>
                         <br>
-                        <textarea name="postBad" type="text">
-                            {{post.postBad}}
+                        <textarea class="postBad" name="postBad" type="text">
+                            {{review.postBad}}
                         </textarea>
                     </div>
 
                 </div>
-                <button class="create_btn" type="submit">Update</button>
+                <button class="create_btn" type="submit">UPDATE</button>
             </div>
         </form>
     </div>

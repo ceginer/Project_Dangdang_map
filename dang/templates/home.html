@@ -1,19 +1,96 @@
 {% extends 'base.html' %} {% block content %}
 <div class="home-container">
-  <div class="banner"><img src="\static\img\banner_summer.png" alt=""></div>
-  <div class="where_to_leave">어디로 떠날까요?</div>
+  <div class="banner">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"></script>
+    <script>
+      $('.carousel').carousel({
+        interval: 1000 //기본 5초
+      })
+    </script>
+    <div id="demo" class="carousel slide" data-ride="carousel">
+
+      <div class="carousel-inner">
+        <!-- 슬라이드 쇼 -->
+        <div class="carousel-item active">
+          <!--가로-->
+          <img class="d-block w-100" src="\static\img\banner_spring.png" alt="First slide">
+
+        </div>
+        <div class="carousel-item">
+          <img class="d-block w-100" src="\static\img\banner_summer.png" alt="Second slide">
+        </div>
+        <div class="carousel-item">
+          <img class="d-block w-100" src="\static\img\banner_fall.png" alt="Third slide">
+        </div>
+        <div class="carousel-item">
+          <img class="d-block w-100" src="\static\img\banner_winter.png" alt="Forth slide">
+        </div>
+
+        <!-- / 슬라이드 쇼 끝 -->
+
+        <!-- 왼쪽 오른쪽 화살표 버튼 -->
+        <a class="carousel-control-prev" href="#demo" data-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <!-- <span>Previous</span> -->
+        </a>
+        <a class="carousel-control-next" href="#demo" data-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <!-- <span>Next</span> -->
+        </a>
+        <!-- / 화살표 버튼 끝 -->
+
+        <!-- 인디케이터 -->
+        <ul class="carousel-indicators">
+          <li data-target="#demo" data-slide-to="0" class="active"></li>
+          <!--0번부터시작-->
+          <li data-target="#demo" data-slide-to="1"></li>
+          <li data-target="#demo" data-slide-to="2"></li>
+          <li data-target="#demo" data-slide-to="3"></li>
+        </ul>
+        <!-- 인디케이터 끝 -->
+      </div>
+
+    </div>
+  </div>
+
+  <div class="where_to_leave">
+    <div class="container">
+      <div class="leave_icon">
+        <img class="airplane_icon" src="/static/img/airplane_icon.png" alt="">
+      </div>
+      <div class="row" style="padding-left: 25px;">
+        <div class="col-md-12">
+          <h3 class="animate-charcter"> 어디로 떠날까요?</h3>
+        </div>
+      </div>
+    </div>
+  </div>
   <div class="home_location_list">
     <div class="shift-btn-left">
       <img src="\static\img\left.svg" onclick="onClickHome('left')" alt="">
     </div>
-      <div class="shift-locations">
-        <div class="home_location"><a href="/list/cafe/서울/애견동반"><img src="/static/img/main_loc/Tag-14.png" alt=""></a></div>
-        <div class="home_location"><a href="/list/cafe/경기/애견동반"><img src="/static/img/main_loc/Tag-12.png" alt=""></a></div>
-        <div class="home_location"><a href="/list/cafe/인천/애견동반"><img src="/static/img/main_loc/Tag-13.png" alt=""></a></div>
-        <div class="home_location"><a href="/list/cafe/강원/애견동반"><img src="/static/img/main_loc/Tag-11.png" alt=""></a></div>
-        <div class="home_location"><a href="/list/cafe/충북/애견동반"><img src="/static/img/main_loc/Tag-15.png" alt=""></a></div>
-        <div class="home_location"><a href="/list/cafe/충남/애견동반"><img src="/static/img/main_loc/Tag-16.png" alt=""></a></div>
+    <div class="shift-locations">
+      <div class="home_location"><a href="/list/cafe/서울/애견동반"><img src="/static/img/main_loc/Tag-14.png" alt=""></a>
       </div>
+      <div class="home_location"><a href="/list/cafe/경기/애견동반"><img src="/static/img/main_loc/Tag-12.png" alt=""></a>
+      </div>
+      <div class="home_location"><a href="/list/cafe/인천/애견동반"><img src="/static/img/main_loc/Tag-13.png" alt=""></a>
+      </div>
+      <div class="home_location"><a href="/list/cafe/강원/애견동반"><img src="/static/img/main_loc/Tag-11.png" alt=""></a>
+      </div>
+      <div class="home_location"><a href="/list/cafe/충북/애견동반"><img src="/static/img/main_loc/Tag-15.png" alt=""></a>
+      </div>
+      <div class="home_location"><a href="/list/cafe/충남/애견동반"><img src="/static/img/main_loc/Tag-16.png" alt=""></a>
+      </div>
+    </div>
     <div class="shift-btn-right">
       <img src="\static\img\right.svg" onclick="onClickHome('right')" alt="">
     </div>
@@ -22,29 +99,29 @@
   <div class="page_dot"><img src="/static/img/page_1.svg" alt=""></div>
   <div class="home_random_container">
     {% for review,place,count in total_list %}
-        {% if review %}
-            <div class="random-review">
-              <div class="random-info">
-                <a href="/detail/{{review.postType}}/{{place.id}}"><div class="random-title">{{place.name}}</div></a>
-                <div class="random-ranking-type">
-                  <div class="star"></div>
-                  <div class="ranking">{{place.star}}</div>
-                  ({{count}})   {{place.type}}
-                </div>
-                <div class="random-location">{{place.address|truncatechars:15}}</div>
-              </div>
-              <div class="random-image">
-                {% if review.postImage %}
-                  <img src="{{ review.postImage.url }}" />
-                {% else %}
-                  <img src="/static/img/no_image.png" />
-                {% endif %}
-              </div>
-              <div class="random-comment">{{review.postGood|truncatechars:115}}</div>
-            </div>
-        {% else %}
-            <div>대동멍지도의 첫번째 리뷰를 작성해주세요!</div>
-        {% endif %}
+    {% if review %}
+    <div class="random-review">
+      <div class="random-info">
+        <a href="/detail/{{review.postType}}/{{place.id}}">
+          <div class="random-title">{{place.name|truncatechars:16}}</div>
+        </a>
+        <div class="random-ranking-type">
+          <div class="star"></div>
+          <div class="ranking">{{place.star}}</div>
+          ({{count}}) {{place.type}}
+        </div>
+        <div class="random-location">{{place.address|truncatechars:15}}</div>
+      </div>
+      <div class="img-bool">{{review.postImage}}</div>
+      <div class="original-url">{{place.img}}</div>
+      
+      <div class="random-image">
+      </div>
+      <div class="random-comment">{{review.postGood|truncatechars:100}}</div>
+    </div>
+    {% else %}
+    <div>대동멍지도의 첫번째 리뷰를 작성해주세요!</div>
+    {% endif %}
     {% endfor %}
   </div>
 </div>
@@ -57,17 +134,43 @@
     let ranking = rankings[index].innerHTML;
     let starNum = Math.floor(parseInt(ranking));
     for (var i = 0; i < starNum; i++) {
-          const add = document.createElement("div");
-          add.classList.add("yellow-star");
-          add.innerHTML = `<img src="/static/img/yellow_star.svg" alt="">`;
-          star.append(add);
-        }
+      const add = document.createElement("div");
+      add.classList.add("yellow-star");
+      add.innerHTML = `<img src="/static/img/yellow_star.svg" alt="">`;
+      star.append(add);
+    }
     for (var i = 0; i < 5 - starNum; i++) {
-          const add = document.createElement("div");
-          add.classList.add("gray-star");
-          add.innerHTML = `<img src="/static/img/gray_star.svg" alt="">`;
-          star.append(add);
-        }
+      const add = document.createElement("div");
+      add.classList.add("gray-star");
+      add.innerHTML = `<img src="/static/img/gray_star.svg" alt="">`;
+      star.append(add);
+    }
+  });
+</script>
+
+<!-- 랜덤에 사진업로드 안했을때 메인 사진으로-->
+<script>
+  const imgBools = document.querySelectorAll(".img-bool");
+  const reviewImgs = document.querySelectorAll(".random-image");
+  const urls = document.querySelectorAll(".original-url");
+  imgBools.forEach((img, index) => {
+    let reviewImg = reviewImgs[index];
+    let url = urls[index].innerHTML;
+    if (!url){
+      url = "/static/img/nophoto.png";
+    }
+    if (img.innerHTML == "NULL") {
+      reviewImg.innerHTML = `<img src=${url} alt="">`;
+      
+  } else if(!img.innerHTML){
+    reviewImg.innerHTML = `<img src=${url} alt="">`;
+  } else if(img.innerHTML.includes('http')){
+    imggg = img.innerHTML
+    reviewImg.innerHTML = `<img src="${imggg}" alt="">`;
+  }
+  else{
+    reviewImg.innerHTML = `<img src="${img.innerHTML.url}" alt="">`;
+  }
   });
 </script>
 {% endblock %}

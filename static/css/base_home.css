@@ -7,10 +7,15 @@
   box-sizing: border-box;
 }
 
+button:focus {
+  border: none !important;
+  outline: none !important;
+}
+
 a {
-  color: black;
-  text-decoration: none;
-  cursor: pointer;
+  color: black !important;
+  text-decoration: none !important;
+  cursor: pointer !important;
 }
 
 .navbar-container {
@@ -20,6 +25,97 @@ a {
   height: 10vh;
   padding: 0 1vw;
   background-color: rgba(255, 240, 161, 1);
+  font-family: "Jua", sans-serif;
+}
+
+.nav_login_icon {
+  width: 88px;
+  height: 45px;
+  overflow: hidden;
+}
+
+.login_icon {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.nav_logout_icon {
+  width: 88px;
+  height: 45px;
+  overflow: hidden;
+}
+
+.logout_icon {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/**네비게이션 호버정리**/
+
+.dang_medical {
+  border: 5px solid #fff0a1;
+  border-radius: 30px;
+  background-color: #fff0a1;
+  padding: 10px;
+}
+
+.dang_medical:hover {
+  background-color: #d62c2cac;
+  color: aliceblue;
+}
+
+.dang_cafe {
+  border: 5px solid #fff0a1;
+  border-radius: 30px;
+  background-color: #fff0a1;
+  padding: 10px;
+  padding-left: 18px;
+  padding-right: 18px;
+}
+
+.dang_cafe:hover {
+  background-color: #bddfff;
+  color: aliceblue;
+}
+
+.dang_accommo {
+  border: 5px solid #fff0a1;
+  border-radius: 30px;
+  background-color: #fff0a1;
+  padding: 10px;
+  padding-left: 18px;
+  padding-right: 18px;
+}
+
+.dang_accommo:hover {
+  background-color: #bddfff;
+}
+
+.dang_place {
+  border: 5px solid #fff0a1;
+  border-radius: 30px;
+  background-color: #fff0a1;
+  padding: 10px;
+  padding-left: 18px;
+  padding-right: 18px;
+}
+
+.dang_place:hover {
+  background-color: #bddfff;
+}
+
+.mypage_css {
+  width: 52px;
+  height: 51px;
+  overflow: hidden;
+}
+
+.mypage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .category-container {
@@ -46,7 +142,7 @@ a {
   background-color: rgba(255, 240, 161, 1);
 }
 
-.home-container .banner img{
+.home-container .banner img {
   object-fit: cover;
   margin: 20px 0 0 0;
 }
@@ -59,13 +155,53 @@ a {
   text-align: left;
   width: 100%;
   padding: 70px 220px 0;
-  font-size: xx-large;
+  font-size: 2.8rem;
+  font-family: "Gamja Flower", cursive;
 }
+
+.animate-charcter {
+  text-transform: uppercase;
+  background-image: linear-gradient(
+    -225deg,
+    #231557 0%,
+    #44107a 29%,
+    #ff1361 67%,
+    #fff800 100%
+  );
+  background-size: auto auto;
+  background-clip: border-box;
+  background-size: 200% auto;
+  color: #fff;
+  background-clip: text;
+  text-fill-color: transparent;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: textclip 2s linear infinite;
+  display: inline-block;
+}
+
+@keyframes textclip {
+  to {
+    background-position: 200% center;
+  }
+}
+
+.leave_icon {
+  width: 65px;
+  height: 55px;
+  transform: translate(-100%, 80%);
+}
+.airplane_icon {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 .home-container .home_location_list {
   display: flex;
   justify-content: left;
   align-items: center;
-  width: 100%;
+  width: 1570px;
   gap: 2rem;
   padding: 50px 150px 0 150px;
 }
@@ -76,15 +212,21 @@ a {
   height: 151px;
 }
 
-.home-container .home_location img{
+.home-container .home_location img {
   object-fit: cover;
   width: 154px;
   height: 155px;
 }
 
+.home-container .home_location:hover {
+  /* width:100px; */
+  transform: scale(1.07);
+  transition: transform.30s;
+}
+
 .home-container .shift-locations {
   display: flex;
-  justify-content: left;
+  justify-content: center;
   align-items: center;
   width: 100%;
   gap: 2rem;
@@ -97,7 +239,7 @@ a {
 }
 
 .home-container #num {
-  display:none
+  display: none;
 }
 
 .home-container .home_random_container {
@@ -139,13 +281,14 @@ a {
   font-weight: bold;
   color: black;
   padding: 5px;
+  font-family: "Sunflower", sans-serif;
+  font-weight: bold;
 }
 
 .home-container .random-title:hover {
   cursor: pointer;
   background-color: rgba(255, 240, 161, 1);
   font-weight: bold;
-
 }
 
 .home-container .random-ranking-type {
@@ -153,6 +296,7 @@ a {
   justify-content: start;
   gap: 0.5rem;
   color: gray;
+  font-family: "Poor Story", cursive;
 }
 
 .home-container .random-ranking-type .star {
@@ -173,6 +317,14 @@ a {
   margin: 10px 0 0 5.5px;
 }
 
+.home-container .img-bool {
+  display: none;
+}
+
+.home-container .original-url {
+  display: none;
+}
+
 .home-container .random-image img {
   object-fit: cover;
   width: 325.5px;
@@ -181,6 +333,7 @@ a {
 
 .home-container .random-location {
   padding: 0 0 0 20px;
+  font-family: "Gowun Dodum", sans-serif;
 }
 
 .home-container .random-comment {
@@ -189,180 +342,26 @@ a {
   padding: 25px 0 0 80px;
   font-size: 14px;
   line-height: 20px;
-}
-
-/* Login.html */
-.log_in{
-  position: relative;
-  text-align: left;
-  color: rgb(26, 26, 26);
-  padding-bottom: 30px;
-  background-color: #FFF0A1;
-}
-
-.login_form{
-  position: absolute;
-  top: 200px;
-  right: 300px;
-  font-size: 1.5rem;
-  font-family: 'Dongle', sans-serif;
-}
-.log_in h1 {
-  position: absolute;
-  top: 150px;
-  right: 450px;
-  font-family: 'Dongle', sans-serif;
-  font-size: 3rem;
-}
-
-.google_login{
-  position: absolute;
-  top: 300px;
-  right: 30px;
-  font-family: 'Dongle', sans-serif;
-  border: 4px solid rgb(11, 11, 11);
-  background-color: #F5F5F5;
-  box-sizing: border-box;
-  border-radius: 7px;
-  padding-bottom: 6px;
-  padding-top: 6px;
-  padding-left: 10px;
-  padding-right: 10px;
-}
-
-.with_join{
-  position: absolute;
-  top: 370px;
-  right: 30px;
-  font-family: 'Dongle', sans-serif;
-}
-
-.login_join {
-  position: absolute;
-  top: 400px;
-  right: 30px;
-  font-family: 'Dongle', sans-serif;
-  border: 4px solid rgb(11, 11, 11);
-  background-color: #F5F5F5;
-  box-sizing: border-box;
-  font-size: 1.5rem;
-  border-radius: 7px;
-  padding-bottom: 6px;
-  padding-top: 6px;
-  padding-left: 10px;
-  padding-right: 10px;
-}
-
-
-input[type=text], input[type=password] {
-  width: 354px;
-  padding: 12px 5px;
-  margin: 8px 0;
-  display: inline-block;
-  border: 3px solid rgb(11, 11, 11);
-  box-sizing: border-box;
-  border-radius: 5px;
-}
-
-input[type=submit] {
-  width: 30%;
-  padding: 5px 3px;
-  margin: 2px 0;
-  display: inline-block;
-  border: 3px solid rgb(11, 11, 11);
-  background-color: #F5F5F5;
-  box-sizing: border-box;
-  border-radius: 5px;
-  font-family: 'Dongle', sans-serif;
-  font-size: 1.5rem;
-}
-
-.login_illust{
-  position: absolute;
-  top: 50px;
-  left: 130px;
-  border: 3px solid #fbffe9;
-  padding-top: 150px;
-  background-color: #fbffe9;
-  box-sizing: border-box;
-  border-radius: 50px;
-}
-
-/* join.html */
-body {
-  background-color: #FFF0A1;
-}
-
-.sign_up{
-  position: relative;
-  text-align: left;
-  color: rgb(26, 26, 26);
-  padding-bottom: 30px;
-  background-color: #FFF0A1;
-}
-
-.join_form{
-  position: absolute;
-  top: 200px;
-  right: 300px;
-  font-size: 1.5rem;
-  font-family: 'Dongle', sans-serif;
-}
-
-.sign_up h2 {
-  position: absolute;
-  top: 150px;
-  right: 450px;
-  font-family: 'Dongle', sans-serif;
-  font-size: 3rem;
-}
-
-
-input[type=text], input[type=password], input[type=email] {
-  width: 354px;
-  padding: 12px 5px;
-  margin: 8px 0;
-  display: inline-block;
-  border: 3px solid rgb(11, 11, 11);
-  box-sizing: border-box;
-  border-radius: 5px;
-}
-
-input[type=submit] {
-  width: 30%;
-  padding: 5px 3px;
-  margin: 2px 0;
-  display: inline-block;
-  border: 3px solid rgb(11, 11, 11);
-  box-sizing: border-box;
-  border-radius: 5px;
-  font-family: 'Dongle', sans-serif;
-  font-size: 1.5rem;
-}
-
-p1{
-  position: absolute;
-  top: 300px;
-  right: 5px;
+  font-family: "Gowun Dodum", sans-serif;
 }
 
 /*footer*/
-.footer-container{
-  background-color: #FFF6C3;
+.footer-container {
+  background-color: #fff6c3;
 }
 
-.footer-logo img{
+.footer-logo img {
   max-width: 100%;
   max-height: 100%;
   padding: 10px;
 }
 
-.footer-logo{
+.footer-logo {
   height: 80px;
   width: 80px;
 }
 
-.footer_text{
+.footer_text {
   font-size: 1rem;
-  font-family: 'Dongle', sans-serif;
+  font-family: "Dongle", sans-serif;
 }

@@ -1,7 +1,7 @@
-from asyncio.windows_events import NULL
 from dis import dis
 import email
 from http.client import HTTPResponse
+from imaplib import _Authenticator
 from multiprocessing import context
 from re import template
 from unicodedata import category
@@ -22,6 +22,7 @@ from email.policy import default
 from django.shortcuts import render, redirect
 from django.contrib.auth import get_user_model
 from django.contrib import auth
+from django.contrib.auth import authenticate
 # Create your views here.
 
 
@@ -30,8 +31,12 @@ def login(request):
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
-
-        user = auth.authenticate(request, username=username, password=password)
+        print("username : ", username)
+        print("password : ", password)
+        user = User.objects.create_user( username="whatever3", email="whatever@some.com", password="password")
+        user.save()
+        user = authenticate( username="whatever3",password="password")
+        
 
         if user is not None:
             print("인증성공")
@@ -111,7 +116,9 @@ def home(request):
                 place = Accomodation.objects.get(id=p[1])
             reviews.append(post)
             places.append(place)
-            place_review = Post.objects.filter(placeId=place.id)
+            cat = p[0]
+            place_review = Post.objects.filter(Q(postType=cat)&Q(placeId=place.id))
+            print(place_review)
             counts.append(len(place_review))
         except: #해당 카테고리에 리뷰가 없을 경우
             pass
@@ -161,13 +168,120 @@ def toMainList(request, category, location, type):
                 i.favorite = False
                 i.save()
         
-        filteredLocation = filteredLocation.order_by('id') # 가까운 순으로 정렬하면 좋을듯
+        filteredLocation = filteredLocation.order_by('id') # 아이디순으로 정렬
         paginator = Paginator(filteredLocation, 5)   
         page = request.GET.get('page')
         posts = paginator.get_page(page)
 
         context = {'category': category ,'location': location,'locations': locations, 'type': type,'posts': posts }
         return render(request, 'mainList.html', context=context)
+
+
+### 사이트에서 이미지 불러오기
+
+############ 네이버 쳤을 때 창
+def page1(place):
+  
+  cookies = {
+      'NNB': 'G5AA6C3FLZ4V2',
+      'ASID': 'dbffcf840000016e3a5eee630000004a',
+      'NFS': '2',
+      '_ga_7VKFYR6RV1': 'GS1.1.1597901340.14.1.1597901683.46',
+      'm_loc': 'd5fae313eb8f8d9c7050efd25232798d9d46bed2a51ca5b050c23aad802b4a881dfb12bada235ad6a69a9ce7f073c11ed5ec98ec7cfd21f8212a26f84dad9d5d',
+      'NV_WETR_LOCATION_RGN_M': '"MDMyMjAxMTE="',
+      'NV_WETR_LAST_ACCESS_RGN_M': '"MDMyMjAxMTE="',
+      '_fbp': 'fb.1.1652333053952.1864013727',
+      '_gcl_au': '1.1.924982538.1652333054',
+      '_ga_1BVHGNLQKG': 'GS1.1.1653819791.2.1.1653819793.0',
+      '_ga': 'GA1.2.1918082713.1576255170',
+      '_ga_4BKHBFKFK0': 'GS1.1.1657104703.4.1.1657105489.0',
+      'nx_ssl': '2',
+      'csrf_token': 'c9ff8dc89d0d26f7321703f51cfc2d4448818847853c526728a4d2219155c97e9b6490d088524f5e2d1f9fdd189f23d95bdd86f6e9ca8c8b07bf30c857e040c6',
+      'nid_inf': '1648409857',
+      'NID_JKL': 'k/RAiTYAFS6RkhgqnogzAaXMauAE19RkQbwr15wgb58=',
+      'BMR': 's=1659778687634&r=https%3A%2F%2Fm.blog.naver.com%2FPostView.naver%3FisHttpsRedirect%3Dtrue%26blogId%3Denglishtoto1%26logNo%3D220309727641&r2=https%3A%2F%2Fwww.google.com%2F',
+      'page_uid': 'aa030e03-045c-47e7-b1cb-e53cf84aa4ee',
+      '_naver_usersession_': 'mSmf4dxGzWxu2j4wJ8Rr8A==',
+      'page_uid': 'hYtT8lp0J1Zssbe79xwsssssttl-328898',
+  }
+
+  headers = {
+      'authority': 'map.naver.com',
+      'accept': 'application/json, text/plain, */*',
+      'accept-language': 'ko-KR,ko;q=0.8,en-US;q=0.6,en;q=0.4',
+      'cache-control': 'no-cache',
+      'content-type': 'application/json',
+      # Requests sorts cookies= alphabetically
+      # 'cookie': 'NNB=G5AA6C3FLZ4V2; ASID=dbffcf840000016e3a5eee630000004a; NFS=2; _ga_7VKFYR6RV1=GS1.1.1597901340.14.1.1597901683.46; m_loc=d5fae313eb8f8d9c7050efd25232798d9d46bed2a51ca5b050c23aad802b4a881dfb12bada235ad6a69a9ce7f073c11ed5ec98ec7cfd21f8212a26f84dad9d5d; NV_WETR_LOCATION_RGN_M="MDMyMjAxMTE="; NV_WETR_LAST_ACCESS_RGN_M="MDMyMjAxMTE="; _fbp=fb.1.1652333053952.1864013727; _gcl_au=1.1.924982538.1652333054; _ga_1BVHGNLQKG=GS1.1.1653819791.2.1.1653819793.0; _ga=GA1.2.1918082713.1576255170; _ga_4BKHBFKFK0=GS1.1.1657104703.4.1.1657105489.0; nx_ssl=2; csrf_token=c9ff8dc89d0d26f7321703f51cfc2d4448818847853c526728a4d2219155c97e9b6490d088524f5e2d1f9fdd189f23d95bdd86f6e9ca8c8b07bf30c857e040c6; nid_inf=1648409857; NID_JKL=k/RAiTYAFS6RkhgqnogzAaXMauAE19RkQbwr15wgb58=; BMR=s=1659778687634&r=https%3A%2F%2Fm.blog.naver.com%2FPostView.naver%3FisHttpsRedirect%3Dtrue%26blogId%3Denglishtoto1%26logNo%3D220309727641&r2=https%3A%2F%2Fwww.google.com%2F; page_uid=aa030e03-045c-47e7-b1cb-e53cf84aa4ee; _naver_usersession_=mSmf4dxGzWxu2j4wJ8Rr8A==; page_uid=hYtT8lp0J1Zssbe79xwsssssttl-328898',
+      'expires': 'Sat, 01 Jan 2000 00:00:00 GMT',
+      'pragma': 'no-cache',
+      'referer': 'https://map.naver.com/',
+      'sec-ch-ua': '".Not/A)Brand";v="99", "Google Chrome";v="103", "Chromium";v="103"',
+      'sec-ch-ua-mobile': '?0',
+      'sec-ch-ua-platform': '"Windows"',
+      'sec-fetch-dest': 'empty',
+      'sec-fetch-mode': 'cors',
+      'sec-fetch-site': 'same-origin',
+      'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36',
+  }
+
+  global response1
+  response1 = requests.get('https://map.naver.com/v5/api/search?caller=pcweb&query='+place+'&type=all&searchCoord=128.91334039999987;37.78818840000017&page=1&displayCount=20&isPlaceRecommendationReplace=true&lang=ko', cookies=cookies, headers=headers)
+
+############################각 장소의 상세페이지
+import requests
+
+def page2(id):
+  cookies = {
+    'NNB': 'G5AA6C3FLZ4V2',
+    'ASID': 'dbffcf840000016e3a5eee630000004a',
+    'NFS': '2',
+    '_ga_7VKFYR6RV1': 'GS1.1.1597901340.14.1.1597901683.46',
+    'm_loc': 'd5fae313eb8f8d9c7050efd25232798d9d46bed2a51ca5b050c23aad802b4a881dfb12bada235ad6a69a9ce7f073c11ed5ec98ec7cfd21f8212a26f84dad9d5d',
+    'NV_WETR_LOCATION_RGN_M': '"MDMyMjAxMTE="',
+    'NV_WETR_LAST_ACCESS_RGN_M': '"MDMyMjAxMTE="',
+    '_fbp': 'fb.1.1652333053952.1864013727',
+    '_gcl_au': '1.1.924982538.1652333054',
+    '_ga_1BVHGNLQKG': 'GS1.1.1653819791.2.1.1653819793.0',
+    '_ga': 'GA1.2.1918082713.1576255170',
+    '_ga_4BKHBFKFK0': 'GS1.1.1657104703.4.1.1657105489.0',
+    'nx_ssl': '2',
+    'csrf_token': 'c9ff8dc89d0d26f7321703f51cfc2d4448818847853c526728a4d2219155c97e9b6490d088524f5e2d1f9fdd189f23d95bdd86f6e9ca8c8b07bf30c857e040c6',
+    'nid_inf': '1648409857',
+    'NID_JKL': 'k/RAiTYAFS6RkhgqnogzAaXMauAE19RkQbwr15wgb58=',
+    'BMR': 's=1659778687634&r=https%3A%2F%2Fm.blog.naver.com%2FPostView.naver%3FisHttpsRedirect%3Dtrue%26blogId%3Denglishtoto1%26logNo%3D220309727641&r2=https%3A%2F%2Fwww.google.com%2F',
+    'page_uid': 'hYtT8lp0J1Zssbe79xwsssssttl-328898',
+    'page_uid': '129552a0-b083-42e7-8d1e-85eeae8b8e99',
+}
+
+  headers = {
+    'authority': 'map.naver.com',
+    'accept': 'application/json, text/plain, */*',
+    'accept-language': 'ko-KR,ko;q=0.8,en-US;q=0.6,en;q=0.4',
+    'cache-control': 'no-cache',
+    'content-type': 'application/json',
+    # Requests sorts cookies= alphabetically
+    # 'cookie': 'NNB=G5AA6C3FLZ4V2; ASID=dbffcf840000016e3a5eee630000004a; NFS=2; _ga_7VKFYR6RV1=GS1.1.1597901340.14.1.1597901683.46; m_loc=d5fae313eb8f8d9c7050efd25232798d9d46bed2a51ca5b050c23aad802b4a881dfb12bada235ad6a69a9ce7f073c11ed5ec98ec7cfd21f8212a26f84dad9d5d; NV_WETR_LOCATION_RGN_M="MDMyMjAxMTE="; NV_WETR_LAST_ACCESS_RGN_M="MDMyMjAxMTE="; _fbp=fb.1.1652333053952.1864013727; _gcl_au=1.1.924982538.1652333054; _ga_1BVHGNLQKG=GS1.1.1653819791.2.1.1653819793.0; _ga=GA1.2.1918082713.1576255170; _ga_4BKHBFKFK0=GS1.1.1657104703.4.1.1657105489.0; nx_ssl=2; csrf_token=c9ff8dc89d0d26f7321703f51cfc2d4448818847853c526728a4d2219155c97e9b6490d088524f5e2d1f9fdd189f23d95bdd86f6e9ca8c8b07bf30c857e040c6; nid_inf=1648409857; NID_JKL=k/RAiTYAFS6RkhgqnogzAaXMauAE19RkQbwr15wgb58=; BMR=s=1659778687634&r=https%3A%2F%2Fm.blog.naver.com%2FPostView.naver%3FisHttpsRedirect%3Dtrue%26blogId%3Denglishtoto1%26logNo%3D220309727641&r2=https%3A%2F%2Fwww.google.com%2F; page_uid=hYtT8lp0J1Zssbe79xwsssssttl-328898; page_uid=129552a0-b083-42e7-8d1e-85eeae8b8e99',
+    'expires': 'Sat, 01 Jan 2000 00:00:00 GMT',
+    'pragma': 'no-cache',
+    'referer': 'https://map.naver.com/',
+    'sec-ch-ua': '".Not/A)Brand";v="99", "Google Chrome";v="103", "Chromium";v="103"',
+    'sec-ch-ua-mobile': '?0',
+    'sec-ch-ua-platform': '"Windows"',
+    'sec-fetch-dest': 'empty',
+    'sec-fetch-mode': 'cors',
+    'sec-fetch-site': 'same-origin',
+    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36',
+}
+
+  params = {
+    'lang': 'ko',
+}
+  global response2
+  response2 = requests.get('https://map.naver.com/v5/api/sites/summary/'+id, params=params, cookies=cookies, headers=headers)
+
+#############################################
+
 
 ## mainList 목록눌렀을때 상세페이지로 이동 (listDetail.html)
 def listDetail(request, category, id):
@@ -178,12 +292,37 @@ def listDetail(request, category, id):
     elif category == 'accomo':
         here = Accomodation.objects.get(id=id)
 
+
     try:
-        reviews = Post.objects.filter(placeId=id)
+        reviews = Post.objects.filter(Q(postType=category)&Q(placeId=id))
     except:
         reviews = '아직 리뷰가 없습니다.'
         pass
-    context = {'category': category ,'here': here, 'reviews': reviews}
+
+    # 이미지 크롤링
+    photo_list=[]
+
+    place = here.location + ' ' + here.name 
+    page1(place)
+  
+    try:
+        dict=response1.json()
+        dict_prepare = dict['result']['place']['list'][0]
+        id=dict_prepare['id']
+
+        page2(id)
+        dict2=response2.json()
+        i=1
+        for photo in dict2['images']:
+            photo_list.append(photo['url'])
+            if i>9 :
+                break
+            i+=1
+
+    except:
+        photo_list=[] 
+
+    context = {'category': category ,'here': here, 'reviews': reviews, 'photos' : photo_list}
     return render(request, 'listDetail.html', context=context)
 
 def medicalList(request): # main에서 응급댕댕 선택시
@@ -213,43 +352,6 @@ def medicals(request): # main에서 응급댕댕 선택시
     list = serializers.serialize('json',medicals)
 
     return JsonResponse({'list' : list, 'query':query, 'loc':loc, 'x':x,'y':y})
-
-
-
-def update(request, id): 
-    if request.method == "POST":
-        postGood = request.POST["postGood"]
-        postBad = request.POST["postBad"]
-        postImage = request.FILES['postImage']
-        ranking = request.POST["ranking"]
-
-        post = Post.objects.get(id=id)
-        category = post.postType
-        place_id = post.placeId
-
-        if category == 'cafe':
-            place = Cafe.objects.get(id=place_id)
-        elif category == 'accomo':
-            place = Accomodation.objects.get(id=place_id)
-        else:
-            place = Place.objects.get(id=place_id)
-
-        Post.objects.filter(id=id).update(postGood=postGood,postBad=postBad,postImage=postImage,ranking=ranking)
-
-        # 별점저장
-        posts = Post.objects.filter(Q(postType=category)&Q(placeId=place_id))
-        total = 0
-        len_posts= len(posts)
-        for p in posts:
-            total += p.ranking
-        place.star = total/len_posts
-        place.save()
-
-        return redirect(f"reviewDetail/{id}")
-    post = Post.objects.get(id=id)
-    context = {"post":post}
-    return render(request, "reviewWrite.html",context=context)
-
 
 
 @csrf_exempt
@@ -298,9 +400,9 @@ def delete(request, id):
     
 
 def update(request, id): 
-    post = Post.objects.get(id=id)
-    category = post.postType
-    placeId = post.placeId
+    review = Post.objects.get(id=id)
+    category = review.postType
+    placeId = review.placeId
     
     if category == 'cafe':
         place = Cafe.objects.get(id=placeId)
@@ -312,10 +414,15 @@ def update(request, id):
     if request.method == "POST":
         postGood = request.POST["postGood"]
         postBad = request.POST["postBad"]
-        postImage = request.FILES['postImage']
+        try:
+            review.postImage = request.FILES['postImage']
+            review.save()
+        except:
+            review.postImage=review.postImage
+            review.save()
         ranking = request.POST["ranking"]
 
-        Post.objects.filter(id=id).update(postGood=postGood,postBad=postBad,postImage=postImage,ranking=ranking)
+        Post.objects.filter(id=id).update(postGood=postGood,postBad=postBad,ranking=ranking)
 
 
         # 별점저장
@@ -326,13 +433,15 @@ def update(request, id):
             total += p.ranking
         place.star = total/len_posts
         place.save()
-        return redirect(f"/reviewDetail/{id}")
+        return redirect(f"/reviewDetail/{review.id}")
 
     placeName = place.name
-    location=place.location
+    location = place.location
 
-    context = {"post":post, "placeName":placeName}
+    context = {"review":review, "placeName":placeName}
     return render(request, "reviewUpdate.html", context=context)
+
+
 
 ### db에 csv 파일 넣는 함수입니다.
 # 한 번만 실행.....
@@ -358,7 +467,7 @@ def csvToModel(request):
     medicals = []
 
     for row in reader_accomo:
-        accomos.append(Accomodation(name=row[0],location=row[1],address=row[2],phone=row[3],type=row[4],link=row[5],desc=row[6],img=row[7],x=row[8],y=row[9]))
+        accomos.append(Accomodation(name=row[0],location=row[1],address=row[2],phone=row[3],type=row[4],link=row[5],desc=row[6],img=row[7],x=row[8],y=row[9],reserveLink=row[10]))
     Accomodation.objects.bulk_create(accomos)
 
     for r in reader_cafe:
@@ -403,7 +512,10 @@ def create(request,category,category_id):
     if request.method == "POST":
         postGood = request.POST["postGood"]
         postBad = request.POST["postBad"]
-        postImage = request.FILES['postImage']
+        try:
+            postImage = request.FILES['postImage']
+        except:
+            postImage='NULL'
         ranking = request.POST["ranking"]
         new_post=Post.objects.create(user=me,postType=category,postImage=postImage,postGood=postGood,postBad=postBad,ranking=ranking, placeId=category_id)
 
@@ -460,7 +572,7 @@ def reviewDetail(request, id):
     else:
         place = Accomodation.objects.get(id=review.placeId)
     
-    context = {'review':review, 'place':place}
+    context = {'review':review, 'place':place, 'category':category,}
 
     return render(request, 'reviewDetail.html', context=context)
 
@@ -521,3 +633,70 @@ import math
 def distance(x1, y1, x2, y2):
     result = abs(float(x1) - float(x2)) + abs(float(y1) - float(y2))
     return result
+
+## review 저장
+def reviewToModel(request):
+    Post.objects.all().delete()
+    tempUser = User.objects.create(username='naver&google',password='asdf1234',email='abcd@google.com')
+
+    r = open("./static/csv/review.csv",'r',encoding='utf-8')
+    reader_review = csv.reader(r)
+
+    reviews = []
+
+    for row in reader_review:
+        if row[2] == 'cafe':
+            try:
+                info = Cafe.objects.filter(Q(name=row[0])&Q(location=row[1]))[0]
+                try:
+                    if row[3] and row[4]:
+                        reviews.append(Post(postType='cafe',postImage=row[5],postGood=row[4],postBad='',ranking=float(row[3]),placeId=info.id,user=tempUser))
+                        Cafe.objects.filter(id=info.id).update(star=float(row[3]))
+                    elif not row[3]:
+                        reviews.append(Post(postType='cafe',postImage=row[5],postGood=row[4],postBad='',ranking=0,placeId=info.id,user=tempUser))
+                        Cafe.objects.filter(id=info.id).update(star=float(0))
+                    elif not row[4]:
+                        reviews.append(Post(postType='cafe',postImage=row[5],postGood='',postBad='',ranking=float(row[3]),placeId=info.id,user=tempUser))
+                        Cafe.objects.filter(id=info.id).update(star=float(row[3]))
+                except:
+                    continue
+            except:
+                continue
+        elif row[2]  == 'place':
+            try:
+                info = Place.objects.filter(Q(name=row[0])&Q(location=row[1]))[0]
+                try:
+                    if row[3] and row[4]:
+                        reviews.append(Post(postType='place',postImage=row[5],postGood=row[4],postBad='',ranking=float(row[3]),placeId=info.id,user=tempUser))
+                        Place.objects.filter(id=info.id).update(star=float(row[3]))
+                    elif not row[3]:
+                        reviews.append(Post(postType='place',postImage=row[5],postGood=row[4],postBad='',ranking=0,placeId=info.id,user=tempUser))
+                        Place.objects.filter(id=info.id).update(star=float(0))
+                    elif not row[4]:
+                        reviews.append(Post(postType='place',postImage=row[5],postGood='',postBad='',ranking=float(row[3]),placeId=info.id,user=tempUser))
+                        Place.objects.filter(id=info.id).update(star=float(row[3]))
+                except:
+                    continue
+            except:
+                continue
+        else:
+            try:
+                info = Accomodation.objects.filter(Q(name=row[0])&Q(location=row[1]))[0]
+                try:
+                    if row[3] and row[4]:
+                        reviews.append(Post(postType='accomo',postImage=row[5],postGood=row[4],postBad='',ranking=float(row[3]),placeId=info.id,user=tempUser))
+                        Accomodation.objects.filter(id=info.id).update(star=float(row[3]))
+                    elif not row[3]:
+                        reviews.append(Post(postType='accomo',postImage=row[5],postGood=row[4],postBad='',ranking=0,placeId=info.id,user=tempUser))
+                        Accomodation.objects.filter(id=info.id).update(star=float(0))
+                    elif not row[4]:
+                        reviews.append(Post(postType='accomo',postImage=row[5],postGood='',postBad='',ranking=float(row[3]),placeId=info.id,user=tempUser))
+                        Accomodation.objects.filter(id=info.id).update(star=float(row[3]))
+                except:
+                    continue
+            except:
+                continue
+    Post.objects.bulk_create(reviews)
+
+    r.close()
+    return HttpResponse('create review~')

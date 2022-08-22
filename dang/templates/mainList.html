@@ -96,42 +96,38 @@
           <div class="option-col">
             <label class="type-menu">
               <input type="radio" name="type" value="호텔" />
-              <span></span> 호텔
+              <span></span>호텔
             </label>
             <label class="type-menu">
-              <input type="radio" name="type" value="모텔" />
-              <span></span> 모텔
+              <input type="radio" name="type" value="애견호텔" />
+              <span></span>애견호텔
             </label>
           </div>
           <div class="option-col">
             <label class="type-menu">
-              <input type="radio" name="type" value="리조트" />
-              <span></span> 리조트
-            </label>
-            <label class="type-menu">
               <input type="radio" name="type" value="펜션" />
-              <span></span> 펜션
+              <span></span>펜션
             </label>
           </div>
           {% elif category == "place" %}
-          <div class="option-col">
+          <!-- <div class="option-col">
             <label class="type-menu">
               <input type="radio" name="type" value="공원" />
-              <span></span> 공원
+              <span></span>공원
             </label>
             <label class="type-menu">
               <input type="radio" name="type" value="수영장" />
-              <span></span> 수영장
+              <span></span>수영장
             </label>
-          </div>
+          </div> -->
           <div class="option-col">
-            <label class="type-menu">
+            <!-- <label class="type-menu">
               <input type="radio" name="type" value="해변" />
-              <span></span> 해변
-            </label>
+              <span></span>해변
+            </label> -->
             <label class="type-menu">
               <input type="radio" name="type" value="명소" />
-              <span></span> 명소
+              <span></span>명소
             </label>
           </div>
           {% endif %}
@@ -174,9 +170,9 @@
         <div class="list-box-right">
           <div class="img-and-info">
             {% if place.img %}
-                <div class="img-box"><img src="{{ place.img }}" /></div>
+            <div class="img-box"><img src="{{ place.img }}" /></div>
             {% else %}
-                <div class="img-box"><img src="\static\img\nophoto.png" /></div>
+            <div class="img-box"><img src="\static\img\nophoto.png" /></div>
             {% endif %}
             <div class="accom-text-box">
               <div class="name-and-type-row">
@@ -195,13 +191,20 @@
           <div class="favorite" id="favorite-{{place.id}}">
             <div class="like">
               <button
+                style="border: 0; background: white"
                 type="submit"
                 onclick="onClickLike('{{category}}','{{place.id}}', '{{place.favorite}}')"
               >
                 {% csrf_token %} {% if place.favorite %}
-                <i class="fas fa-heart"></i>
+                <i
+                  class="fa-solid fa-paw heart-like-button liked"
+                  style="font-size: 20px"
+                ></i>
                 {%else%}
-                <i class="far fa-heart"></i>
+                <i
+                  class="fa-solid fa-paw heart-like-button noliked"
+                  style="font-size: 20px"
+                ></i>
                 {%endif%}
               </button>
             </div>
@@ -275,18 +278,17 @@
     let ranking = rankings[index].innerHTML;
     let starNum = Math.floor(parseInt(ranking));
     for (var i = 0; i < starNum; i++) {
-          const add = document.createElement("div");
-          add.classList.add("yellow-star");
-          add.innerHTML = `<img src="/static/img/yellow_star.svg" alt="">`;
-          star.append(add);
-        }
+      const add = document.createElement("div");
+      add.classList.add("yellow-star");
+      add.innerHTML = `<img src="/static/img/yellow_star.svg" alt="">`;
+      star.append(add);
+    }
     for (var i = 0; i < 5 - starNum; i++) {
-          const add = document.createElement("div");
-          add.classList.add("gray-star");
-          add.innerHTML = `<img src="/static/img/gray_star.svg" alt="">`;
-          star.append(add);
-        }
+      const add = document.createElement("div");
+      add.classList.add("gray-star");
+      add.innerHTML = `<img src="/static/img/gray_star.svg" alt="">`;
+      star.append(add);
+    }
   });
 </script>
 {% endblock %}
-

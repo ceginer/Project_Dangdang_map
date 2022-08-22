@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-)mx*23ji3-js2%rdw%a*zu2f5yrrn+2prqkk-ly=^po&j3k2y1
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -50,6 +50,8 @@ INSTALLED_APPS = [
 
     #provider
     'allauth.socialaccount.providers.google',
+    'allauth.socialaccount.providers.naver',
+    'allauth.socialaccount.providers.kakao',
 ]
 
 MIDDLEWARE = [
@@ -129,10 +131,17 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 import os
 
-STATIC_URL = 'static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static')
+]
+
+#배포할 때 이거 수정해야할 듯
+# STATIC_ROOT= os.path.join(BASE_DIR, 'static')
+
 
 MEDIA_URL = '/media/'
+
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
@@ -154,3 +163,6 @@ ACCOUNT_EMAIL_VERIFICATION = 'none'
 SITE_ID = 1
 LOGIN_REDIRECT_URL = '/'
 
+# LOGIN_REDIRECT_URL = 'index' # 로그인 후 리디렉션할 페이지
+ACCOUNT_LOGOUT_REDIRECT_URL = "/"  # 로그아웃 후 리디렉션 할 페이지
+ACCOUNT_LOGOUT_ON_GET = True # 로그아웃 버튼 클릭 시 자동 로그아웃

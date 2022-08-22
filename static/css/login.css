@@ -1,0 +1,107 @@
+/* Login.html */
+.log_in{
+    position: relative;
+    background-color:  rgba(255, 240, 161, 1);;
+}
+
+.login_illust{
+    position: absolute;
+    top: 30px;
+    left: 210px;
+    width: 1100px;
+    height: 427px; 
+    border : 4px solid rgb(9, 9, 9);
+    border-radius: 85px;
+    overflow: hidden;
+}
+
+.login_img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.Login_hl {
+    position: absolute;
+    top: 500px;
+    left: 120px;
+    font-size: 3rem;
+    color: rgb(18, 18, 18);
+    font-family: 'Patrick Hand', cursive;
+    border: 3px solid #FFE562;
+    border-radius: 20px;
+    background-color: #FFE562;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.login_form{
+    position: absolute;
+    top: 600px;
+    left: 180px;
+}
+
+
+.google_login{
+    position: absolute;
+    top: 30px;
+    left: 0px;
+    border: 5px solid #FFE562;
+    border-radius: 5px;
+    background-color: #ffffff;
+    padding-right: 20px;
+}
+
+.google_login:hover{
+    background-color: #FFE562;
+    color: #ffffff;
+}
+
+.naver_login{
+    position: absolute;
+    top: 30px;
+    left: 300px;
+    border: 5px solid #FFE562;
+    border-radius: 5px;
+    background-color: #ffffff;
+    padding-right: 20px;
+}
+
+.naver_login:hover{
+    background-color: #FFE562;
+    color: #ffffff;
+}
+
+/* .kakao_login{
+    position: absolute;
+    top: 30px;
+    left: 600px;
+    border: 5px solid #FFE562;
+    border-radius: 5px;
+    background-color: #ffffff;
+    padding-right: 20px;
+}
+
+.kakao_login:hover{
+    background-color: #FFE562;
+    color: #ffffff;
+} */
+
+.fa-solid fa-bell{
+    position: absolute;
+    top: 30px;
+    left: 900px;
+    color: #ffffff;
+}
+
+.login_guide h1{
+    position: absolute;
+    top: -20px;
+    left: 0px;
+    font-family: 'Dongle', sans-serif;
+    font-size: 1.5rem;
+    width: 500px; 
+    background: linear-gradient(to top, #c85656 20%, transparent 50%);   
+}
+
+

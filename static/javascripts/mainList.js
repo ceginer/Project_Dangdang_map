@@ -119,15 +119,11 @@ requestCate.onreadystatechange = () => {
           <span></span>호텔
         </label>
         <label class="type-menu">
-          <input type="radio" name="type" value="모텔" />
-          <span></span>모텔
+          <input type="radio" name="type" value="애견호텔" />
+          <span></span>애견호텔
         </label>
         </div>
         <div class="option-col">
-        <label class="type-menu">
-          <input type="radio" name="type" value="리조트" />
-          <span></span>리조트
-        </label>
         <label class="type-menu">
           <input type="radio" name="type" value="펜션" checked/>
           <span></span>펜션
@@ -135,20 +131,6 @@ requestCate.onreadystatechange = () => {
       </div>`;
       } else if (cate == "장소") {
         detailBox.innerHTML = `<div class="option-col">
-        <label class="type-menu">
-          <input type="radio" name="type" value="공원"/>
-          <span></span>공원
-        </label>
-        <label class="type-menu">
-          <input type="radio" name="type" value="수영장" />
-          <span></span>수영장
-        </label>  
-      </div>
-      <div class="option-col">
-      <label class="type-menu">
-        <input type="radio" name="type" value="해변" />
-        <span></span>해변
-      </label>
       <label class="type-menu">
       <input type="radio" name="type" value="명소" checked/>
       <span></span>명소
@@ -180,18 +162,29 @@ requestLike.onreadystatechange = () => {
   if (requestLike.readyState === XMLHttpRequest.DONE) {
     //서버가 응답할 준비를 마침
     const { place_id, isLogin } = JSON.parse(requestLike.response);
-    console.log(place_id);
     const element = document.querySelector(`#favorite-${place_id}`);
     const i = element.querySelector(".like button i");
     const btn = element.querySelector(".like button").innerHTML;
     if (isLogin) {
-      i.classList.toggle("far");
-      i.classList.toggle("fas");
+      i.classList.toggle("liked");
+      i.classList.toggle("noliked");
     } else {
       alert("로그인 하세요!");
     }
+    console.log(place_id);
   }
 };
+
+// 버튼 눌렀을 때 애니메이션
+
+// const button = document.querySelector(".heart-like-button");
+// button.addEventListener("click", () => {
+//   if (button.classList.contains("liked")) {
+//     button.classList.remove("liked");
+//   } else {
+//     button.classList.add("liked");
+//   }
+// });
 
 // function onclickLogin() {
 //   alert("로그인하세요!");

@@ -1,106 +1,149 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=100" />
-    <link rel="stylesheet" href="{% static 'css/reset.css' %}" />
-    <link rel="stylesheet" href="{% static 'css/base_home.css' %}" />
-    <link rel="stylesheet" href="{% static 'css/mainList.css' %}" />
-    <link rel="stylesheet" href="{% static 'css/cafeDetail.css' %}" />
-    <link rel="stylesheet" href="{% static 'css/medical.css' %}" />
-    <link rel="stylesheet" href="{% static 'css/reviewWrite.css' %}" />
-    <link rel="stylesheet" href="{% static 'css/mypage.css' %}">
-    <script
-      src="https://kit.fontawesome.com/a8a24f1fa9.js"
-      crossorigin="anonymous"
-    ></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Dongle:wght@400;700&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap"
-      rel="stylesheet"
-    />
-    <script
-      src="https://kit.fontawesome.com/06176f9978.js"
-      crossorigin="anonymous"
-    ></script>
-    <title>대동멍지도</title>
-  </head>
 
-  <body>
-    <header>
-      <div class="navbar-container">
-        <div class="category-container">
-          <a href="/"><img src="\static\img\dmj_logo.svg" alt="" /></a>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=100" />
+  <link rel="stylesheet" href="{% static 'css/mainList.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/listDetail.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/medical.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/reviewWrite.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/reviewUpdate.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/mypage.css' %}">
+  <link rel="stylesheet" href="{% static 'css/login.css' %}">
+  <link rel="stylesheet" href="{% static 'css/reviewDetail.css' %}" />
+  <script src="https://kit.fontawesome.com/a8a24f1fa9.js" crossorigin="anonymous"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Dongle:wght@400;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Gamja+Flower&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/06176f9978.js" crossorigin="anonymous"></script>
+  <title>대동멍지도</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="{% static 'css/reset.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/base_home.css' %}" />
+  <link rel="shortcut icon" href="/static/img/favicon.ico">
+  <style>
+    .carousel-inner>.carousel-item>img {
+      object-fit: cover;
+      margin: 20px 0 0 0;
+      height: 300px;
+    }
+  </style>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=100" />
+  <link rel="stylesheet" href="{% static 'css/reset.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/base_home.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/mainList.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/medical.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/reviewWrite.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/reviewDetail.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/reviewUpdate.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/mypage.css' %}">
+  <script src="https://kit.fontawesome.com/a8a24f1fa9.js" crossorigin="anonymous"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Dongle:wght@400;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Gamja+Flower&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cute+Font&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Gamja+Flower&family=Gowun+Dodum&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poor+Story&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Hi+Melody&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Sunflower:wght@500;700&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/06176f9978.js" crossorigin="anonymous"></script>
+  <title>대동멍지도</title>
+</head>
+
+<body>
+  <header>
+    <div class="navbar-container">
+      <div class="category-container">
+        <a href="/"><img src="\static\img\dmj_logo.svg" alt="" /></a>
+        <div class="dang_cafe">
           <a href="/list/cafe/서울/애견동반">멍카페</a>
+        </div>
+        <div class="dang_accommo">
           <a href="/list/accomo/서울/호텔">멍숙소</a>
+        </div>
+        <div class="dang_place">
           <a href="/list/place/서울/명소">멍놀자</a>
-          <a href="/medical/list"
-            ><img src="\static\img\Medical.svg" alt=""
-          /></a>
         </div>
-        <div class="login-container">
-          {% if user.is_authenticated %}
-          <a href="/logout">로그아웃</a>
-          {% else %}
-          <a href="/join/"><img src="\static\img\Join.svg" alt="" /></a>
-          <a href="/login/"><img src="\static\img\SignIn.svg" alt="" /></a>
-          {% endif %} {% if user.is_authenticated %}
-          <a href="/mypage/"><img src="\static\img\MyPage.svg" alt="" /></a>
-          {% else %}
-          <a onclick="onclickLogin()">
-            <img src="\static\img\MyPage.svg" alt="" />
+        <div class="dang_medical">
+          <a href="/medical/list">응급댕댕</a>
+        </div>
+      </div>
+      <div class="login-container">
+        {% if user.is_authenticated %}
+        <div class="nav_logout_icon">
+          <a href="/logout">
+            <img class="logout_icon" src="\static\img\Logout_icon.png" alt="" />
           </a>
-          {% endif %}
         </div>
-      </div>
-    </header>
-    {% block content %} {% endblock %}
+        {% else %}
+        <div class="nav_login_icon">
+          <a href="/login/">
+            <img class="login_icon" src="\static\img\login_icon.png" alt="" />
+          </a>
 
-    <script>
-      function onclickLogin() {
-        alert("로그인하세요!");
-        console.log("로그인하세요");
-      }
-    </script>
-
-    <script
-      type="text/javascript"
-      src="{% static 'javascripts/mainList.js' %}"
-    ></script>
-    <script
-      type="text/javascript"
-      src="{% static 'javascripts/medical.js' %}"
-    ></script>
-  </body>
-
-  <footer>
-    <div class="footer-container">
-      <div class="footer-logo">
-        <img src="\static\img\footer_LOGO.png" alt="" />
+        </div>
+        {% endif %} {% if user.is_authenticated %}
+        <div class="mypage_css">
+          <a href="/mypage/">
+            <img class="mypage" src="\static\img\mypage.png" alt="" />
+          </a>
+        </div>
+        {% else %}
+        <a onclick="onclickLogin()">
+          <div class="mypage_css">
+            <img class="mypage" src="\static\img\mypage.png" alt="" />
+          </div>
+        </a>
+        {% endif %}
       </div>
-      <div class="footer_text">
-        <h1>TEAM.</h1>
-        <br />
-        <h2>Pirogramming17</h2>
-        <br />
-        <p>Project Manager. Jang_MyungJi</p>
-        <br />
-        <p>FRONTEND</p>
-        <h3>Kim_HanSeo</h3>
-        <h4>Kim_HunDo</h4>
-        <h5>Jang_MyungJi</h5>
-        <br />
-        <p>BACKEND</p>
-        <h6>SonByeongWoo</h6>
-        <h7> Jeon_Sunny</h7>
-      </div>
+  </header>
+  {% block content %} {% endblock %}
+
+  <script>
+    function onclickLogin() {
+      alert("로그인하세요!");
+      console.log("로그인하세요");
+    }
+  </script>
+
+  <script type="text/javascript" src="{% static 'javascripts/mainList.js' %}"></script>
+  <script type="text/javascript" src="{% static 'javascripts/medical.js' %}"></script>
+</body>
+
+<footer>
+  <div class="footer-container">
+    <div class="footer-logo">
+      <img src="\static\img\footer_LOGO.png" alt="" />
     </div>
-  </footer>
+    <div class="footer_text">
+      <h1>TEAM.</h1>
+      <br />
+      <h2>Pirogramming17</h2>
+      <br />
+      <p>Project Manager. Jang_MyungJi</p>
+      <br />
+      <p>FRONTEND</p>
+      <h3>Kim_HanSeo</h3>
+      <h4>Kim_HunDo</h4>
+      <h5>Jang_MyungJi</h5>
+      <br />
+      <p>BACKEND</p>
+      <h6>SonByeongWoo</h6>
+      <h7> Jeon_Sunny</h7>
+    </div>
+  </div>
+</footer>
+
 </html>
