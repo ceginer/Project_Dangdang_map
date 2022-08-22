@@ -1,4 +1,3 @@
-from asyncio.windows_events import NULL
 from dis import dis
 import email
 from http.client import HTTPResponse
