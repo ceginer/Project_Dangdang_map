@@ -8,6 +8,10 @@
   gap: 2rem;
 }
 
+.my-container * {
+  font-family: 'Sunflower', sans-serif;
+}
+
 .my-container .Like_ls {
   display: flex;
   flex-direction: column;
