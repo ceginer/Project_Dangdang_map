@@ -88,13 +88,19 @@ def home(request):
     reviews = []
     places = []
     counts = []
+    place_ides = []
     categoryList = ['cafe', 'place', 'accomo']
 
     for category in categoryList:
         try:
-            place_ides = list(set(Post.objects.filter(postType=category).values_list('placeId', flat=True)))
+            place_choices = list(Post.objects.filter(postType=category))
+            for place_choice in place_choices:
+                if place_choice.postGood:
+                    place_ides.append(place_choice.placeId)
+            place_ides = list(set(place_ides))
             place_id = random.choice(place_ides)
             place_set.append([category, place_id])
+            place_ides = []
         except: #해당 카테고리에 리뷰가 없을 경우
             pass
     for p in place_set:
@@ -118,7 +124,6 @@ def home(request):
             places.append(place)
             cat = p[0]
             place_review = Post.objects.filter(Q(postType=cat)&Q(placeId=place.id))
-            print(place_review)
             counts.append(len(place_review))
         except: #해당 카테고리에 리뷰가 없을 경우
             pass

@@ -159,7 +159,7 @@
     if (!url){
       url = "/static/img/nophoto.png";
     }
-    if (img.innerHTML == "NULL") {
+    if (img.innerHTML == "NULL" || img.innerHTML == "undefined") {
       reviewImg.innerHTML = `<img src=${url} alt="">`;
       
   } else if(!img.innerHTML){
