@@ -416,12 +416,14 @@ def update(request, id):
         postGood = request.POST["postGood"]
         postBad = request.POST["postBad"]
         try:
-            postImage = request.FILES['postImage']
+            review.postImage = request.FILES['postImage']
+            review.save()
         except:
-            postImage=NULL
+            review.postImage=review.postImage
+            review.save()
         ranking = request.POST["ranking"]
 
-        Post.objects.filter(id=id).update(postGood=postGood,postBad=postBad,postImage=postImage,ranking=ranking)
+        Post.objects.filter(id=id).update(postGood=postGood,postBad=postBad,ranking=ranking)
 
 
         # 별점저장
