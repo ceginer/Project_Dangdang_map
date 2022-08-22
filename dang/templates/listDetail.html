@@ -100,9 +100,13 @@
         </div>
       </div>
       {% if here.hourInfo %}
-      <div class="info-text-desc1"><img src="\static\img\Time.svg" style="width: 30px">{{here.hourInfo}}</div>
-      {% endif %}
-      {% if here.desc %}
+      <div class="info-text-desc1">
+        <img
+          src="\static\img\Time.svg"
+          style="width: 30px; margin-right: 11px"
+        />{{here.hourInfo}}
+      </div>
+      {% endif %} {% if here.desc %}
       <div class="info-text-desc2">{{here.desc}}</div>
       {% else %}
       <div class="info-text-desc2">
