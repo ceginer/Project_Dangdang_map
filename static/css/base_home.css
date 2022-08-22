@@ -7,6 +7,11 @@
   box-sizing: border-box;
 }
 
+button:focus {    
+  border: none !important;
+  outline:none !important;
+}
+
 a {
   color: black !important;
   text-decoration: none !important;
