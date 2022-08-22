@@ -170,6 +170,7 @@
         <div class="list-box-right">
           <div class="img-and-info">
             {% if place.img %}
+            <div class="original-url" style="display: none;">{{place.img}}</div>
             <div class="img-box"><img src="{{ place.img }}" /></div>
             {% else %}
             <div class="img-box"><img src="\static\img\nophoto.png" /></div>
@@ -291,4 +292,15 @@
     }
   });
 </script>
+
+<script>
+  const originalUrls = document.querySelectorAll(".original-url")
+  const imgBoxs = document.querySelectorALL(".img-box")
+  imgBoxs.forEach((img, index) => {
+    if(originalUrls[index].innerHTML.includes('blogfiles.naver.net')){
+      img.innerHTML = `<img src="https://search.pstatic.net/common/?autoRotate=true&type=w560_sharpen&src=${originalUrls[index].innerHTML}" alt="">`;
+    }
+  });
+</script>
+
 {% endblock %}

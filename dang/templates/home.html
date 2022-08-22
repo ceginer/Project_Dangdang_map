@@ -159,14 +159,19 @@
     if (!url){
       url = "/static/img/nophoto.png";
     }
-    if (img.innerHTML == "NULL") {
+    if (img.innerHTML == "NULL" || img.innerHTML == "undefined") {
       reviewImg.innerHTML = `<img src=${url} alt="">`;
       
   } else if(!img.innerHTML){
     reviewImg.innerHTML = `<img src=${url} alt="">`;
   } else if(img.innerHTML.includes('http')){
     imggg = img.innerHTML
-    reviewImg.innerHTML = `<img src="${imggg}" alt="">`;
+      if(img.innerHTML.includes('blogfiles.naver.net')){
+        reviewImg.innerHTML = `<img src="https://search.pstatic.net/common/?autoRotate=true&type=w560_sharpen&src=${imggg}" alt="">`;
+      }
+      else{
+        reviewImg.innerHTML = `<img src="${imggg}" alt="">`;
+      }
   }
   else{
     reviewImg.innerHTML = `<img src="${img.innerHTML.url}" alt="">`;
