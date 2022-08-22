@@ -16,9 +16,13 @@
         <div class="img-and-info">
           <div class="info-left">
             {% if place.img %}
-              <div class="img-box"><img src="{{ place.img }}" /></div>
+            <div class="img-box">
+              <img
+                src="https://search.pstatic.net/common/?autoRotate=true&type=w560_sharpen&src={{ place.img }}"
+              />
+            </div>
             {% else %}
-              <div class="img-box"><img src="\static\img\nophoto.png" /></div>
+            <div class="img-box"><img src="\static\img\nophoto.png" /></div>
             {% endif %}
             <div class="accom-text-box">
               <div class="name-and-type-row">
@@ -42,8 +46,8 @@
                 onclick="onClickLike('{{category}}','{{place.id}}', '{{place.favorite}}')"
               >
                 <i
-                class="fa-solid fa-paw heart-like-button liked"
-                style="font-size: 20px"
+                  class="fa-solid fa-paw heart-like-button liked"
+                  style="font-size: 20px"
                 ></i>
               </button>
             </div>
@@ -60,7 +64,9 @@
     <div class="review-list">
       {% for post,place in total_post %}
       <div class="review-container">
-        <div class="my-name"><a href="/reviewDetail/{{post.id}}">{{place.name}}</a></div>
+        <div class="my-name">
+          <a href="/reviewDetail/{{post.id}}">{{place.name}}</a>
+        </div>
         <div class="my-review">
           <div class="img-and-star">
             <div class="img-bool">{{post.postImage}}</div>
@@ -69,12 +75,18 @@
             <div class="ranking">{{post.ranking}}</div>
           </div>
           <div class="good-bad-star">
-            <div class="comment"><img src="\static\img\good.svg" /><div class="content">{{post.postGood|truncatechars:70}}</div> </div>
-            <div class="comment"><img src="\static\img\bad.svg" /><div class="content">{{post.postBad|truncatechars:70}}</div></div>
+            <div class="comment">
+              <img src="\static\img\good.svg" />
+              <div class="content">{{post.postGood|truncatechars:70}}</div>
+            </div>
+            <div class="comment">
+              <img src="\static\img\bad.svg" />
+              <div class="content">{{post.postBad|truncatechars:70}}</div>
+            </div>
           </div>
         </div>
       </div>
-      
+
       {% endfor %}
     </div>
   </div>
@@ -88,17 +100,17 @@
     let ranking = rankings[index].innerHTML;
     let starNum = Math.floor(parseInt(ranking));
     for (var i = 0; i < starNum; i++) {
-          const add = document.createElement("div");
-          add.classList.add("yellow-star");
-          add.innerHTML = `<img src="/static/img/yellow_star.svg" alt="">`;
-          star.append(add);
-        }
+      const add = document.createElement("div");
+      add.classList.add("yellow-star");
+      add.innerHTML = `<img src="/static/img/yellow_star.svg" alt="">`;
+      star.append(add);
+    }
     for (var i = 0; i < 5 - starNum; i++) {
-          const add = document.createElement("div");
-          add.classList.add("gray-star");
-          add.innerHTML = `<img src="/static/img/gray_star.svg" alt="">`;
-          star.append(add);
-        }
+      const add = document.createElement("div");
+      add.classList.add("gray-star");
+      add.innerHTML = `<img src="/static/img/gray_star.svg" alt="">`;
+      star.append(add);
+    }
   });
 </script>
 
@@ -109,6 +121,7 @@
     let reviewImg = reviewImgs[index];
     if (img.innerHTML == "NULL") {
       reviewImg.innerHTML = `<img src="/static/img/nophoto.png" />`;
-  }});
+    }
+  });
 </script>
 {% endblock %}

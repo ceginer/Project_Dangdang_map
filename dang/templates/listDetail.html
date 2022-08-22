@@ -235,7 +235,7 @@
   });
 </script>
 
-<!-- <script>
+<script>
   const imgBools = document.querySelectorAll(".img-bool");
   const reviewImgs = document.querySelectorAll(".detail_review_photo");
   imgBools.forEach((img, index) => {
@@ -243,8 +243,8 @@
     if (img.innerHTML == "NULL") {
       reviewImg.innerHTML = `<img src="/static/img/nophoto.png" style="width: 250px; height: 250px; border-radius: 33px;" />`;
     } else if (img.innerHTML.includes("http")) {
-      reviewImg.innerHTML = `<img src="${img.innerHTML}" style="width: 250px; height: 250px; border-radius: 33px;" />`;
+      reviewImg.innerHTML = `<img src="https://search.pstatic.net/common/?autoRotate=true&type=w560_sharpen&src=${img.innerHTML}" style="width: 250px; height: 250px; border-radius: 33px;" />`;
     }
   });
-</script> -->
+</script>
 {% endblock %}
