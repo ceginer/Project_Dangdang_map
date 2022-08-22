@@ -170,8 +170,12 @@
         <div class="list-box-right">
           <div class="img-and-info">
             {% if place.img %}
-            <div class="original-url" style="display: none;">{{place.img}}</div>
-            <div class="img-box"><img src="{{ place.img }}" /></div>
+            <div class="original-url" style="display: none">{{place.img}}</div>
+            <div class="img-box">
+              <img
+                src="https://search.pstatic.net/common/?autoRotate=true&type=w560_sharpen&src={{ place.img }}"
+              />
+            </div>
             {% else %}
             <div class="img-box"><img src="\static\img\nophoto.png" /></div>
             {% endif %}
@@ -228,9 +232,7 @@
         <div class="num-5">
           {% for i in posts.paginator.page_range %}
           <a class="active" href="?page={{ i }}">
-            <span class="square">
-              {{ i }}
-            </span>
+            <span class="square"> {{ i }} </span>
           </a>
           {% endfor %}
         </div>
@@ -265,12 +267,9 @@
   const pages = document.querySelectorAll(".square");
   pages.forEach((page) => {
     if (Number(page.innerHTML) == postNum) {
-      page.style.backgroundColor = 'rgba(255, 240, 161, 1)';
+      page.style.backgroundColor = "rgba(255, 240, 161, 1)";
     }
   });
-
-
-
 
   // 새로 고침시 별점상태 변경
   const stars = document.querySelectorAll(".star");
@@ -294,10 +293,10 @@
 </script>
 
 <script>
-  const originalUrls = document.querySelectorAll(".original-url")
-  const imgBoxs = document.querySelectorALL(".img-box")
+  const originalUrls = document.querySelectorAll(".original-url");
+  const imgBoxs = document.querySelectorALL(".img-box");
   imgBoxs.forEach((img, index) => {
-    if(originalUrls[index].innerHTML.includes('blogfiles.naver.net')){
+    if (originalUrls[index].innerHTML.includes("blogfiles.naver.net")) {
       img.innerHTML = `<img src="https://search.pstatic.net/common/?autoRotate=true&type=w560_sharpen&src=${originalUrls[index].innerHTML}" alt="">`;
     }
   });

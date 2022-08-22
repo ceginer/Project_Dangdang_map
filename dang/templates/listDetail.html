@@ -14,7 +14,12 @@
       <div class="window">
         <ul class="container">
           {% if photos %} {%for photo in photos%}
-          <li class="real_photo"><img src="{{photo}}" alt="" /></li>
+          <li class="real_photo">
+            <img
+              src="https://search.pstatic.net/common/?autoRotate=true&type=w560_sharpen&src={{photo}}"
+              alt=""
+            />
+          </li>
           {% endfor %} {% else %}
           <div class="no_photo">
             <img src="\static\img\nophoto.png" alt="" />
@@ -230,7 +235,7 @@
   });
 </script>
 
-<script>
+<!-- <script>
   const imgBools = document.querySelectorAll(".img-bool");
   const reviewImgs = document.querySelectorAll(".detail_review_photo");
   imgBools.forEach((img, index) => {
@@ -241,5 +246,5 @@
       reviewImg.innerHTML = `<img src="${img.innerHTML}" style="width: 250px; height: 250px; border-radius: 33px;" />`;
     }
   });
-</script>
+</script> -->
 {% endblock %}
