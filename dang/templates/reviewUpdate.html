@@ -1,0 +1,82 @@
+{% extends "base.html" %} {% block content %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>create review</title>
+</head>
+
+<body>
+    <div class="review_container">
+        <div class="review_top">
+            <div class="logo_img"><img src="/static/img/Group.png" /></div>
+            <div class="review_top_span">
+                <h1>멍 리뷰</h1>
+                <span>당신의 소중한 후기는 많은 댕댕이들에게 도움이 됩니다:)</span>
+            </div>
+            <div class="review_update_btn">
+                <form action="/delete/{{review.id}}" method="post">
+                    {% csrf_token %}
+                    <button>Delete</button>
+                </form>
+            </div>
+        </div>
+        <form action="/update/{{review.id}}" method="POST" enctype="multipart/form-data">
+            <div class="post_container">
+                {% csrf_token %}
+                <div class="post_review">
+
+                    {% if review.postImage %}
+                    <p>
+                    <div class="review_photo">
+                        <img src="{{ review.postImage.url }}"
+                            style="width: 277px; height: 275px; border-radius: 33px;" />
+                    </div>
+                    <input type="file" name="postImage" />
+                    {% else %}
+                    <div class="review_photo">
+                        <img src="\static\img\nophoto.png" style="width: 277px; height: 275px; border-radius: 33px;" />
+                    </div>
+                    </p>
+                    {% endif %}
+
+                    <br>
+
+                    <div class="review_span">별점 선택</div>
+                    <select class="r" name="ranking" type="select">
+                        <option value="5">5</option>
+                        <option value="4">4</option>
+                        <option value="3">3</option>
+                        <option value="2">2</option>
+                        <option value="1">1</option>
+                    </select>
+
+                    <br>
+                    <div class="post-good">
+                        <div class="review_span">이런 점이 좋았어요! </div>
+                        <br>
+                        <textarea class="postGood" name="postGood" type="text">
+                            {{review.postGood}}
+                        </textarea>
+                    </div>
+                    <br>
+                    <div class="post-bad">
+                        <div class="review_span">이런 점이 아쉬워요!</div>
+                        <br>
+                        <textarea class="postBad" name="postBad" type="text">
+                            {{review.postBad}}
+                        </textarea>
+                    </div>
+
+                </div>
+                <button class="create_btn" type="submit">UPDATE</button>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>
+{% endblock %}

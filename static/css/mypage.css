@@ -1,0 +1,223 @@
+/* mypage.html */
+
+.my-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgba(255, 240, 161, 1);
+  gap: 2rem;
+}
+
+.my-container * {
+  font-family: 'Sunflower', sans-serif;
+}
+
+.my-container .Like_ls {
+  display: flex;
+  flex-direction: column;
+  width: 1300px;
+  background-color: white;
+  border: black solid;
+  border-radius: 20px;
+  box-shadow: 7px 7px 6px #b9af7a;
+}
+
+.my-container .title-container {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  text-align: center;
+  padding: 40px 0 0 40px;
+}
+
+.my-container .title {
+  font-size: xx-large;
+  font-family: 'Dongle', sans-serif;
+  background-color: #BDDFFF;
+  padding: 7px 30px;
+  border: 2px solid rgb(9, 9, 9);
+  border-radius: 5px;
+  margin: 3px;
+}
+
+.my-container .like-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 20px 43px;
+  gap: 1.5rem;
+}
+
+.my-container .my-like {
+  background-color: white;
+  border: black solid 2px;
+  border-radius: 20px;
+  box-shadow: 4px 4px 8px #acacac;
+  height: 135px;
+  padding: 15px 15px 15px 15px;
+}
+
+.my-container .name-and-type-row .my-name {
+  border: #b9b9b9 1.5px solid;
+  border-radius: 8px;
+  width: fit-content;
+  text-align: center;
+  word-spacing: -2px;
+  box-shadow: #949494 0px 2px 6px -1px;
+  font-size: 17px;
+  font-weight: bold;
+  color: black;
+  padding: 5px;
+}
+
+.my-container .review-container .my-name {
+  border: #b9b9b9 1.5px solid;
+  border-radius: 8px;
+  width: fit-content;
+  text-align: center;
+  word-spacing: -2px;
+  box-shadow: #949494 0px 2px 6px -1px;
+  font-size: 17px;
+  font-weight: bold;
+  color: black;
+  padding: 5px;
+  margin: 0 0 3px 30px;
+}
+
+.my-container .my-name:hover {
+  cursor: pointer;
+  background-color: rgba(255, 240, 161, 1);
+  font-weight: bold;
+}
+
+.my-container .myReview_ls {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  width: 1300px;
+  border: black solid;
+  border-radius: 20px;
+  box-shadow: 7px 7px 6px #b9af7a;
+  margin: 0 0 100px 0;
+}
+
+.my-container .review-list {
+  display: flex;
+  flex-direction: column;
+  padding: 40px;
+  gap: 1.5rem;
+}
+
+.my-container .my-review {
+  display: flex;
+  justify-content: left;
+  background-color: white;
+  border: black solid 2px;
+  border-radius: 20px;
+  box-shadow: 4px 4px 8px #acacac;
+  /* height: 85px; */
+  padding: 15px;
+  gap: 1.5rem;
+}
+
+.my-container .img-and-info{
+  display: flex;
+  justify-content: space-between;
+}
+
+.my-container .info-left {
+  display: flex;
+  justify-content: left;
+}
+
+.my-container .img-box {
+  width: 90px;
+  height: 90px;
+  margin: 5px 50px 5px 5px;
+}
+
+.my-container .img-box img {
+  width: 90px;
+  height: 90px;
+  object-fit: cover;
+}
+
+.my-container .accom-text-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.my-container .accom-text-box .name-and-type-row {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  margin: 10px 0 10px 0;
+}
+
+.my-container .accom-text-box h1 .name {
+  font-size: large;
+  font-weight: bold;
+}
+
+.my-container .accom-text-box .type {
+  color: gray;
+}
+
+.my-container .ranking {
+  display: none;
+}
+
+.my-container .star {
+  display: flex;
+  justify-content: start;
+}
+
+.my-container .favorite .like {
+  padding: 10px;
+}
+
+
+.my-container .img-and-star {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.my-container .img-bool {
+  display: none;
+}
+
+.my-container .review-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.my-container .review-img img {
+  width: 90px;
+  height: 90px;
+}
+
+.my-container .good-bad-star {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.my-container .comment {
+  display: flex;
+  justify-content: left;
+  width: auto;
+  height: 48px;
+  border: black solid 2px;
+  border-style: dashed;
+  padding: 5px;
+  gap: 1rem;
+}
+
+.my-container .content {
+  width: 969px;
+  padding: 5px;
+}

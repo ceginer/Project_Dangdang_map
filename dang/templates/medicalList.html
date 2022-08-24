@@ -1,0 +1,56 @@
+{% extends 'base.html' %} {% block content %}
+<div class="medical_container">
+  <div class="search_container">
+    <select name="lacations" id="location" type="select">
+      <option value="gangwon">강원</option>
+      <option value="seoul">서울</option>
+      <option value="gyeonggi">경기</option>
+      <option value="incheon">인천</option>
+      <option value="chungnam">충남</option>
+      <option value="chungbuk">충북</option>
+      <option value="gyeongnam">경남</option>
+      <option value="gyeongbuk">경북</option>
+      <option value="ulsan">울산</option>
+      <option value="gwangju">광주</option>
+      <option value="busan">부산</option>
+      <option value="daejeon">대전</option>
+      <option value="daegu">대구</option>
+      <option value="jeju">제주</option>
+      <option value="sejong">세종</option>
+      <option value="jeonnam">전남</option>
+      <option value="jeonbuk">전북</option>
+    </select>
+    <div class="search">
+      <input type="text" placeholder="위치 검색" id="query-loc" />
+      <button type="search" onclick="onclickMedical()">검색</button>
+    </div>
+  </div>
+  <div class="medical_list_container">
+    {% for place in places %}
+    <div class="medical_item">
+      <div class="medical_info">
+        <div class="medical_name">{{place.name}}</div>
+        <div class="medical_address">{{place.address}}</div>
+        <div class="medical_phone">{{places.phone}}</div>
+        <div class="info_bottom">
+          <a href="{{place.link}}"
+            ><button class="find_location">위치 찾기</button></a
+          >
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
+
+<!-- <div class="medical_item">
+  <div class="medical_info">
+    <div class="medical_name">${medical[i]["fields"]["name"]}</div>
+    <div class="medical_address">${medical[i]["fields"]["address"]}</div>
+    <div class="medical_phone">${medical[i]["fields"]["phone"]}</div>
+    <div class="info_bottom">
+      <a href="${medical[i]["fields"]["link"]}"><button class="find_location">위치 찾기</button></a>
+    </div>
+  </div>
+</div> -->

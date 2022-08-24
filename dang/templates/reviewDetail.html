@@ -1,0 +1,83 @@
+{% extends 'base.html'%}
+{% block content %}
+
+<body>
+  <div class="review-detail">
+    <div class="review_top">
+      <div class="logo_img"><img src="/static/img/Group.png" /></div>
+      <div class="review_top_span">
+        <h1>멍 리뷰</h1>
+        <span>당신의 소중한 후기는 많은 댕댕이들에게 도움이 됩니다:)</span>
+      </div>
+      {% if request.user == review.user  %}
+      <div class="review_update_btn">
+        <form action="/delete/{{review.id}}" method="post">
+          {% csrf_token %}
+          <button>Delete</button>
+        </form>
+        <button><a href="/update/{{review.id}}">Update</a></button>
+      </div>
+      {% endif %}
+    </div>
+    <div class="review_mid">
+      <p>
+      {% if review.postImage %}
+      <div class="img-bool" style="display: none;">{{review.postImage}}</div>
+      <div class="review_photo">
+        <img src="{{ review.postImage.url }}" style="width: 277px; height: 275px; border-radius: 33px;" />
+      </div>
+      {% else %}
+      <div class="review_photo">
+        <img src="\static\img\nophoto.png" style="width: 277px; height: 275px; border-radius: 33px;" alt="">
+      </div>
+      {% endif %}
+      </p>
+    </div>
+    <div class="review_bottom">
+
+      <div class="ranking_detail">
+        <div class="review_span">별점</div>
+        <br>
+        <div class="postRanking">
+          {{review.ranking}}
+        </div>
+      </div>
+
+      <div class="post-good">
+        <div class="review_span">이런 부분이 좋아요!</div>
+        <br>
+        <div class="postGood">
+          {{review.postGood}}
+        </div>
+      </div>
+
+      <div class="post-bad">
+        <div class="review_span">이런 부분이 아쉬워요!</div>
+        <br>
+        <div class="postBad">
+          {{review.postBad}}
+        </div>
+      </div>
+    </div>
+
+    <div class="back_to_list">
+      <a href="/detail/{{category}}/{{review.placeId}}">목록</a>
+    </div>
+  </div>
+
+</body>
+
+<script>
+  const imgBools = document.querySelectorAll(".img-bool");
+  const reviewImgs = document.querySelectorAll(".review_photo");
+  imgBools.forEach((img, index) => {
+    let reviewImg = reviewImgs[index];
+    if (img.innerHTML == "NULL") {
+      reviewImg.innerHTML = `<img src="/static/img/nophoto.png" style="width: 277px; height: 275px; border-radius: 33px;" />`;
+  } else if (img.innerHTML.includes('http')){
+    reviewImg.innerHTML = `<img src="${img.innerHTML}" style="width: 277px; height: 275px; border-radius: 33px;" />`;
+  }
+  });
+</script>
+
+{% endblock %}
