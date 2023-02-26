@@ -1,5 +1,5 @@
+
 #  🐕 반려인을 위한 사이트, 대동멍지도<br/>
-</br>
 
 ``` 
 반려동물과의 행복한 여행, 걱정말고 즐기세요~!
@@ -10,11 +10,12 @@
 </br>
 
 ## 💡 웹서비스 소개
-- 대동멍지도는 1000만 반려인들을 위한 웹사이트로, **반려동반이 가능한 장소를 쉽고 빠르게 찾을 수 있을 수 있는 웹사이트** 입니다.
+- 대동멍지도는 1000만 반려인들을 위한 웹사이트로, **반려동반이 가능한 여러 장소를 쉽고 빠르게 찾을 수 있는 웹사이트** 입니다.
 
-</br></br>
+</br>
 
-## 🔨 사용 기술
+
+## 🛠 사용 기술
 - <b>language & Tech</b> : <img align="center" src="https://img.shields.io/badge/Python-3766AB?style=flat-square&logo=Python&logoColor=white"/></a>
 <img align="center" src="https://img.shields.io/badge/Django-092E20?style=flat-square&logo=Django&logoColor=white"/></a>
 <img align="center" src="https://img.shields.io/badge/javascript-F7DF1E?style=flat-square&logo=javascript&logoColor=white"/></a>
@@ -25,7 +26,26 @@
 <img align="center" src="https://img.shields.io/badge/nginx-009639?style=flat-square&logo=nginx&logoColor=white"/> </a> 
 - <b>IDE</b> : <img align="center" src="https://img.shields.io/badge/VisualStudioCode-0078d7.svg?style=flat-square&logo=visual-studio-code&logoColor=white"/>  
 - <b>Collaboration</b> : <img align="center" src="https://img.shields.io/badge/Slack-4A154B?style=flat-square&logo=Slack&logoColor=white"/> <img align="center" src="https://img.shields.io/badge/Notion-000000?style=flat-square&logo=Notion&logoColor=white"/> 
-</br></br>
+
+</br>
+
+## 🌱 사이트 특징
+
+> ### 장소별 초기 리뷰 및 별점 제공
+- 기준에 따라 네이버 및 구글 크롤링을 통한 한줄 리뷰, 별점 제공
+- 기존별점과 사용자 별점의 평균 수치로 계산
+
+- "케리어가 있어야 동반가능" , "1층에만 동반 가능" 등 **애견 동반 및 장소에 관한 리뷰**를 통해 도움되는 정보 제공 -->>> 초기 사용자의 부재에도 사이트를 이용할 수 있도록 노력
+
+> ### 다양한 정보 제공
+- 반려인들은 많아졌지만 반려동반이 가능한 장소에 대한 정보는 상대적으로 적고, 찾기 힘듬 
+
+- 각 지역, 카테고리에 맞는 반려동반 가능 장소에 대한 데이터 다수 및 응급댕댕으로 주변 병원까지 탐색 가능
+
+> ### 랜덤 장소 추천
+- 항상 '어디로 떠날까?' 하며 결정하기 힘든 분들을 위한 랜덤 장소 추천 기능
+
+</br>
 
 
 ## 📌 주요 기능 
