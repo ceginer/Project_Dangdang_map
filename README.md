@@ -7,12 +7,8 @@
 
 <p align="center"><img src="https://user-images.githubusercontent.com/92140163/221250719-9edd9304-e3cb-49fe-a992-6967cda8dc9c.png" width ="90%"></p>
 
-</br>
-
 ## 💡 웹서비스 소개
 - 대동멍지도는 1000만 반려인들을 위한 웹사이트로, **반려동반이 가능한 여러 장소를 쉽고 빠르게 찾을 수 있는 웹사이트** 입니다.
-
-</br>
 
 
 ## 🛠 사용 기술
@@ -26,8 +22,6 @@
 <img align="center" src="https://img.shields.io/badge/nginx-009639?style=flat-square&logo=nginx&logoColor=white"/> </a> 
 - <b>IDE</b> : <img align="center" src="https://img.shields.io/badge/VisualStudioCode-0078d7.svg?style=flat-square&logo=visual-studio-code&logoColor=white"/>  
 - <b>Collaboration</b> : <img align="center" src="https://img.shields.io/badge/Slack-4A154B?style=flat-square&logo=Slack&logoColor=white"/> <img align="center" src="https://img.shields.io/badge/Notion-000000?style=flat-square&logo=Notion&logoColor=white"/> 
-
-</br>
 
 
 ## 🌱 사이트 특징
@@ -43,12 +37,10 @@
 
 3. ### 랜덤 장소 추천
    - 항상 '어디로 떠날까?' 하며 결정하기 힘든 분들을 위한 랜덤한 장소 추천
-</br>
 
 
 ## 📌 주요 기능 
 
-</br>
 
 <p align="center"><img src="https://user-images.githubusercontent.com/92140163/221366543-6f7817fa-b7d0-4708-af4b-e2b443e8f250.png" width ="90%"></p>
 
@@ -59,8 +51,6 @@
 - 응급댕댕 - 검색한 장소 기준으로 가까운 10개의 동물 병원 정보 검색
 - 장소 추천 - 메인페이지에 카테고리별 랜덤한 장소 추천
 - 리뷰 - 장소별 리뷰 작성/수정/삭제 기능
-
-</br></br>
 
 ## ✨ 페이지 설명
 
